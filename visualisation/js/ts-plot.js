@@ -221,7 +221,7 @@ const drawStackedTimeSeries = (data) => {
       .append("text")
         .attr("class", d => `ind-label ind-label-${d.indicator}`)
         .text(d => d.label) // indicator label
-        .attr("x", d => xScaleBand(d.finalYear) + (xScaleBand.bandwidth() * 1.2))
+        .attr("x", d => xScaleBand(d.finalYear) + (xScaleBand.bandwidth() * 1.35))
         .attr("y", d => yScale(d.finalY))
         .attr("dominant-baseline", "hanging");
         
@@ -229,7 +229,7 @@ const drawStackedTimeSeries = (data) => {
     .append("text")
       .attr("class", d => `country-label country-label-${d.indicator}`)
       .text(d => d.finalCount + d.country_text) // number of countries
-      .attr("x", d => xScaleBand(d.finalYear) + (xScaleBand.bandwidth() * 1.2))
+      .attr("x", d => xScaleBand(d.finalYear) + (xScaleBand.bandwidth() * 1.35))
       .attr("y", (d, i) => {
         const yAddBase = 15
         const yInd = d.partial ? indLabelData[i-1].finalY : d.finalY // if partial measure, use y of previous series as baseline
@@ -269,4 +269,5 @@ const drawStackedTimeSeries = (data) => {
 
   // TODO: 
   // partial implementation dashed lines
-  // y axis
+  // y axis reference line
+  // mark years certain measures were created

@@ -23,6 +23,13 @@ body, html {
   font-size: 42pt;
 }
 
+#footer {
+  position: relative;
+  background-color: #F3F8FE;
+  color: black;
+  padding: 20px 0;
+}
+
 .body-text-container {
   margin-left: auto;
   margin-right: auto;
@@ -34,7 +41,7 @@ body, html {
 }
 
 #ind-list {
-  padding-left: 25px;
+  padding-left: 50px;
 }
 
 button {
@@ -87,11 +94,13 @@ h1, h2, text, div, p, button {
   line-height: 1.25em;
 }
 
+h1, #footer p {
+  margin-left: 50px;
+}
 h1 {
   position: absolute;
   padding: 0;
   margin-bottom: 25px;
-  margin-left: 50px;
   bottom: 0;
   font-size: 42px;
   color: white;
@@ -116,10 +125,35 @@ p.ind-category {
   font-weight: 600;
 }
 
-/* p.ind-category {
-  font-weight: 600;
-} */
+#footer p {
+  font-size: 10pt;
+  margin-bottom: 0;
+  line-height: 1;
+}
 
+/* links */
+
+a {
+  color: black;
+  padding: 2px;
+  text-decoration: none;
+  box-shadow: inset 0px -5px 0px 0 #8cb5f0;
+  transition: box-shadow 0.2s ease-out;
+}
+a:hover, a:focus {
+  box-shadow: inset 0 -22px 0 0 #8cb5f0;
+  transition-timing-function: ease-in;
+}
+
+/* footer logo */
+
+#footer img {
+  position: absolute;
+  right: 20px;
+  top: 70%;
+  transform: translateY(-70%);
+  height: 50px;
+}
 
 /* Visualisation styling */
 
