@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* layout/divisions */
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+#banner {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 2em;
+  background-color: #285391;
+  z-index: -1;
+  font-size: 42pt;
+}
+
+.body-text-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2em;
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 80%;
+  max-width: 800px;
+}
+
+#ind-list {
+  padding-left: 25px;
+}
+
+button {
+  margin-bottom: 1em;
+}
+
+text.ind {
+  font-weight: 600;
+}
+
+/* accordion */
+
+.accordion {
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  font-size: 12pt;
+  padding-right: 40px; /* Add space for the arrow */
+  font-weight: 600;
+
+}
+
+/* .active, .accordion:hover {
+  background-color: #ccc;
+} */
+
+.div-panel {
+  padding: 0 18px;
+  background-color: #F3F8FE;
+  display: none;
+  overflow: hidden;
+  margin-top: -1em;
+  margin-bottom: 1em;
+}
+
+
+.active:after {
+  content: "\\F235";
+  font-family: "bootstrap-icons";
+}
+
+/* .accordion:after {
+  content: "\F229"; 
+  font-family: "bootstrap-icons";
+  font-size: 16px;
+  float: right;
+  margin-left: 5px;
+  color: white;
+}
+
+.active:after {
+  content: "\F235";
+  font-family: "bootstrap-icons";
+} */
+
+/* text */
+h1, h2, text, div, p, button {
+  font-family: Montserrat;
+  text-rendering: optimizeLegibility;
+  line-height: 1.25em;
+}
+
+h1 {
+  position: absolute;
+  padding: 0;
+  margin-bottom: 25px;
+  margin-left: 50px;
+  bottom: 0;
+  font-size: 42px;
+  color: white;
+}
+
+h2 {
+  font-size: 16pt;
+  fill: black;
+  font-weight: 600;
+}
+
+p {
+  font-size: 14pt;
+  margin-bottom: 1em;
+}
+
+p.panel-ind {
+  font-size: 12pt;
+}
+
+p.ind-category {
+  font-weight: 600;
+}
+
+/* p.ind-category {
+  font-weight: 600;
+} */
+
+
+/* Visualisation styling */
+
+.vis-title {
+  font-size: 20pt;
+  font-weight: 800;
+  margin-bottom: 0.5em;
+}
+
+.vis-subtitle {
+  font-size: 10pt;
+}
+
+#xaxis text, #xaxis line, #xaxis path {
+  color: #818589;
+}
+.ind-label {
+  font-size: 9pt;
+  font-weight: 600;
+}
+
+.country-label {
+  font-size: 7pt;
+}
+
+svg path{
+  shape-rendering: crispEdges;
+}

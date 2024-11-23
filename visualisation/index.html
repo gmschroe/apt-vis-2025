@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Viz For Social Good: Association for the Prevention of Torture | Gabrielle Schroeder</title>
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+</head>
+<body>
+	<div id="banner">
+		<h1>Building the Legal Barriers to Torture</h1>
+	</div>
+	<div id="intro" class="body-text-container">
+		<p>
+			The Association for the Prevention of Torture (APT) envisions a world without torture or ill-treatment. 
+			To achieve this goal, we help countries develop and adopt legal frameworks, policies and practices that 
+			reduce the risks of torture.
+		</p>
+		<p>
+			We've identified seven legal measures that indicate a commitment to preventing torture. 
+			These measures fall into three categories:
+		</p>
+		<div id="ind-list">
+			<!--International standards drop downs-->
+			<p class="ind-category">International standards developed by the United Nations (UN)</p>
+			<button class="accordion accordion-ind" id="accordion-ind1_uncat">UN Convention against Torture</button>
+			<div class="div-panel">
+				<p class="panel-ind">
+					In 1984, the Member States of the United Nations (UN) adopted the Convention against Torture and Other Cruel, 
+					Inhuman or Degrading Treatment or Punishment. They sought to provide the world with a robust international 
+					treaty that would reaffirm the absolute prohibition of torture under any circumstances. The Convention defines 
+					torture and outlines measures to prohibit, prevent, and protect against the risk of torture.
+					Individual countries and UN member states can ratify the Convention.
+				</p>
+			</div>
+			<button class="accordion accordion-ind" id="accordion-ind2_opcat">UN Optional Protocol</button>
+			<div class="div-panel">
+				<p class="panel-ind">
+					Text
+				</p>
+			</div>
+			<button class="accordion accordion-ind" id="accordion-ind3_report">Report for the Committee Against Torture (CAT)</button>
+			<div class="div-panel">
+				<p class="panel-ind">
+					text
+				</p>
+			</div>
+			<!--Domestic law dropdowns-->
+			<p class="ind-category">Domestic law</p>
+			<button class="accordion accordion-ind" id="accordion-ind4_constitution">Prohibiting torture in the constitution</button>
+			<div class="div-panel">
+				<p class="panel-ind">
+					Text
+				</p>
+			</div>
+			<button class="accordion accordion-ind" id="accordion-ind5_law_level_2">Criminalising torture in domestic law</button>
+			<div class="div-panel">
+				<p class="panel-ind">
+					text
+				</p>
+			</div>
+
+			<!--Oversight systems dropdowns-->
+			<p class="ind-category">Oversight systems</p>
+			<button class="accordion accordion-ind" id="accordion-ind6_npm_level_2">National Preventive Mechanism</button>
+			<div class="div-panel">
+				<p class="panel-ind">
+					Text
+				</p>
+			</div>
+			<button class="accordion accordion-ind" id="accordion-ind7_paris">National Human Rights Institution that complies with the Paris Principles</button>
+			<div class="div-panel">
+				<p class="panel-ind">
+					text
+				</p>
+			</div>
+			<!-- <ul>
+				<li><text class="ind" id="ind1">UN Convention against Torture: </text>
+				</li>
+				<li><text class="ind" id="ind2">UN Optional Protocol: </text></li>
+				<li><text class="ind" id="ind3">Reports for the Committee Against Torture: </text></li>
+			</ul>
+			<p class="ind-category">Domestic law</p>
+			<ul>
+				<li><text class="ind" id="ind4">Prohibiting torture in the constitution: </text></li>
+				<li><text class="ind" id="ind5">Criminalising torture in domestic law: </text></li>
+			</ul>
+			<p class="ind-category">Oversight systems</p>
+			<ul>
+				<li><text class="ind" id="ind6">National Preventive Mechanism: </text></li>
+				<li><text class="ind" id="ind7">National Human Rights Institution that complies with the Paris Principles: </text></li>
+			</ul> -->
+		</div>
+	</div>
+    <!-- divs for visualisations -->
+		<div id="ts"></div>
+		<div id="radial"></div>
+
+    <!-- Attributions, as footer -->
+		<div class="source">
+            <p>Created by <a href="https://www.gmschroeder.com">Gabrielle M. Schroeder</a></p>
+			<p>Data: <a href="https://www.vizforsocialgood.com/join-a-project/2024/7/26/apt">VFSG | Association for the Prevention of Torture</a></p>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<!-- from w3schools, for dropdown: https://www.w3schools.com/howto/howto_js_accordion.asp-->
+	<script> 
+		var acc = document.getElementsByClassName("accordion");
+		var i;
+
+		for (i = 0; i < acc.length; i++) {
+			acc[i].addEventListener("click", function() {
+				/* Toggle between adding and removing the "active" class,
+				to highlight the button that controls the panel */
+				this.classList.toggle("active");
+
+				/* Toggle between hiding and showing the active panel */
+				var panel = this.nextElementSibling;
+				if (panel.style.display === "block") {
+					panel.style.display = "none";
+				} else {
+					panel.style.display = "block";
+				}
+			});
+		}
+	</script>
+	<script src="https://d3js.org/d3.v7.min.js"></script>
+	<script src="js/shared-constants.js"></script>
+	<script src="js/ind-dropdown.js"></script>
+	<script src="js/ts-plot.js"></script>
+  <script src="js/load-data.js"></script>
+    
+</body>
+</html>
