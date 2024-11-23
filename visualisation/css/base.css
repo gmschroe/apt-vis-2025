@@ -80,20 +80,6 @@ text.ind {
   font-family: "bootstrap-icons";
 }
 
-/* .accordion:after {
-  content: "\F229"; 
-  font-family: "bootstrap-icons";
-  font-size: 16px;
-  float: right;
-  margin-left: 5px;
-  color: white;
-}
-
-.active:after {
-  content: "\F235";
-  font-family: "bootstrap-icons";
-} */
-
 /* text */
 h1, h2, text, div, p, button {
   font-family: Montserrat;
