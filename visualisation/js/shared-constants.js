@@ -17,4 +17,4 @@ const indInfo = indSeparatedInfo.filter(entry => entry.partial === false);
 
 // Visualisation text
 const text_ts_title = "A growing commitment to preventing torture"
-const text_ts_p = "The APT has identified seven key legal measures that indicate a committment to preventing torture. Each bar shows the total number of countries that have committed to each legal measure."
+const text_ts_p = "The APT has identified seven key legal measures that indicate a commitment to preventing torture. Each bar shows the total number of countries that have committed to each legal measure."
