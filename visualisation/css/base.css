@@ -77,10 +77,30 @@ text.ind {
   margin-bottom: 1em;
 }
 
+/* filter buttons */
 
-.active:after {
-  content: "\\F235";
-  font-family: "bootstrap-icons";
+#filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.filter {
+  background-color: #D9E6FA; 
+  border: none;
+  color: black;
+  padding: 1em 1.25em;
+  margin: 0.5em; 
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10pt;
+  font-weight: 500;
+  border-radius: 4px;
+  white-space: nowrap;
+} 
+.filter:hover, button.active {
+  background-color: #285391;
+  color: white;
 }
 
 /* text */

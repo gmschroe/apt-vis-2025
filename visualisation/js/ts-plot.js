@@ -54,7 +54,7 @@ const drawStackedTimeSeries = (data) => {
     .attr("offset", "100%")
     .attr("stop-color", calculateShade("#FFFFFF", 0.3));
 
-  // Create hash for each series
+  // Create hash pattern for each series
   // Will only use for partial implementation of indicators
   indSeparatedInfo.forEach(ind => {
     addHashPatternDef(
@@ -68,6 +68,10 @@ const drawStackedTimeSeries = (data) => {
       hashStroke = ind.partial_hash_stroke ?? 3 // use 3 by default if not provided
     )
   })
+
+  // Regions (unique array)
+  const regions = Array.from(new Set(data.map(d => d.region)))
+  console.log("regions", regions)
 
   // Inner chart for plot
   const innerChart = svg
@@ -121,29 +125,6 @@ const drawStackedTimeSeries = (data) => {
   const colorScale = d3.scaleOrdinal()
     .domain(indSeparatedInfo.map(d => d.indicator))
     .range(indSeparatedInfo.map(d => d.color))
-
-  // // Area generator
-  // const areaGenerator = d3.area()
-  //   .x(d => xScale(d.data.year))
-  //   .y0(d => yScale(d[0]))
-  //   .y1(d => yScale(d[1]))
-  //   .curve(d3.curveBumpX); // CURVE
-
-    // // Alternative: bars
-    // stackData.forEach(series => {
-    //   innerChart
-    //     .selectAll(`.bar-${series.key}`)
-    //     .data(series)
-    //     .join("rect")
-    //       .attr("class", d => `bar-${series.key}`)
-    //       .attr("x", d => xScaleBand(d.data.year))
-    //       .attr("y", d => yScale(d[1]))
-    //       .attr("width", xScaleBand.bandwidth() - 5 ) // Add one to prevent visible borders
-    //       .attr("height", d => yScale(d[0]) - yScale(d[1]))
-    //       .attr("fill", colorScale(series.key))
-    //       .attr("fill-opacity", 1); // TODO: remove if unused
-
-    // })
 
     // Repeat partial implementation entries so can overlay the gradient over the hash pattern
     let stackDataRepeatedPartial = []

@@ -14,9 +14,22 @@ const indSeparatedInfo = [
 // Indicators, no duplicates for partial completion
 const indInfo = indSeparatedInfo.filter(entry => entry.partial === false);
 
+// Whether visualisation should be interactive
+const isInteractive = true;
+
+// Region filters
+// Can use id as label since capitalisation/format is correct
+const filters = [
+  {id: "All", label: "All regions", isActive: true},
+  {id: "Americas", label: "Americas", isActive: false},
+  {id: "Africa", label: "Africa", isActive: false},
+  {id: "Europe", label: "Europe", isActive: false},
+  {id: "Middle East", label: "Middle East", isActive: false},
+  {id: "Asia-Pacific", label: "Asia-Pacific", isActive: false}
+]
 
 // Visualisation text
-const text_ts_title = "A growing commitment to preventing torture"
+const text_ts_title = "A growing commitment to preventing torture";
 const text_ts_p = "The APT has identified seven key legal measures that indicate a commitment to preventing torture. "
   + "Each bar shows the total number of States that have implemented each legal measure. "
-  + "Stripes represent States that have partially implemented the measure."
+  + "Stripes represent States that have partially implemented the measure.";
