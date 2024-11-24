@@ -173,7 +173,7 @@ const drawStackedTimeSeries = (data) => {
             const x = xScaleBand(d.data.year)
             const barWidth = xScaleBand.bandwidth() + barWidthBuff
 
-            const rMax = 6; // max radius; must be < half the band width
+            const rMax = 3; // max radius; must be < half the band width
 
 
             const y0 = Math.min(yScale(d[0]) + rMax, innerHeight); // need some overlap since bars below end early if curve

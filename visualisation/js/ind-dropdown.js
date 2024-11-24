@@ -14,6 +14,7 @@ d3.select("#ind-list").selectAll("button")
           font-size: 16px;
           float: right;
           margin-left: 5px;
+          margin-right: -20px;
           color: ${d.text_color};
         }
         
