@@ -40,3 +40,37 @@ function calculateTint(
 
     return hexShade;
 };
+
+// Patterns/gradients
+
+function addHashPatternDef(
+  def, // svg definitions to append to
+  id, // id to give pattern
+  hashSpacing, // spacing
+  hashAngle, // angle (off vertical)
+  hashColor, // colour
+  hashBackgroundColor, // background colour
+  hashOpacity, // opacity
+  hashStroke, //stroke width
+  ) {
+
+    let pattern = def
+    .append("pattern")
+      .attr("id", id)
+      .attr("width", hashSpacing)
+      .attr("height", hashSpacing)
+      .attr("patternUnits", "userSpaceOnUse")
+      .attr("patternTransform", `rotate(${hashAngle} 0 0)`);
+    pattern.append("rect")
+      .attr("height", "100%")
+      .attr("width", "100%")
+      .attr("fill", hashBackgroundColor);
+    pattern.append("line")
+      .attr("x1", 0)
+      .attr("y1", 0)
+      .attr("x2", 0)
+      .attr("y2", hashSpacing)
+      .attr("stroke", hashColor)
+      .attr("stroke-width", hashStroke)
+      .attr("opacity", hashOpacity);
+}
