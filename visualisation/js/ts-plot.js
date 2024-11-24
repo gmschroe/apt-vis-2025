@@ -39,6 +39,21 @@ const drawStackedTimeSeries = (data) => {
       .attr("stop-color", calculateShade(ind.color, 0.075));
   })
 
+  // Create linear gradient for partial implementation overlay
+  let linearGradient = def
+  .append("linearGradient")
+    .attr("id", `linear-gradient-partial-overlay`)
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "100%")
+    .attr("y2", "0%");
+  linearGradient.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "#FFFFFF"); 
+  linearGradient.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", calculateShade("#FFFFFF", 0.3));
+
   // Create hash for each series
   // Will only use for partial implementation of indicators
   indSeparatedInfo.forEach(ind => {
@@ -50,7 +65,7 @@ const drawStackedTimeSeries = (data) => {
       hashColor = ind.color,
       hashBackgroundColor = "white",
       hashOpacity = 1,
-      hashStroke = 3
+      hashStroke = ind.partial_hash_stroke ?? 3 // use 3 by default if not provided
     )
   })
 
@@ -130,8 +145,22 @@ const drawStackedTimeSeries = (data) => {
 
     // })
 
-    // Alternative: custom path
+    // Repeat partial implementation entries so can overlay the gradient over the hash pattern
+    let stackDataRepeatedPartial = []
+
     stackData.forEach(series => {
+      stackDataRepeatedPartial.push(series)
+      const ind_entry = indSeparatedInfo.find(obj => obj.indicator == series.key)
+      if (ind_entry.partial) { // if a partial implementation, change key and repeat data
+        const seriesOverlay = structuredClone(series)
+        seriesOverlay.key = "partial_overlay"
+        stackDataRepeatedPartial.push(seriesOverlay)
+      }
+    })
+    console.log("repeat stack data", stackDataRepeatedPartial)
+
+    // Bar chart with custom bar shape
+    stackDataRepeatedPartial.forEach(series => {
       innerChart
         .selectAll(`.path-${series.key}`)
         .data(series)
@@ -183,18 +212,21 @@ const drawStackedTimeSeries = (data) => {
 
           })
 
-          //.attr("fill", `url(#linear-gradient-${series.key})`)
-          //.attr("fill", `url(#hash-pattern-${series.key})`)
-
+          // Fill with hash pattern if partial or gradient otherwise
+          // Gradient is also used for "partial_overlay"
           .attr("fill", () => {
             const entry = indSeparatedInfo.find(obj => obj.indicator == series.key)
-            return entry.partial ? `url(#hash-pattern-${series.key})` : `url(#linear-gradient-${series.key})` // colorScale(series.key)
+            if (entry === undefined) { // if undefined, it's our added series - use the partial_overlay
+              return "url(#linear-gradient-partial-overlay)"
+            } else { // Otherwise, return hash pattern if partial and gradient otherwise
+              return entry.partial ? `url(#hash-pattern-${series.key})` : `url(#linear-gradient-${series.key})` // colorScale(series.key)
+            }
+          })
+          // If partial_overlay, decrease opacity
+          .attr("fill-opacity", () => {
+            //const entry = indSeparatedInfo.find(obj => obj.indicator == series.key)
+            return (series.key === "partial_overlay") ? 0.4 : 1
           });
-          //`url(#hash-pattern-${series.key})`)
-          // .attr("fill-opacity", () => {
-          //   const entry = indSeparatedInfo.find(obj => obj.indicator == series.key)
-          //   return entry.partial ? 0.1 : 0.4
-          // });
 
 
     })
@@ -222,7 +254,6 @@ const drawStackedTimeSeries = (data) => {
     count: series[series.length - 1].data[series.key]
   }));
 
-  console.log(dataLastYear);
   let indLabelData = indSeparatedInfo
   indLabelData.forEach(ind => {
     const entry = dataLastYear.find(obj => obj.key == ind.indicator);
@@ -231,7 +262,6 @@ const drawStackedTimeSeries = (data) => {
     ind.finalYear = entry.year;
     ind.finalCount = entry.count;
   });
-  console.log(indLabelData)
 
   indLabels = innerChart
     .selectAll(".g-ts-label")
@@ -255,7 +285,6 @@ const drawStackedTimeSeries = (data) => {
       .attr("y", (d, i) => {
         const yAddBase = 15
         const yInd = d.partial ? indLabelData[i-1].finalY : d.finalY // if partial measure, use y of previous series as baseline
-        console.log(d.indicator, yInd)
         const yAdd = d.partial ? yAddBase*1.9 : yAddBase // also need to add more space if partial measure (because it's the second label)
         return yScale(yInd) + yAdd
       })
