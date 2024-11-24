@@ -4,7 +4,7 @@ const drawStackedTimeSeries = (data) => {
   const width = 1000;
   const height = 600;
 
-  const margin = {top: 50, right: 300, bottom: 50, left: 50};
+  const margin = {top: 0, right: 300, bottom: 50, left: 50};
 
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
@@ -15,12 +15,12 @@ const drawStackedTimeSeries = (data) => {
       .attr("viewBox", [0, 0, width, height]);
 
   // Append gradient definitions to svg
-  const gradientDefinitions = svg
+  const def = svg
     .append("defs");
 
-  // Create gradient for each series
+  // Create linear gradient for each series
   indSeparatedInfo.forEach(ind => {
-    let linearGradient = gradientDefinitions
+    let linearGradient = def
     .append("linearGradient")
       .attr("id", `linear-gradient-${ind.indicator}`)
       .attr("x1", "0%")
@@ -39,13 +39,27 @@ const drawStackedTimeSeries = (data) => {
       .attr("stop-color", calculateShade(ind.color, 0.075));
   })
 
+  // Create hash for each series
+  // Will only use for partial implementation of indicators
+  indSeparatedInfo.forEach(ind => {
+    addHashPatternDef(
+      def,
+      id = `hash-pattern-${ind.indicator}`,
+      hashSpacing = 5,
+      hashAngle = -45,
+      hashColor = ind.color,
+      hashBackgroundColor = "white",
+      hashOpacity = 1,
+      hashStroke = 3
+    )
+  })
 
   // Inner chart for plot
   const innerChart = svg
     .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  // Compute number of countries with each indicator in each year
+  // Compute number of countries (/States) with each indicator in each year
   const dataTotals = [...d3.rollup(
     data,
     group => d3.sum(group, d => d.value),
@@ -93,12 +107,12 @@ const drawStackedTimeSeries = (data) => {
     .domain(indSeparatedInfo.map(d => d.indicator))
     .range(indSeparatedInfo.map(d => d.color))
 
-  // Area generator
-  const areaGenerator = d3.area()
-    .x(d => xScale(d.data.year))
-    .y0(d => yScale(d[0]))
-    .y1(d => yScale(d[1]))
-    .curve(d3.curveBumpX); // CURVE
+  // // Area generator
+  // const areaGenerator = d3.area()
+  //   .x(d => xScale(d.data.year))
+  //   .y0(d => yScale(d[0]))
+  //   .y1(d => yScale(d[1]))
+  //   .curve(d3.curveBumpX); // CURVE
 
     // // Alternative: bars
     // stackData.forEach(series => {
@@ -168,11 +182,19 @@ const drawStackedTimeSeries = (data) => {
             return path;
 
           })
-          .attr("fill", `url(#linear-gradient-${series.key})`) //colorScale(series.key))
-          .attr("fill-opacity", d => {
+
+          //.attr("fill", `url(#linear-gradient-${series.key})`)
+          //.attr("fill", `url(#hash-pattern-${series.key})`)
+
+          .attr("fill", () => {
             const entry = indSeparatedInfo.find(obj => obj.indicator == series.key)
-            return entry.partial ? 1 : 1
+            return entry.partial ? `url(#hash-pattern-${series.key})` : `url(#linear-gradient-${series.key})` // colorScale(series.key)
           });
+          //`url(#hash-pattern-${series.key})`)
+          // .attr("fill-opacity", () => {
+          //   const entry = indSeparatedInfo.find(obj => obj.indicator == series.key)
+          //   return entry.partial ? 0.1 : 0.4
+          // });
 
 
     })
