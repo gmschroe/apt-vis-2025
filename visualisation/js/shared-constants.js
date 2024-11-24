@@ -8,7 +8,7 @@ const indSeparatedInfo = [
   {indicator: "ind5_law_level_1", label: "", country_text: " States (partially criminalized)", color: "#f2d672", text_color: "white", partial: true},
   {indicator: "ind6_npm_level_2", label: "Have a National Preventive Mechanism", country_text: " States (designated and operational)", color: "#e36360", text_color: "black", partial: false},
   {indicator: "ind6_npm_level_1", label: "", country_text: " States (designated only)", color: "#e36360", text_color: "black", partial: true},
-  {indicator: "ind7_paris", label: "Have a National Human Rights Institution", country_text: " States", color: "#f1b5b5", text_color: "black", partial: false}
+  {indicator: "ind7_paris", label: "Have an NHRI that meets the Paris Principles", country_text: " States", color: "#f1b5b5", text_color: "black", partial: false}
 ];
 
 // Indicators, no duplicates for partial completion
