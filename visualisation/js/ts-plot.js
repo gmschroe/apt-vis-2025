@@ -51,7 +51,7 @@ const drawStackedTimeSeries = (data) => {
     .attr("stop-color", "#FFFFFF"); 
   linearGradient.append("stop")
     .attr("offset", "100%")
-    .attr("stop-color", calculateShade("#FFFFFF", 0.3));
+    .attr("stop-color", calculateShade("#FFFFFF", 0.8));
 
   // Create hash pattern for each series
   // Will only use for partial implementation of indicators
@@ -64,7 +64,7 @@ const drawStackedTimeSeries = (data) => {
       hashColor = ind.color,
       hashBackgroundColor = "white",
       hashOpacity = 1,
-      hashStroke = ind.partial_hash_stroke ?? 3 // use 3 by default if not provided
+      hashStroke = 3 
     )
   })
 
@@ -96,8 +96,10 @@ const drawStackedTimeSeries = (data) => {
         .attr("d", (d, i) => makeTimeSeriesBarPath(d, i, series, xScaleBand, innerHeight))
         // Fill 
         .attr("fill", addTimeSeriesBarFill(series, indSeparatedInfo))
+        // Stroke
+        .attr("stroke", d => addTimeSeriesBarStroke(d, series, indSeparatedInfo))
         // If partial_overlay, decrease opacity
-        .attr("fill-opacity", setTimeSeriesBarOpacity(series))
+        .attr("fill-opacity", setTimeSeriesBarOpacity(series));
   })
 
   // x-axis

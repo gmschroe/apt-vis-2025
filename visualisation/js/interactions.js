@@ -30,11 +30,7 @@ const updateStackedTimeSeries = (filterID, data) => {
     d3.selectAll(`.bar-${series.key}`)
     .data(series)
         // Custom bars
-        .attr("d", (d, i) => makeTimeSeriesBarPath(d, i, series, xScaleBand, innerHeight))
-        // Fill 
-        .attr("fill", addTimeSeriesBarFill(series, indSeparatedInfo))
-        // If partial_overlay, decrease opacity
-        .attr("fill-opacity", setTimeSeriesBarOpacity(series))
+        .attr("d", (d, i) => makeTimeSeriesBarPath(d, i, series, xScaleBand, innerHeight));
   });
 }
 

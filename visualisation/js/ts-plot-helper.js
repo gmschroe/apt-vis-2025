@@ -77,7 +77,7 @@ function makeTimeSeriesScales(stackData, dataForStack, width, height) {
   return [xScaleBand, yScale]
 }
 
-// Attributes
+// Bar attributes
 
 function makeTimeSeriesBarPath(d, i, series, xScaleBand, height) {
 
@@ -124,12 +124,24 @@ function addTimeSeriesBarFill(series, indSeparatedInfo) {
   // Gradient is also used for "partial_overlay"
   const entry = indSeparatedInfo.find(obj => obj.indicator == series.key)
   if (entry === undefined) { // if undefined, it's our added series - use the partial_overlay
-    return "url(#linear-gradient-partial-overlay)"
+    return "url(#linear-gradient-partial-overlay)";
   } else { // Otherwise, return hash pattern if partial and gradient otherwise
-    return entry.partial ? `url(#hash-pattern-${series.key})` : `url(#linear-gradient-${series.key})` // colorScale(series.key)
+    return entry.partial ? `url(#hash-pattern-${series.key})` : `url(#linear-gradient-${series.key})`;
+  }
+}
+
+function addTimeSeriesBarStroke(d, series, indSeparatedInfo) {
+  // Add stroke if hash pattern
+  const entry = indSeparatedInfo.find(obj => obj.indicator == series.key)
+  if (entry === undefined) { // our added overlay series
+    return "none"
+  } else if ((Math.abs(d[1] - d[0]) >= 1)) { // only stoke if non-zero value
+    return entry.color;
+  } else {
+    return "none"; // no outline, full implementation
   }
 }
 
 function setTimeSeriesBarOpacity(series) {
-  return (series.isPartial ?? false) ? 0.4 : 1
+  return (series.isPartial ?? false) ? 0.2 : 1;
 }
