@@ -26,7 +26,6 @@ const drawStackedTimeSeries = (data) => {
       .attr("y1", "0%")
       .attr("x2", "100%")
       .attr("y2", "0%");
-
     linearGradient.append("stop")
       .attr("offset", "0%")
       .attr("stop-color", calculateTint(ind.color, 0.05)); 
@@ -36,22 +35,40 @@ const drawStackedTimeSeries = (data) => {
     linearGradient.append("stop")
       .attr("offset", "100%")
       .attr("stop-color", calculateShade(ind.color, 0.075));
+
+    // another gradient for partial implementation overlay
+    let linearGradientPartial = def
+      .append("linearGradient")
+        .attr("id", `linear-gradient-${ind.indicator}_partial_overlay`)
+        .attr("x1", "0%")
+        .attr("y1", "0%")
+        .attr("x2", "100%")
+        .attr("y2", "0%");
+    linearGradientPartial.append("stop")
+      .attr("offset", "0%")
+      .attr("stop-color", calculateTint(ind.color, 0.05)); 
+    linearGradientPartial.append("stop")
+      .attr("offset", "50%")
+      .attr("stop-color", ind.color); 
+    linearGradientPartial.append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", calculateShade(ind.color, 0.15)); // needs to be darker since will be transparent
   })
 
   // Create linear gradient for partial implementation overlay
-  let linearGradient = def
-  .append("linearGradient")
-    .attr("id", `linear-gradient-partial-overlay`)
-    .attr("x1", "0%")
-    .attr("y1", "0%")
-    .attr("x2", "100%")
-    .attr("y2", "0%");
-  linearGradient.append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", "#FFFFFF"); 
-  linearGradient.append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", calculateShade("#FFFFFF", 0.8));
+  // let linearGradient = def
+  // .append("linearGradient")
+  //   .attr("id", `linear-gradient-partial-overlay`)
+  //   .attr("x1", "0%")
+  //   .attr("y1", "0%")
+  //   .attr("x2", "100%")
+  //   .attr("y2", "0%");
+  // linearGradient.append("stop")
+  //   .attr("offset", "0%")
+  //   .attr("stop-color", "#FFFFFF"); 
+  // linearGradient.append("stop")
+  //   .attr("offset", "100%")
+  //   .attr("stop-color", calculateShade("#FFFFFF", 0.8));
 
   // Create hash pattern for each series
   // Will only use for partial implementation of indicators
@@ -64,7 +81,7 @@ const drawStackedTimeSeries = (data) => {
       hashColor = ind.color,
       hashBackgroundColor = "white",
       hashOpacity = 1,
-      hashStroke = 3 
+      hashStroke = 2 
     )
   })
 
@@ -97,7 +114,7 @@ const drawStackedTimeSeries = (data) => {
         // Fill 
         .attr("fill", addTimeSeriesBarFill(series, indSeparatedInfo))
         // Stroke
-        .attr("stroke", d => addTimeSeriesBarStroke(d, series, indSeparatedInfo))
+        //.attr("stroke", d => addTimeSeriesBarStroke(d, series, indSeparatedInfo))
         // If partial_overlay, decrease opacity
         .attr("fill-opacity", setTimeSeriesBarOpacity(series));
   })
@@ -117,22 +134,9 @@ const drawStackedTimeSeries = (data) => {
   // for y-axis, reference bar
 
 
-  // series labels
-  const dataLastYear = stackData.map(series => ({
-    key: series.key,
-    y: series[series.length - 1][1],
-    year: series[series.length - 1].data.year,
-    count: series[series.length - 1].data[series.key]
-  }));
-
-  let indLabelData = indSeparatedInfo
-  indLabelData.forEach(ind => {
-    const entry = dataLastYear.find(obj => obj.key == ind.indicator);
-
-    ind.finalY = entry.y;
-    ind.finalYear = entry.year;
-    ind.finalCount = entry.count;
-  });
+  // Series labels
+  const indLabelData = makeTimeSeriesIndLabelData(
+    stackData, indSeparatedInfo, xScaleBand, yScale)
 
   indLabels = innerChart
     .selectAll(".g-ts-label")
@@ -142,24 +146,19 @@ const drawStackedTimeSeries = (data) => {
   
   indLabels
       .append("text")
-        .attr("class", d => `ind-label ind-label-${d.indicator}`)
+        .attr("class", d => `ts-ind-label ts-ind-label-${d.indicator}`)
         .text(d => d.label) // indicator label
-        .attr("x", d => xScaleBand(d.finalYear) + (xScaleBand.bandwidth() * 1.35))
-        .attr("y", d => yScale(d.finalY))
+        .attr("x", d => d.x) 
+        .attr("y", d => d.y) 
         .attr("dominant-baseline", "hanging");
-        
+
   indLabels
-    .append("text")
-      .attr("class", d => `country-label country-label-${d.indicator}`)
-      .text(d => d.finalCount + d.country_text) // number of countries
-      .attr("x", d => xScaleBand(d.finalYear) + (xScaleBand.bandwidth() * 1.35))
-      .attr("y", (d, i) => {
-        const yAddBase = 15
-        const yInd = d.partial ? indLabelData[i-1].finalY : d.finalY // if partial measure, use y of previous series as baseline
-        const yAdd = d.partial ? yAddBase*1.9 : yAddBase // also need to add more space if partial measure (because it's the second label)
-        return yScale(yInd) + yAdd
-      })
-      .attr("dominant-baseline", "hanging")
+      .append("text")
+        .attr("class", d => `ts-country-label ts-country-label-${d.indicator}`)
+        .text(d => d.countryLabel) // number of countries
+        .attr("x", d => d.x)
+        .attr("y", d => d.yCountry)
+        .attr("dominant-baseline", "hanging")
 
   
   // Title and subtitle text

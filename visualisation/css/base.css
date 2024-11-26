@@ -186,12 +186,12 @@ a:hover, a:focus {
 #xaxis text, #xaxis line, #xaxis path {
   color: #818589;
 }
-.ind-label {
+.ts-ind-label {
   font-size: 9pt;
   font-weight: 600;
 }
 
-.country-label {
+.ts-country-label {
   font-size: 7pt;
 }
 

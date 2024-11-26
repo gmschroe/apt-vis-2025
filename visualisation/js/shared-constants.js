@@ -1,14 +1,26 @@
 // Indicators, including separate entries for partial completion
+// const indSeparatedInfo = [
+//   {indicator: "ind1_uncat", label: "Ratified UN Convention against Torture", country_text: " States", color: "#285391", text_color: "white", partial: false},
+//   {indicator: "ind2_opcat", label: "Ratified UN Optional Protocol", country_text: " States", color: "#3f84e6", text_color: "black", partial: false},
+//   {indicator: "ind3_report", label: "Submitted report to CAT", country_text: " States", color: "#8cb5f0", text_color: "black", partial: false},
+//   {indicator: "ind4_constitution", label: "Prohibit torture in the constitution", country_text: " States", color: "#B38E09", text_color: "black", partial: false},
+//   {indicator: "ind5_law_level_2", label: "Criminalize torture in domenstic law", country_text: " States (fully criminalized)", color: "#D9B841", text_color: "black", partial: false},
+//   {indicator: "ind5_law_level_1", label: "", country_text: " States (partially criminalized)", color: "#D9B841", text_color: "white", partial: true, partial_hash_stroke: 4},
+//   {indicator: "ind6_npm_level_2", label: "Have a National Preventive Mechanism", country_text: " States (designated and operational)", color: "#e36360", text_color: "black", partial: false},
+//   {indicator: "ind6_npm_level_1", label: "", country_text: " States (designated only)", color: "#e36360", text_color: "black", partial: true, partial_hash_stroke: 4},
+//   {indicator: "ind7_paris", label: "Have an NHRI that meets the Paris Principles", country_text: " States", color: "#f1b5b5", text_color: "black", partial: false}
+// ];
+
 const indSeparatedInfo = [
   {indicator: "ind1_uncat", label: "Ratified UN Convention against Torture", country_text: " States", color: "#285391", text_color: "white", partial: false},
   {indicator: "ind2_opcat", label: "Ratified UN Optional Protocol", country_text: " States", color: "#3f84e6", text_color: "black", partial: false},
   {indicator: "ind3_report", label: "Submitted report to CAT", country_text: " States", color: "#8cb5f0", text_color: "black", partial: false},
   {indicator: "ind4_constitution", label: "Prohibit torture in the constitution", country_text: " States", color: "#B38E09", text_color: "black", partial: false},
   {indicator: "ind5_law_level_2", label: "Criminalize torture in domenstic law", country_text: " States (fully criminalized)", color: "#D9B841", text_color: "black", partial: false},
-  {indicator: "ind5_law_level_1", label: "", country_text: " States (partially criminalized)", color: "#D9B841", text_color: "white", partial: true, partial_hash_stroke: 4},
-  {indicator: "ind6_npm_level_2", label: "Have a National Preventive Mechanism", country_text: " States (designated and operational)", color: "#e36360", text_color: "black", partial: false},
-  {indicator: "ind6_npm_level_1", label: "", country_text: " States (designated only)", color: "#e36360", text_color: "black", partial: true, partial_hash_stroke: 4},
-  {indicator: "ind7_paris", label: "Have an NHRI that meets the Paris Principles", country_text: " States", color: "#f1b5b5", text_color: "black", partial: false}
+  {indicator: "ind5_law_level_1", label: "", country_text: " States (partially criminalized)", color: "#D9B841", text_color: "white", partial: true},
+  {indicator: "ind7_paris", label: "Have an NHRI that meets the Paris Principles", country_text: " States", color: "#e36360", text_color: "black", partial: false},
+  {indicator: "ind6_npm_level_2", label: "Have a National Preventive Mechanism", country_text: " States (designated and operational)", color: "#f1b5b5", text_color: "black", partial: false},
+  {indicator: "ind6_npm_level_1", label: "", country_text: " States (designated only)", color: "#f1b5b5", text_color: "black", partial: true}
 ];
 
 // Indicators, no duplicates for partial completion

@@ -26,12 +26,28 @@ const updateStackedTimeSeries = (filterID, data) => {
 
   // Update data for bars
   stackDataRepeatedPartial.forEach(series => {
-    console.log("filterid", filterID, "series", series)
     d3.selectAll(`.bar-${series.key}`)
     .data(series)
         // Custom bars
         .attr("d", (d, i) => makeTimeSeriesBarPath(d, i, series, xScaleBand, innerHeight));
   });
+
+  // Update series labels (indicator and number of countries)
+  const indLabelData = makeTimeSeriesIndLabelData(
+    stackData, indSeparatedInfo, xScaleBand, yScale)
+  d3.selectAll(".ts-ind-label")
+    .data(indLabelData)
+      .attr("class", d => `ts-ind-label ts-ind-label-${d.indicator}`)
+      .text(d => d.label) // indicator label
+      .attr("x", d => d.x) 
+      .attr("y", d => d.y);
+  d3.selectAll(".ts-country-label")
+    .data(indLabelData)
+      .attr("class", d => `ts-country-label ts-country-label-${d.indicator}`)
+      .text(d => d.countryLabel) // number of countries
+      .attr("x", d => d.x)
+      .attr("y", d => d.yCountry);
+
 }
 
 

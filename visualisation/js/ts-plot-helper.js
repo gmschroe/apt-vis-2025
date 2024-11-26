@@ -124,7 +124,7 @@ function addTimeSeriesBarFill(series, indSeparatedInfo) {
   // Gradient is also used for "partial_overlay"
   const entry = indSeparatedInfo.find(obj => obj.indicator == series.key)
   if (entry === undefined) { // if undefined, it's our added series - use the partial_overlay
-    return "url(#linear-gradient-partial-overlay)";
+    return `url(#linear-gradient-${series.key})`; //"url(#linear-gradient-partial-overlay)";
   } else { // Otherwise, return hash pattern if partial and gradient otherwise
     return entry.partial ? `url(#hash-pattern-${series.key})` : `url(#linear-gradient-${series.key})`;
   }
@@ -143,5 +143,59 @@ function addTimeSeriesBarStroke(d, series, indSeparatedInfo) {
 }
 
 function setTimeSeriesBarOpacity(series) {
-  return (series.isPartial ?? false) ? 0.2 : 1;
+  return (series.isPartial ?? false) ? 0.3 : 1;
+}
+
+// Labels
+
+function makeTimeSeriesIndLabelData(stackData, indSeparatedInfo, xScaleBand, yScale) {
+
+  const dataLastYear = stackData.map(series => ({
+    key: series.key,
+    value: series[series.length - 1][1], // stacked value for indicator
+    year: series[series.length - 1].data.year,
+    count: series[series.length - 1].data[series.key]
+  }));
+
+  const indLabelData = structuredClone(indSeparatedInfo);
+  indLabelData.forEach(ind => {
+    const entry = dataLastYear.find(obj => obj.key == ind.indicator);
+
+    ind.finalBarValue = entry.value;
+    ind.finalYear = entry.year;
+    ind.finalCount = entry.count;
+  });
+
+  // Apply scales and add buffers to get x, y values
+  indLabelData.forEach (ind => {
+    ind.x = xScaleBand(ind.finalYear) + (xScaleBand.bandwidth() * 1.35);
+    ind.y = yScale(ind.finalBarValue);
+  })
+
+  // y for number of countries text
+  indLabelData.forEach ((ind, index, arr) => {
+    const yAddBase = 15;
+    const yInd = ind.partial ? arr[index-1].y : ind.y; // if partial measure, use y of previous series (= full implementation) as baseline
+    let yAdd = 0;
+    if (ind.partial & ind.finalCount == 0) { // some partial measures have zero implementation - hide those labels and don't designate extra space for them
+      yAdd = yAddBase;
+      ind.countryLabel = "";
+    } else {
+      yAdd = ind.partial ? yAddBase*1.9 : yAddBase; // // also need to add more space if partial measure (because it's the second label)
+      ind.yCountry = yInd + yAdd;
+      ind.countryLabel = ind.finalCount + ind.country_text;
+    }
+
+    // replace "States" with "State" if only one state
+    if (ind.finalCount == 1) {
+      ind.countryLabel = ind.countryLabel.replace("States", "State");
+    }
+  })
+  console.log("label data", indLabelData)
+
+  // Sometimes, no countries with partial NPM implementation
+  // Hide those states labels and move 
+
+  return indLabelData;
+
 }
