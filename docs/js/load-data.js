@@ -1,3 +1,5 @@
+// Paths must start with directory in root directory (docs)
+
 // Levels separated into separate indicators, for time series plot
 d3.csv("data/data_apt_ts_separated.csv", d3.autoType).then(data => {
     console.log("ts data", data.slice(0, 50));
