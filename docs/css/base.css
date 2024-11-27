@@ -44,9 +44,48 @@ body, html {
   padding-left: 50px;
 }
 
-#ts {
+/* .plot-container { 
   margin-top: 30px;
   background-color: #F3F8FE;
+}
+
+#ts { 
+  max-width: 1000px;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+#ts svg{
+  height: auto;
+} */
+
+.plot-container { /* div for plots */
+  margin-top: 30px;
+  display: flex; /* Align children inside .plot-container */
+  justify-content: center; /* Horizontally center the #ts div */
+}
+
+#ts { /* time series plot div */
+  background-color: #F3F8FE;
+  max-width: 1000px; /* Constrain max width */
+  width: 100%;
+  justify-content: center; /* Horizontally center the SVG */
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#ts svg {
+  display: block;
+  width: 100%; /* Allow scaling based on max-width */
+  max-width: 100%; /* Prevent overflowing */
+  height: auto; /* Maintain aspect ratio */
+}
+
+@media (min-width: 1000px) {
+  #ts {
+    border-radius: 10px; /* Add rounded corners */
+  }
 }
 
 button {

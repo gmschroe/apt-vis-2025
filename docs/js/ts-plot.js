@@ -87,6 +87,7 @@ const drawStackedTimeSeries = (data) => {
   // Inner chart for plot
   const innerChart = svg
     .append("g")
+      .attr("id", "ts-innerchart")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
   // Bar chart with custom bar shape
@@ -121,7 +122,7 @@ const drawStackedTimeSeries = (data) => {
   const yRefG = innerChart
     .append("g")
       .attr("transform", `translate(
-        ${xScaleBand(dataForStack[0].year) + 10}, ${innerHeight/2 - 20}
+        ${xScaleBand(dataForStack[0].year) + 10}, ${innerHeight/2 - 40}
         )`)
       .attr("id", "g-ts-y-ref");
 
@@ -203,7 +204,7 @@ const drawStackedTimeSeries = (data) => {
     .append("foreignObject")
       .attr("width", innerWidth*0.6)
       .attr("height", innerHeight*0.5)
-      .attr("y", 20)
+      .attr("y", -10)
     .append("xhtml:div");
 
   tsText
