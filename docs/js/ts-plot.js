@@ -2,7 +2,7 @@ const drawStackedTimeSeries = (data) => {
 
   // DIMENSIONS
   const width = 1000;
-  const height = 600;
+  const height = 650;
   const margin = {top: 0, right: 300, bottom: 50, left: 50};
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
@@ -79,7 +79,9 @@ const drawStackedTimeSeries = (data) => {
   const stackDataRepeatedPartial = makeTimeSeriesStackDataRepeatedPartial(stackData, indSeparatedInfo);
   
   // SCALES
-  [xScaleBand, yScale] = makeTimeSeriesScales(stackData, dataForStack, innerWidth, innerHeight);
+  [xScaleBand, yScale] = makeTimeSeriesScales(
+    data, stackData, dataForStack, innerWidth, innerHeight, fixedScale = true
+  );
 
   // PLOT
   // Inner chart for plot
@@ -119,13 +121,12 @@ const drawStackedTimeSeries = (data) => {
   const yRefG = innerChart
     .append("g")
       .attr("transform", `translate(
-        ${xScaleBand(dataForStack[1].year)}, ${innerHeight/2}
+        ${xScaleBand(dataForStack[0].year) + 10}, ${innerHeight/2 - 20}
         )`)
       .attr("id", "g-ts-y-ref");
 
   // y-ref text
-  const dyRef = 12;
-  const dyRefLarge = 18;
+  // dyRef and dyRefLarge defined in shared-constants.js
   yRefG
     .append("text")
       .text("Our goal is for all")
@@ -146,12 +147,28 @@ const drawStackedTimeSeries = (data) => {
     .append("text")
       .text("to implement each")
       .attr("class", "ts-yref-small")
-      .attr("y", dyRefLarge*2.5 + dyRef*0.5); 
+      .attr("y", dyRefLarge*2.5 + dyRef*0.5);
   yRefG
     .append("text")
       .text("measure")
       .attr("class", "ts-yref-small")
-      .attr("y", dyRefLarge*2.5 + dyRef*1.5); 
+      .attr("y", dyRefLarge*2.5 + dyRef*1.5);
+
+  // bar
+  // TODO - adjust length for stroke?
+  const yBarX = -10; 
+  // since yscale is in opposite direction, need to take difference between 0 and num countries to get line length
+  const [yBarY1, yBarY2] = computeYBarRefEndpoints(data, yScale);
+  yRefG
+    .append("line")
+    .attr("id", "ts-yref-bar")
+    .attr("x1", yBarX)
+    .attr("x2", yBarX)
+    .attr("y1", yBarY1)
+    .attr("y2", yBarY2) 
+    .attr("stroke", "black")
+    .attr("stroke-width", 5)
+    .attr("stroke-linecap", "round");
 
 
   // SERIES LABELS

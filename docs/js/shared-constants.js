@@ -28,9 +28,15 @@ const filters = [
   {id: "Asia-Pacific", label: "Asia-Pacific", isActive: false, textSentence: "in the Asia-Pacific"}
 ]
 
+
+// Time series plot
 // Visualisation text
 const textTsTitle = "A growing commitment to preventing torture";
 const textTsP = "The APT has identified seven key legal measures that indicate a commitment to preventing torture. "
   + "Each bar shows the total number of states that have implemented each legal measure, "
   + "with stripes indicating partial implementations.";
 
+// Spacing between text for ybar reference
+// need to define here so can update bar location correctly 
+const dyRef = 12;
+const dyRefLarge = 18;

@@ -63,16 +63,28 @@ function makeTimeSeriesStackDataRepeatedPartial(stackData, indSeparatedInfo) {
 
 // Scales
 
-function makeTimeSeriesScales(stackData, dataForStack, width, height) {
+function makeTimeSeriesScales(
+  data, 
+  stackData,
+  dataForStack, 
+  width, // plot width
+  height, // plot height
+  fixedScale // whether to fix scale based on number of countries (instead of based on max value)
+) {
   // x-axis
   const xScaleBand = d3.scaleBand()
     .domain(dataForStack.map(d => d.year))
     .range([0, width])
   // y-axis
+  let maxY;
+  if (fixedScale) {
+    maxY = getNumCountries(data) * 5.8; // the ratio is hard-coded - may need to be adjusted for future plots
+  } else {
+    maxY = d3.max(stackData[0], d => d[1]);
+  }
   const yScale = d3.scaleLinear()
-    .domain([0, d3.max(stackData[0], d => d[1])]) // if order reversed
-    .range([height, 0])
-    .nice();
+    .domain([0, maxY]) 
+    .range([height, 0]);
 
   return [xScaleBand, yScale]
 }
@@ -157,6 +169,13 @@ function getRegionSentenceText(filterID) {
   // relies on shared constants
   regionEntry = filters.find(obj => obj.id == filterID);
   return regionEntry.textSentence;
+}
+
+function computeYBarRefEndpoints(data, yScale) {
+  // dyRefLarge and dyRef defined in shared-constants.js
+  const yBarLength = yScale(0) - yScale(getNumCountries(data)); 
+  const barShift = (dyRefLarge*2.5 + dyRef*1.5)/2 // how much to shift bar vertically so text is centred
+  return [barShift - yBarLength/2, barShift + yBarLength/2] // endpoints for reference bar
 }
 
 function makeTimeSeriesIndLabelData(stackData, indSeparatedInfo, xScaleBand, yScale) {

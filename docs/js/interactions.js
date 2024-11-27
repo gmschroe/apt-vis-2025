@@ -6,7 +6,7 @@ const updateStackedTimeSeries = (filterID, data) => {
 
   // Dimensions
   const width = 1000;
-  const height = 600;
+  const height = 650;
   const margin = {top: 0, right: 300, bottom: 50, left: 50};
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
@@ -22,7 +22,9 @@ const updateStackedTimeSeries = (filterID, data) => {
   const stackDataRepeatedPartial = makeTimeSeriesStackDataRepeatedPartial(stackData, indSeparatedInfo);
 
   // Scales
-  [xScaleBand, yScale] = makeTimeSeriesScales(stackData, dataForStack, innerWidth, innerHeight);
+  [xScaleBand, yScale] = makeTimeSeriesScales(
+    updatedData, stackData, dataForStack, innerWidth, innerHeight, true
+  );
 
   // Update data for bars
   stackDataRepeatedPartial.forEach(series => {
@@ -48,7 +50,11 @@ const updateStackedTimeSeries = (filterID, data) => {
       .attr("x", d => d.x)
       .attr("y", d => d.yCountry);
 
-  // Update y-ref text
+  // Update y-ref bar and text
+  const [yBarY1, yBarY2] = computeYBarRefEndpoints(updatedData, yScale);
+  d3.select("#ts-yref-bar")
+    .attr("y1", yBarY1)
+    .attr("y2", yBarY2);
   d3.select("#ts-yref-number")
     .text(`${getNumCountries(updatedData)} states`);
   d3.select("#ts-yref-region")
