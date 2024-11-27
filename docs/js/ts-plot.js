@@ -1,17 +1,19 @@
 const drawStackedTimeSeries = (data) => {
 
-  
-  // Dimensions
+  // DIMENSIONS
   const width = 1000;
   const height = 600;
   const margin = {top: 0, right: 300, bottom: 50, left: 50};
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
+  // SVG
   // Append new svg to time series container
   const svg = d3.select("#ts")
     .append("svg")
       .attr("viewBox", [0, 0, width, height]);
+
+  // GRADIENTS
 
   // Append gradient definitions to svg
   const def = svg
@@ -70,22 +72,20 @@ const drawStackedTimeSeries = (data) => {
     )
   })
 
-  // Regions (unique array)
-  const regions = Array.from(new Set(data.map(d => d.region)))
-  console.log("regions", regions)
 
-  // Inner chart for plot
-  const innerChart = svg
-    .append("g")
-      .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
-  // Data transformations
+  // DATA TRANSFORMATIONS
   const dataForStack = makeTimeSeriesDataForStack(data);
   const stackData = makeTimeSeriesStackData(dataForStack, indSeparatedInfo);
   const stackDataRepeatedPartial = makeTimeSeriesStackDataRepeatedPartial(stackData, indSeparatedInfo);
   
-  // Scales
+  // SCALES
   [xScaleBand, yScale] = makeTimeSeriesScales(stackData, dataForStack, innerWidth, innerHeight);
+
+  // PLOT
+  // Inner chart for plot
+  const innerChart = svg
+    .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
   // Bar chart with custom bar shape
   stackDataRepeatedPartial.forEach(series => {
@@ -102,7 +102,7 @@ const drawStackedTimeSeries = (data) => {
         .attr("fill-opacity", setTimeSeriesBarOpacity(series));
   })
 
-  // x-axis
+  // X-AXIS
   const xAxis = d3.axisBottom(xScaleBand)
     .tickValues(d3.range(1985, d3.max(dataForStack.map(d => d.year)), 5))
     .tickSize(5)
@@ -114,7 +114,7 @@ const drawStackedTimeSeries = (data) => {
       .attr("transform", `translate(0, ${innerHeight + 5})`)
       .call(xAxis);
 
-  // for y-axis, reference bar
+  // REFERENCE BAR FOR Y-AXIS
   // TODO: refactor using array to store text and attributes
   const yRefG = innerChart
     .append("g")
@@ -122,6 +122,8 @@ const drawStackedTimeSeries = (data) => {
         ${xScaleBand(dataForStack[1].year)}, ${innerHeight/2}
         )`)
       .attr("id", "g-ts-y-ref");
+
+  // y-ref text
   const dyRef = 12;
   const dyRefLarge = 18;
   yRefG
@@ -152,7 +154,7 @@ const drawStackedTimeSeries = (data) => {
       .attr("y", dyRefLarge*2.5 + dyRef*1.5); 
 
 
-  // Series labels
+  // SERIES LABELS
   const indLabelData = makeTimeSeriesIndLabelData(
     stackData, indSeparatedInfo, xScaleBand, yScale)
 
@@ -179,7 +181,7 @@ const drawStackedTimeSeries = (data) => {
         .attr("dominant-baseline", "hanging")
 
   
-  // Title and subtitle text
+  // TITLE AND SUBTITLE
   tsText = innerChart
     .append("foreignObject")
       .attr("width", innerWidth*0.6)
@@ -189,14 +191,14 @@ const drawStackedTimeSeries = (data) => {
 
   tsText
     .append("p")
-      .text(textTsTitle)
+      .text(textTsTitle) // Title
       .attr("id", "ts-title")
       .attr("class", "vis-title")
       .attr("dominant-baseline", "hanging");
 
   tsText
     .append("p")
-      .text(textTsP)
+      .text(textTsP) // Subtitle (paragraph)
       .attr("id", "ts-subtitle")
       .attr("class", "vis-subtitle")
       .style("width", innerWidth*0.5 + "px")
@@ -206,6 +208,7 @@ const drawStackedTimeSeries = (data) => {
 
   // TODO: 
   // y axis reference line
+  // keep y-axis units proportional to number of countries across all regions 
   // mark years certain measures were created
   // hover for each bar
   // filter transitions
