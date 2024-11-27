@@ -55,21 +55,6 @@ const drawStackedTimeSeries = (data) => {
       .attr("stop-color", calculateShade(ind.color, 0.15)); // needs to be darker since will be transparent
   })
 
-  // Create linear gradient for partial implementation overlay
-  // let linearGradient = def
-  // .append("linearGradient")
-  //   .attr("id", `linear-gradient-partial-overlay`)
-  //   .attr("x1", "0%")
-  //   .attr("y1", "0%")
-  //   .attr("x2", "100%")
-  //   .attr("y2", "0%");
-  // linearGradient.append("stop")
-  //   .attr("offset", "0%")
-  //   .attr("stop-color", "#FFFFFF"); 
-  // linearGradient.append("stop")
-  //   .attr("offset", "100%")
-  //   .attr("stop-color", calculateShade("#FFFFFF", 0.8));
-
   // Create hash pattern for each series
   // Will only use for partial implementation of indicators
   indSeparatedInfo.forEach(ind => {
@@ -113,8 +98,6 @@ const drawStackedTimeSeries = (data) => {
         .attr("d", (d, i) => makeTimeSeriesBarPath(d, i, series, xScaleBand, innerHeight))
         // Fill 
         .attr("fill", addTimeSeriesBarFill(series, indSeparatedInfo))
-        // Stroke
-        //.attr("stroke", d => addTimeSeriesBarStroke(d, series, indSeparatedInfo))
         // If partial_overlay, decrease opacity
         .attr("fill-opacity", setTimeSeriesBarOpacity(series));
   })
@@ -167,7 +150,6 @@ const drawStackedTimeSeries = (data) => {
       .text("measure")
       .attr("class", "ts-yref-small")
       .attr("y", dyRefLarge*2.5 + dyRef*1.5); 
-
 
 
   // Series labels
@@ -223,6 +205,7 @@ const drawStackedTimeSeries = (data) => {
 }
 
   // TODO: 
-  // partial implementation dashed lines
   // y axis reference line
   // mark years certain measures were created
+  // hover for each bar
+  // filter transitions
