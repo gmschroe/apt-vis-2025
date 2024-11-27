@@ -48,6 +48,12 @@ const updateStackedTimeSeries = (filterID, data) => {
       .attr("x", d => d.x)
       .attr("y", d => d.yCountry);
 
+  // Update y-ref text
+  d3.select("#ts-yref-number")
+    .text(`${getNumCountries(updatedData)} states`);
+  d3.select("#ts-yref-region")
+    .text(`${getRegionSentenceText(filterID)}`);
+
 }
 
 

@@ -132,6 +132,42 @@ const drawStackedTimeSeries = (data) => {
       .call(xAxis);
 
   // for y-axis, reference bar
+  // TODO: refactor using array to store text and attributes
+  const yRefG = innerChart
+    .append("g")
+      .attr("transform", `translate(
+        ${xScaleBand(dataForStack[1].year)}, ${innerHeight/2}
+        )`)
+      .attr("id", "g-ts-y-ref");
+  const dyRef = 12;
+  const dyRefLarge = 18;
+  yRefG
+    .append("text")
+      .text("Our goal is for all")
+      .attr("class", "ts-yref-small");
+  yRefG
+    .append("text")
+      .text(`${getNumCountries(data)} states`)
+      .attr("class", "ts-yref-large")
+      .attr("id", "ts-yref-number")
+      .attr("y", dyRefLarge);
+  yRefG
+    .append("text")
+      .text(`${getRegionSentenceText("All")}`)
+      .attr("class", "ts-yref-large")
+      .attr("id", "ts-yref-region")
+      .attr("y", dyRefLarge*2);  
+  yRefG
+    .append("text")
+      .text("to implement each")
+      .attr("class", "ts-yref-small")
+      .attr("y", dyRefLarge*2.5 + dyRef*0.5); 
+  yRefG
+    .append("text")
+      .text("measure")
+      .attr("class", "ts-yref-small")
+      .attr("y", dyRefLarge*2.5 + dyRef*1.5); 
+
 
 
   // Series labels
@@ -164,27 +200,25 @@ const drawStackedTimeSeries = (data) => {
   // Title and subtitle text
   tsText = innerChart
     .append("foreignObject")
-      .attr("width", innerWidth*0.75)
+      .attr("width", innerWidth*0.6)
       .attr("height", innerHeight*0.5)
       .attr("y", 20)
     .append("xhtml:div");
 
   tsText
     .append("p")
-      .text(text_ts_title)
+      .text(textTsTitle)
       .attr("id", "ts-title")
       .attr("class", "vis-title")
       .attr("dominant-baseline", "hanging");
 
   tsText
     .append("p")
-      .text(text_ts_p)
+      .text(textTsP)
       .attr("id", "ts-subtitle")
       .attr("class", "vis-subtitle")
       .style("width", innerWidth*0.5 + "px")
       .attr("dominant-baseline", "hanging");
-
-
 
 }
 

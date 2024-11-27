@@ -146,7 +146,18 @@ function setTimeSeriesBarOpacity(series) {
   return (series.isPartial ?? false) ? 0.3 : 1;
 }
 
-// Labels
+// Title/Labels
+
+function getNumCountries(data) {
+  const countries = Array.from(new Set(data.map(d => d.country)))
+  return countries.length
+}
+
+function getRegionSentenceText(filterID) {
+  // relies on shared constants
+  regionEntry = filters.find(obj => obj.id == filterID);
+  return regionEntry.textSentence;
+}
 
 function makeTimeSeriesIndLabelData(stackData, indSeparatedInfo, xScaleBand, yScale) {
 
@@ -191,11 +202,9 @@ function makeTimeSeriesIndLabelData(stackData, indSeparatedInfo, xScaleBand, ySc
       ind.countryLabel = ind.countryLabel.replace("States", "State");
     }
   })
-  console.log("label data", indLabelData)
-
-  // Sometimes, no countries with partial NPM implementation
-  // Hide those states labels and move 
 
   return indLabelData;
 
 }
+
+

@@ -195,6 +195,16 @@ a:hover, a:focus {
   font-size: 7pt;
 }
 
+.ts-yref-small {
+  font-size: 7pt;
+  line-height: 0em;
+}
+
+.ts-yref-large {
+  font-size: 11pt;
+  font-weight: 800;
+}
+
 svg path{
   shape-rendering: crispEdges;
 }

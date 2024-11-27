@@ -20,12 +20,12 @@ const isInteractive = true;
 // Region filters
 // Can use id as label since capitalisation/format is correct
 const filters = [
-  {id: "All", label: "All regions", isActive: true, tsTitle: "around the world"},
-  {id: "Americas", label: "Americas", isActive: false, tsTitle: "in the Americas"},
-  {id: "Africa", label: "Africa", isActive: false, tsTitle: "in Africa"},
-  {id: "Europe", label: "Europe", isActive: false, tsTitle: "in Europe"},
-  {id: "Middle East", label: "Middle East", isActive: false, tsTitle: "in the Middle East"},
-  {id: "Asia-Pacific", label: "Asia-Pacific", isActive: false, tsTitle: "in the Asia-Pacific"}
+  {id: "All", label: "All regions", isActive: true, textSentence: "around the world"},
+  {id: "Americas", label: "Americas", isActive: false, textSentence: "in the Americas"},
+  {id: "Africa", label: "Africa", isActive: false, textSentence: "in Africa"},
+  {id: "Europe", label: "Europe", isActive: false, textSentence: "in Europe"},
+  {id: "Middle East", label: "Middle East", isActive: false, textSentence: "in the Middle East"},
+  {id: "Asia-Pacific", label: "Asia-Pacific", isActive: false, textSentence: "in the Asia-Pacific"}
 ]
 
 // Visualisation text
