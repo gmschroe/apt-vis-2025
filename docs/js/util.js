@@ -73,4 +73,6 @@ function addHashPatternDef(
       .attr("stroke", hashColor)
       .attr("stroke-width", hashStroke)
       .attr("opacity", hashOpacity);
+
+    return pattern
 }
