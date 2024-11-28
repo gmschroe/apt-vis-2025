@@ -3,7 +3,7 @@ const drawRadialPlots = (data) => {
     // DIMENSIONS
     const width = 1000;
     const height = 700;
-    const margin = {top: 0, right: 300, bottom: 0, left: 50};
+    const margin = {top: 0, right: 300, bottom: 0, left: 0};
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
     
@@ -44,8 +44,12 @@ const drawRadialPlots = (data) => {
       .domain(countries)
       .range([Math.PI/2 + yearLabelGap, 2 * Math.PI + Math.PI/2 - (regionGap * nRegions)]); // + pi/2 to leave space for horizontal year labels
 
-    const yScale = d3.scaleRadial()
-      .domain([d3.min(years), d3.max(years)])
+    // const yScale = d3.scaleRadial()
+    //   .domain([d3.min(years), d3.max(years)])
+    //   .range([innerRadius, outerRadius]);
+
+    const yScale = d3.scaleBand() // 
+      .domain(years)
       .range([innerRadius, outerRadius]);
 
     // colors (all indicators)
@@ -102,7 +106,10 @@ const drawRadialPlots = (data) => {
     // arc generator
     const arcGenerator = d3.arc()
       .innerRadius(d => yScale(d.year))
-      .outerRadius(yScale(d3.max(years)))
+      // TODO: check width of last entry is appropriate
+      // may be better to add bandwidth to individual bars 
+      // check once have axis labels
+      .outerRadius(yScale(d3.max(years)) + yScale.bandwidth())
       .startAngle(d => xScale(d.country_id))
       .endAngle(d => xScale(d.country_id) + xScale.bandwidth())
       .cornerRadius(1)
@@ -132,5 +139,33 @@ const drawRadialPlots = (data) => {
               return colorScale(d.indicator);
             }
           });
+
+  // TITLE AND SUBTITLE
+  const textShift = 150;
+  radialText = innerChart
+    .append("foreignObject")
+      .attr("width", margin.right - 50 + textShift)
+      .attr("height", innerHeight*0.5)
+      .attr("x", innerWidth - textShift)
+    .append("xhtml:div");
+
+  const titleShift = 150;
+  radialText
+    .append("p")
+      .text(textRadialTitle) // Title
+      .attr("id", "radial-title")
+      .attr("class", "vis-title")
+      .attr("dominant-baseline", "hanging")
+      .style("text-align", "right");
+
+  radialText
+    .append("p")
+      .text(textRadialP) // Subtitle (paragraph)
+      .attr("id", "radial-subtitle")
+      .attr("class", "vis-subtitle")
+      .attr("dominant-baseline", "hanging")
+      .style("text-align", "right")
+      .style("width", "80%")
+      .style("float", "right");
 
 }

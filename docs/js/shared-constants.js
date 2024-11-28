@@ -46,3 +46,9 @@ const textTsP = "The APT has identified seven key legal measures that indicate a
 // need to define here so can update bar location correctly 
 const dyRef = 12;
 const dyRefLarge = 18;
+
+// Radial plot
+const textRadialTitle = "Preventing torture through international cooperation";
+const textRadialP = "To create a world without torture, every state needs to commit to preventing torture. "
+  + "Each bar shows when a state implemented this torture prevention measure, with stripes indicating partial implementations. "
+  //+ "When the outer ring is filled, it will mean that every state has committed to this measure."
