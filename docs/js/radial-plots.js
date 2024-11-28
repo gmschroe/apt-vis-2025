@@ -66,7 +66,7 @@ const drawRadialPlots = (data) => {
             def,
             id = `hash-pattern-${ind.indicator}-${country}`,
             hashSpacing = 4,
-            hashAngle = 45,
+            hashAngle = 0, // doesn't matter, set by rotation
             hashColor = ind.color,
             hashBackgroundColor = "white",
             hashOpacity = 1,
@@ -75,8 +75,8 @@ const drawRadialPlots = (data) => {
           pattern
             //TODO: also account for region in rotation since will be some space between regions
             //(or add filler country in data??)
-            .attr("patternTransform", "rotate(90)");
-           //.attr("patternTransform", `rotate(${xScale(country) * 180/Math.PI})`); rotate to match country rotation
+            //.attr("patternTransform", "rotate(90)");
+            .attr("patternTransform", `rotate(${xScale(country) * 180/Math.PI + 45})`); //rotate to match country rotation
           console.log(country, xScale(country), `rotate(${xScale(country) * 180/Math.PI})`);
           }) 
 
