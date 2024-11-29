@@ -17,10 +17,20 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100vw;
-  height: 3em;
+  height: 5em;
   background-color: #285391;
   z-index: -1;
   font-size: 42pt;
+  overflow: hidden;
+}
+
+#banner img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  object-position: center 80%;
+  filter: brightness(75%);
 }
 
 #footer {
@@ -194,8 +204,8 @@ h1, h2, text, div, p, button {
 
 h1 {
   margin-left: 50px;
-}
-h1 {
+  margin-right: 30px;
+  text-shadow: 2px 2px 7px black; 
   position: absolute;
   padding: 0;
   margin-bottom: 25px;
