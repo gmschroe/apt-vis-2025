@@ -121,7 +121,7 @@ const drawRadialPlots = (data) => {
       .append("g")
         .attr("class", "axis")
         .attr("id", "radial-raxis")
-        .attr("transform", `translate(${innerWidth/2}, ${innerHeight/2})`)
+        .attr("transform", `translate(${innerWidth/2}, ${innerHeight/2 + 5})`)
         .call(rAxis);
       
     // TITLE AND SUBTITLE

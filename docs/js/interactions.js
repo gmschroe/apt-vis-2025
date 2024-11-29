@@ -252,5 +252,4 @@ function radialHandleMouseEvents(indData) {
         .style("opacity", 0)
         .attr("transform", `translate(0, 0)`);
     });                                  
-
 }

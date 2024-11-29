@@ -170,7 +170,7 @@ const drawStackedTimeSeries = (data) => {
     .attr("x2", yBarX)
     .attr("y1", yBarY1)
     .attr("y2", yBarY2) 
-    .attr("stroke", "black")
+    .attr("stroke", "#282D30")
     .attr("stroke-width", 5)
     .attr("stroke-linecap", "round");
 
