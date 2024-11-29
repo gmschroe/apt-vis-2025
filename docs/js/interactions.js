@@ -1,10 +1,13 @@
 // Create filter buttons and link to plot updates
 // Plots need to be defined first
 
+// TIME SERIES
+
 // How to update the stacked time series
 const updateStackedTimeSeries = (filterID, data) => {
 
   // Dimensions
+  // TODO: make these shared constants
   const width = 1000;
   const height = 650;
   const margin = {top: 0, right: 300, bottom: 50, left: 50};
@@ -89,6 +92,45 @@ const createRegionFilters = (data) => {
       });
 }
 
+// RADIAL
+const updateRadialPlots = (filterID, data) => {
+  console.log("indicator", filterID)
+
+  // Data
+  const indData = prepIndData(data, filterID); // start with first indicator
+  const maxLevel = getMaxLevel(indData);
+
+  // Scales
+  const [xScale, yScale, colorScale] = makeRadialScales(indData);
+
+  // Plot data/paths
+  const firstYears = getFirstYears(indData);
+  const arcGenerator = makeArcGenerator(indData, xScale, yScale);
+
+  // Update bars
+  // TODO - would be better if can organise data so each 
+  // country has entries for all levels so can update bars instead
+  // of deleting  them
+  innerChart = d3.select("#g-radial-paths")
+
+  // remove existings bars since different indicators have a different number of bars
+  innerChart
+    .selectAll(".radial-path").remove() 
+
+  // new bars
+  innerChart
+    .selectAll("path")
+    .data(firstYears) // new data
+    .join("path") // new paths
+      .attr("class", "radial-path")
+      .attr("d", arcGenerator)
+      .attr("fill", d => addRadialBarFill(d, maxLevel, colorScale))
+      .attr("stroke", d => addRadialBarStroke(d, colorScale))
+      .attr("stroke-width", d => addRadialBarStrokeWidth(d));
+}
+
+// How to update radial plot
+
 // Create indicator filters (using dropdown)
 const createIndicatorFilters = (data) => {
 
@@ -118,11 +160,16 @@ const createIndicatorFilters = (data) => {
       .style("color", d => d.text_color)
       .text(d => d.label)
       .on("click", function(event, d) {
+
+        // Dropdown updates
         selectedDiv.text(d.label); // updates selection
         selectedDiv.style("background-color", d.color) // updates color
         selectedDiv.style("color", d.text_color)
         selectedDiv.append("i").attr("class", arrowClass); // re-adds icon
         optionsDiv.classed("hidden", true); // closes dropdown
+
+        // Visualisation updates
+        updateRadialPlots(d.indicator, data);
       });
     
     // Toggle visibility of options

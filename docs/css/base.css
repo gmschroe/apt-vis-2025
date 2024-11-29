@@ -248,7 +248,7 @@ a:hover, a:focus {
 .vis-title {
   font-size: 20pt;
   font-weight: 800;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.25em;
 }
 
 .vis-subtitle {
@@ -280,6 +280,8 @@ a:hover, a:focus {
 svg path{
   shape-rendering: crispEdges;
 }
+
+
 
 /* hide labels if screen width is narrow */
 
