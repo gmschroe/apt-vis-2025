@@ -82,6 +82,20 @@ const drawRadialPlots = (data) => {
           .attr("stroke", d => addRadialBarStroke(d, colorScale))
           .attr("stroke-width", d => addRadialBarStrokeWidth(d));
 
+
+  // RADIUS AXIS (YEARS)
+  const rAxis = d3.axisBottom(yScale)
+    .tickValues(d3.range(1990, d3.max(years), 10))
+    .tickSize(5)
+    .tickPadding(5)
+    .tickSizeOuter(0);
+  innerChart
+    .append("g")
+      .attr("class", "axis")
+      .attr("id", "radial-raxis")
+      .attr("transform", `translate(${innerWidth/2}, ${innerHeight/2})`)
+      .call(rAxis);
+    
   // TITLE AND SUBTITLE
   const textShift = 150;
   radialText = innerChart
@@ -135,3 +149,8 @@ const drawRadialPlots = (data) => {
     .style("font-weight", "700")
     .style("font-size", "14pt");
 }
+
+// TODO
+// space between regions
+// region labels
+// hover 

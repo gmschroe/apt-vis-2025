@@ -50,9 +50,8 @@ function makeArcGenerator(indData, xScale, yScale) {
 
 // Scales
 function makeRadialScales(indData) {
-
+  // TODO: rename variables to theta/r axes 
   // TODO: make shared constants
-  // inner and outer radius of each plot
   const height = 700;
   const innerRadius = 140;
   const outerRadius = height/2 - 50;
@@ -66,7 +65,7 @@ function makeRadialScales(indData) {
   const regionGap = Math.PI/360 * 10; // Size of gap between different regions
   const yearLabelGap = Math.PI/360 * 20;
 
-  // x-axis scale
+  // x-axis (theta) scale
   const xScale = d3.scaleBand()
     .domain(countries)
     .range([
@@ -78,7 +77,7 @@ function makeRadialScales(indData) {
   //   .domain([d3.min(years), d3.max(years)])
   //   .range([innerRadius, outerRadius]);
 
-  // y-axis scale
+  // y-axis (radius) scale
   const yScale = d3.scaleBand() 
     .domain(years)
     .range([innerRadius, outerRadius]);

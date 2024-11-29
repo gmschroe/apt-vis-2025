@@ -255,7 +255,7 @@ a:hover, a:focus {
   font-size: 10pt;
 }
 
-#xaxis text, #xaxis line, #xaxis path {
+.axis text, .axis line, .axis path {
   color: #818589;
 }
 .ts-ind-label {

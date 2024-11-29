@@ -106,14 +106,17 @@ const drawStackedTimeSeries = (data) => {
   })
 
   // X-AXIS
+  // TODO: function to round to nearest 5 years from min
   const xAxis = d3.axisBottom(xScaleBand)
     .tickValues(d3.range(1985, d3.max(dataForStack.map(d => d.year)), 5))
     .tickSize(5)
-    .tickPadding(5);
+    .tickPadding(5)
+    .tickSizeOuter(0);
 
   innerChart
     .append("g")
-      .attr("id", "xaxis")
+      .attr("id", "ts-xaxis")
+      .attr("class", "axis")
       .attr("transform", `translate(0, ${innerHeight + 5})`)
       .call(xAxis);
 
