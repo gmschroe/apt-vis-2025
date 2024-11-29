@@ -75,6 +75,7 @@ body, html {
 
 button {
   margin-bottom: 1em;
+  cursor: pointer;
 }
 
 text.ind {
@@ -106,9 +107,8 @@ text.ind {
   margin-bottom: 1em;
 }
 
-/* filter buttons */
-
-#region-filters {
+/* filter buttons/dropdown */
+#region-filters, #indicator-filters {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -131,6 +131,42 @@ text.ind {
   background-color: #285391;
   color: white;
 }
+
+.dropdown-container {
+  position: relative;
+  width: 450px;
+  cursor: pointer;
+  user-select: none;
+  margin: 0 auto;
+  font-weight: 500;
+}
+.dropdown-selected {
+  padding: 10px;
+  /* border: 1px solid #ccc; */
+  border-radius: 4px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dropdown-options {
+  position: absolute;
+  /* border: 1px solid #ccc; */
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 0px;
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.dropdown-options div {
+  padding: 10px;
+  text-align: left;
+}
+.hidden {
+  display: none;
+}
+
 
 /* text */
 h1, h2, text, div, p, button {

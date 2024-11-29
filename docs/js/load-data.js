@@ -11,4 +11,5 @@ d3.csv("data/data_apt_ts_separated.csv", d3.autoType).then(data => {
 d3.csv("data/data_apt_ts.csv", d3.autoType).then(data => {
     console.log("radial data", data.slice(0, 50));
     drawRadialPlots(data);
+    createIndicatorFilters(data);
 })

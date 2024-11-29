@@ -90,3 +90,53 @@ const createRegionFilters = (data) => {
         }
       });
 }
+
+// Create indicator filters (using dropdown)
+const createIndicatorFilters = (data) => {
+
+  const dropdownContainer = d3.select("#indicator-filters");
+  const selectedDiv = dropdownContainer.select(".dropdown-selected");
+  const optionsDiv = dropdownContainer.select(".dropdown-options");
+
+  // First indicator is default option
+  const defaultOption = indInfo[0];
+  selectedDiv
+    .text(defaultOption.label)
+    .style("background-color", defaultOption.color)
+    .style("color", defaultOption.text_color);
+
+  // Add arrow
+  const arrowClass = "bi bi-caret-down-fill";
+  selectedDiv
+    .append("i")
+      .attr("class", arrowClass);
+
+  // Create options
+  optionsDiv.selectAll("div")
+    .data(indInfo)
+    .join("div")
+      .attr("class", "dropdown-option")
+      .style("background-color", d => d.color)
+      .style("color", d => d.text_color)
+      .text(d => d.label)
+      .on("click", function(event, d) {
+        selectedDiv.text(d.label); // updates selection
+        selectedDiv.style("background-color", d.color) // updates color
+        selectedDiv.style("color", d.text_color)
+        selectedDiv.append("i").attr("class", arrowClass); // re-adds icon
+        optionsDiv.classed("hidden", true); // closes dropdown
+      });
+    
+    // Toggle visibility of options
+    selectedDiv.on("click", () => {
+      optionsDiv.classed("hidden", !optionsDiv.classed("hidden"));
+    });
+
+    // Closes dropdown if click outside
+    document.addEventListener("click", (event) => {
+      if (!dropdownContainer.node().contains(event.target)) {
+        optionsDiv.classed("hidden", true);
+      }
+    });
+
+}
