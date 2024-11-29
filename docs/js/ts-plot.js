@@ -3,7 +3,7 @@ const drawStackedTimeSeries = (data) => {
   // DIMENSIONS
   const width = 1000;
   const height = 650;
-  const margin = {top: 0, right: 300, bottom: 50, left: 50};
+  const margin = {top: 0, right: 320, bottom: 50, left: 50};
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
@@ -225,8 +225,6 @@ const drawStackedTimeSeries = (data) => {
 }
 
   // TODO: 
-  // y axis reference line
-  // keep y-axis units proportional to number of countries across all regions 
   // mark years certain measures were created
   // hover for each bar
   // filter transitions

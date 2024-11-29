@@ -7,6 +7,7 @@ const drawRadialPlots = (data) => {
     const margin = {top: 0, right: 300, bottom: 0, left: 0};
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
+    const innerRadius = 140;
 
 
     // SVG AND CHART SPACE
@@ -20,7 +21,8 @@ const drawRadialPlots = (data) => {
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
     // DATA FILTERING AND TRANSFORMATIONS
-    const indData = prepIndData(data, "ind1_uncat"); // start with first indicator
+    const filterID = "ind1_uncat"; // start with first indicator
+    const indData = prepIndData(data, filterID); 
     const maxLevel = getMaxLevel(indData);
 
     const years = Array.from(new Set(indData.map(d => d.year)));
@@ -106,4 +108,30 @@ const drawRadialPlots = (data) => {
       .style("text-align", "right")
       .style("width", "80%")
       .style("float", "right");
+
+
+  // INDICATOR LABEL
+  // TODO: move styling to CSS
+  indicatorText = innerChart
+    .append("foreignObject")
+      .attr("width", innerRadius*2)
+      .attr("height", innerRadius*2)
+      .attr("x", innerWidth/2 - innerRadius)
+      .attr("y", innerHeight/2 - innerRadius)
+    .append("xhtml:div")
+      .style("display", "flex")
+      .style("justify-content", "center")
+      .style("align-items", "center")
+      .style("height", "100%")
+      .style("padding-left", "50px")
+      .style("padding-right", "50px");
+
+  indicatorText
+    .append("p")
+    .text(getIndLabel(filterID))
+    .attr("id", "radial-ind-label")
+    .style("text-align", "center")
+    .style("margin", "0")
+    .style("font-weight", "700")
+    .style("font-size", "14pt");
 }

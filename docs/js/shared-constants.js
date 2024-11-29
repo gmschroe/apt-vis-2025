@@ -2,7 +2,7 @@
 const indSeparatedInfo = [
   {indicator: "ind1_uncat", label: "Ratified UN Convention against Torture", country_text: " states", color: "#285391", text_color: "white", partial: false, n_levels: 1},
   {indicator: "ind2_opcat", label: "Ratified UN Optional Protocol", country_text: " states", color: "#3f84e6", text_color: "black", partial: false, n_levels: 1},
-  {indicator: "ind3_report", label: "Submitted report to CAT", country_text: " states", color: "#8cb5f0", text_color: "black", partial: false, n_levels: 1},
+  {indicator: "ind3_report", label: "Submitted report to Committee against Torture", country_text: " states", color: "#8cb5f0", text_color: "black", partial: false, n_levels: 1},
   {indicator: "ind4_constitution", label: "Prohibit torture in the constitution", country_text: " states", color: "#B38E09", text_color: "black", partial: false, n_levels: 1},
   {indicator: "ind5_law_level_2", label: "Criminalize torture in domenstic law", country_text: " states (fully criminalized)", color: "#D9B841", text_color: "black", partial: false, n_levels: 2},
   {indicator: "ind5_law_level_1", label: "", country_text: " states (partially criminalized)", color: "#D9B841", text_color: "white", partial: true, n_levels: 2},

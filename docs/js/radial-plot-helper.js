@@ -117,3 +117,10 @@ function addRadialBarStrokeWidth(d) {
     return 0.5;
   }
 }
+
+
+// Text
+function getIndLabel(ind) {
+  const entry = indInfo.find(obj => obj.indicator == ind);
+  return entry.label;
+}

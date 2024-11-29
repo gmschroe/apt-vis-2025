@@ -10,7 +10,7 @@ const updateStackedTimeSeries = (filterID, data) => {
   // TODO: make these shared constants
   const width = 1000;
   const height = 650;
-  const margin = {top: 0, right: 300, bottom: 50, left: 50};
+  const margin = {top: 0, right: 320, bottom: 50, left: 50};
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
@@ -127,6 +127,10 @@ const updateRadialPlots = (filterID, data) => {
       .attr("fill", d => addRadialBarFill(d, maxLevel, colorScale))
       .attr("stroke", d => addRadialBarStroke(d, colorScale))
       .attr("stroke-width", d => addRadialBarStrokeWidth(d));
+  
+  // Update indicator text
+  d3.select("#radial-ind-label")
+    .text(getIndLabel(filterID));
 }
 
 // How to update radial plot
