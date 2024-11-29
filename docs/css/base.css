@@ -108,7 +108,7 @@ text.ind {
 
 /* filter buttons */
 
-#filters {
+#region-filters {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

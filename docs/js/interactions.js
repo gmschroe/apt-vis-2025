@@ -65,7 +65,7 @@ const updateStackedTimeSeries = (filterID, data) => {
 
 // Create region filters and add event listener for updtaing plot
 const createRegionFilters = (data) => {
-  d3.select("#filters")
+  d3.select("#region-filters")
     .selectAll(".filter")
     .data(regionFilters)
     .join("button")
