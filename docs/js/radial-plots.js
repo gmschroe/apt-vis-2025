@@ -79,9 +79,7 @@ const drawRadialPlots = (data) => {
           pattern
             //TODO: also account for region in rotation since will be some space between regions
             //(or add filler country in data??)
-            //.attr("patternTransform", "rotate(90)");
             .attr("patternTransform", `rotate(${xScale(country) * 180/Math.PI + 45})`); //rotate to match country rotation
-          console.log(country, xScale(country), `rotate(${xScale(country) * 180/Math.PI})`);
           }) 
 
       }
