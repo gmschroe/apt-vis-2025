@@ -1,6 +1,9 @@
 // Helper functions for the radial plot
 // Also used for interaction updates (e.g., from filters)
 
+// Number of spacers between different regions
+const nSpacer = 7;
+
 // Data transformations/calculations
 function prepIndData(data, filterID) {
 
@@ -23,27 +26,41 @@ function prepIndData(data, filterID) {
   });
 
 
-  // Add sapcer entries at region changes
-  const nSpacer = 3;
+  // Add spacer entries at region changes
   const spacerEntry = {indicator: filterID, region: "spacer", country: "", country_id: "spacer", value: -1, year: 2024};
-  let previousRegion = indData[0].region; // first region
-  indDataWithSpacers = [];
   let spacerNum = 0;
+  let regionNum = 0;
+  indDataWithSpacers = [];
+
+  // Spacers between regions
+  let previousRegion = indData[0].region; // first region
   indData.forEach(entry => {
     if (entry.region !== previousRegion) {
       // Add spacers
       for (i = 0; i < nSpacer; i++) {
         const spacerEntryNew = structuredClone(spacerEntry)
         spacerEntryNew.country_id = spacerEntryNew.country_id + spacerNum; // spacers need to have unique country ids for scale
+        spacerEntryNew.region = spacerEntryNew.region + regionNum;
         spacerNum = spacerNum + 1;
         indDataWithSpacers.push(spacerEntryNew);
       }
+      regionNum = regionNum + 1;
       // update region
       previousRegion = entry.region;
 
     }
     indDataWithSpacers.push(entry); // Add original entry
   })
+
+  // Additional spacer at end
+  // bit of a hack (not DRY)
+  for (i = 0; i < nSpacer; i++) {
+    const spacerEntryNew = structuredClone(spacerEntry)
+    spacerEntryNew.country_id = spacerEntryNew.country_id + spacerNum; // spacers need to have unique country ids for scale
+    spacerEntryNew.region = spacerEntryNew.region + regionNum;
+    spacerNum = spacerNum + 1;
+    indDataWithSpacers.push(spacerEntryNew);
+  }
 
   console.log("sorted ind data", indDataWithSpacers);
   return indDataWithSpacers;
@@ -70,6 +87,10 @@ function getFirstYears(indData) {
   return firstYears;
 }
 
+function computeRadialRotateTheta(indData) {
+  const countries = Array.from(new Set(indData.map(d => d.country_id)));
+  return Math.PI/2 + ((2*Math.PI)/countries.length * nSpacer)
+}
 function makeArcGenerator(indData, xScale, yScale) {
 
   const years = Array.from(new Set(indData.map(d => d.year)));
@@ -89,7 +110,8 @@ function makeArcGenerator(indData, xScale, yScale) {
 // Scales
 function makeRadialScales(indData) {
   // TODO: rename variables to theta/r axes 
-  // TODO: make shared constants
+
+  // TODO: make these shared constants
   const height = 700;
   const innerRadius = 140;
   const outerRadius = height/2 - 50;
@@ -100,14 +122,15 @@ function makeRadialScales(indData) {
   const regions = Array.from(new Set(indData.map(d => d.region)));
   const nRegions = regions.length;
 
-  const yearLabelGap = Math.PI/360 * 20;
+  //const yearLabelGap = Math.PI/360 * 20;
 
   // x-axis (theta) scale
+  const rotateTheta = computeRadialRotateTheta(indData);
   const xScale = d3.scaleBand()
     .domain(countries)
     .range([
-      Math.PI/2 + yearLabelGap, 
-      2 * Math.PI + Math.PI/2
+      rotateTheta, 
+      2 * Math.PI + rotateTheta
     ]); // + pi/2 to leave space for horizontal year labels
 
   // const yScale = d3.scaleRadial()

@@ -234,7 +234,7 @@ function radialHandleMouseEvents(indData) {
   d3.select("#radial-innerchart")
     .selectAll(".radial-path")
     .on("mouseenter", (e, d) => {
-      console.log(e)
+      //console.log(e)
       d3.select("#radial-tooltip")
         .select("text")
           .text(d.country);

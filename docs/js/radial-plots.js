@@ -65,12 +65,14 @@ const drawRadialPlots = (data) => {
 
     // Get number of countries in each region
     // First need to get unique country/region combinations
-    const regionCountryPairs = data.reduce((acc, item) => {
-      if (!acc.some(entry => entry.country == item.country && entry.region === item.region)) {
+    // Also include "spacer" regions so leave space for them
+    const regionCountryPairs = indData.reduce((acc, item) => {
+      if (!acc.some(entry => entry.country_id == item.country_id && entry.region === item.region)) {
         acc.push(item)
       }
       return acc;
     }, []);
+    console.log(regionCountryPairs);
 
     const countryRegions = regionCountryPairs.map(d => d.region);
     const nCountriesPerRegion = countryRegions.reduce((acc, item) => {
@@ -82,33 +84,35 @@ const drawRadialPlots = (data) => {
       region: region, // format with region and count keys
       count: count
     }));
+    console.log(formattedRegionCounts);
 
     // Get data for pie chart
     const pieGenerator = d3.pie()
-      .value(d => d.count);
+      .value(d => d.count)
+      .sort(null);
     const pieRegions = pieGenerator(formattedRegionCounts);
 
     // Get arcs
     // TODO: store rotation as shared constant
+    const rotateTheta = computeRadialRotateTheta(indData);
     const regionArcGenerator = d3.arc()
-      .startAngle (d => d.startAngle + Math.PI/2) // need to rotate to match countries
-      .endAngle(d => d.endAngle + Math.PI/2)
+      .startAngle (d => d.startAngle + rotateTheta) // need to rotate to match countries
+      .endAngle(d => d.endAngle + rotateTheta)
       .innerRadius(innerRadius)
       .outerRadius(outerRadius)
-      .padAngle(0.1)
       .cornerRadius(5);
 
-    // const regionArcs = innerChart
-    //   .append("g")
-    //   .attr("id", "g-radial-region-paths")
-    //   .attr("transform", `translate(${innerWidth/2}, ${innerHeight/2})`)
-    //     .selectAll(".region-arc")
-    //     .data(pieRegions)
-    //     .join("path")
-    //       .attr("class", "region-arc")
-    //       .attr("d", regionArcGenerator)
-    //       .attr("fill", "white")
-    //       .attr("stroke", "plum");
+    const regionArcs = innerChart
+      .append("g")
+      .attr("id", "g-radial-region-paths")
+      .attr("transform", `translate(${innerWidth/2}, ${innerHeight/2})`)
+        .selectAll(".region-arc")
+        .data(pieRegions)
+        .join("path")
+          .attr("class", "region-arc")
+          .attr("d", regionArcGenerator)
+          .attr("fill", "white")
+          .attr("stroke", "plum");
 
       // Add text before bars so below bars for tooltip interactions
       // RADIUS AXIS (YEARS)
@@ -199,9 +203,9 @@ const drawRadialPlots = (data) => {
           .attr("d", arcGenerator)
           .attr("fill", d => addRadialBarFill(d, maxLevel, colorScale))
           .attr("stroke", d => addRadialBarStroke(d, colorScale))
-          .attr("stroke-width", d => addRadialBarStrokeWidth(d));
-          // .attr("fill-opacity", 0)
-          // .attr("stroke-opacity", 0);
+          .attr("stroke-width", d => addRadialBarStrokeWidth(d))
+          .attr("fill-opacity", 0.2)
+          .attr("stroke-opacity", 0.2);
 
 
   // Mouse events
