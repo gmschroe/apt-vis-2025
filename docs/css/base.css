@@ -164,6 +164,7 @@ text.ind {
   user-select: none;
   margin: 0 auto;
   font-weight: 500;
+  font-size: 12pt;
 }
 .dropdown-selected {
   padding: 10px;

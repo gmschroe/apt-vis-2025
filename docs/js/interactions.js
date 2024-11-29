@@ -66,7 +66,7 @@ const updateStackedTimeSeries = (filterID, data) => {
 }
 
 
-// Create region filters and add event listener for updtaing plot
+// Create region filters and add event listener for updating plot
 const createRegionFilters = (data) => {
   d3.select("#region-filters")
     .selectAll(".filter")
@@ -131,6 +131,9 @@ const updateRadialPlots = (filterID, data) => {
   // Update indicator text
   d3.select("#radial-ind-label")
     .text(getIndLabel(filterID));
+
+  // Update tooltip
+  radialHandleMouseEvents(indData);
 }
 
 // How to update radial plot
@@ -187,5 +190,67 @@ const createIndicatorFilters = (data) => {
         optionsDiv.classed("hidden", true);
       }
     });
+
+}
+
+// Radial tool-tip
+const createRadialTooltip = () => {
+  const tooltip = d3.select("#radial-innerchart")
+    .append("g")
+      .attr("id", "radial-tooltip")
+      .style("opacity", 0);
+
+  // tooltip
+  //   .append("rect")
+  //     .attr("width", radialTooltipWidth)
+  //     .attr("height", radialTooltipHeight)
+  //     .attr("rx", 3)
+  //     .attr("ry", 3)
+  //     .attr("fill", "#D9E6FA")
+  //     .attr("fill-opacity", 0.75);
+
+  tooltip
+    .append("text")
+      .text("")
+      .attr("text-anchor", "middle")            
+      // .attr("alignment-baseline", "middle")     
+      .attr("fill", "black")                    
+      .style("font-weight", 600)
+      .style("font-size", "14pt");  
+
+}
+
+function radialHandleMouseEvents(indData) {
+
+  // DIMENSIONS
+  const width = 1000;
+  const height = 700;
+  const margin = {top: 0, right: 300, bottom: 0, left: 0};
+  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = height - margin.top - margin.bottom;
+
+  // const [xScale, yScale, colorScale] = makeRadialScales(indData);
+
+  d3.select("#radial-innerchart")
+    .selectAll(".radial-path")
+    .on("mouseenter", (e, d) => {
+      console.log(e)
+      d3.select("#radial-tooltip")
+        .select("text")
+          .text(d.country);
+      
+      d3.select("#radial-tooltip")    
+        .attr("transform", `translate(${innerWidth + margin.right*0.35}, ${innerHeight * 0.8})`)                              
+        .transition()
+          .duration(200)                                          
+          .style("opacity", 1);                                  
+    
+      })
+                                  
+    .on("mouseleave", (e, d) => {
+      d3.select("#radial-tooltip")
+        .style("opacity", 0)
+        .attr("transform", `translate(0, 0)`);
+    });                                  
 
 }
