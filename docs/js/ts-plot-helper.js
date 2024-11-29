@@ -15,7 +15,7 @@ function makeTimeSeriesDataForStack(data) {
       .flatMap(([year, indicatorMap]) =>
         [...indicatorMap].map(([indicator, total]) => ({year, indicator, total}))
       );
-    console.log("totals map", dataTotals);
+    //console.log("totals map", dataTotals);
   
     // Re-format data so each indicator is a column
     let dataForStack = d3.group(dataTotals, d => d.year)
@@ -24,7 +24,7 @@ function makeTimeSeriesDataForStack(data) {
       values.forEach(v => entry[v.indicator] = v.total);
       return entry;
     });
-    console.log("data for stack", dataForStack);
+    //console.log("data for stack", dataForStack);
 
     return dataForStack;
 }
@@ -37,7 +37,7 @@ function makeTimeSeriesStackData(dataForStack, indSeparatedInfo) {
       .order(d3.stackOrderReverse);
   
     const stackData = stackGenerator(dataForStack);
-    console.log("stack data", stackData);
+    //console.log("stack data", stackData);
 
     return stackData
 }
@@ -56,7 +56,7 @@ function makeTimeSeriesStackDataRepeatedPartial(stackData, indSeparatedInfo) {
       stackDataRepeatedPartial.push(seriesOverlay);
     }
   })
-  console.log("repeated stack data", stackDataRepeatedPartial);
+  //console.log("repeated stack data", stackDataRepeatedPartial);
 
   return stackDataRepeatedPartial;
 }

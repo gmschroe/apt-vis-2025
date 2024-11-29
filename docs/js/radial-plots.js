@@ -72,7 +72,6 @@ const drawRadialPlots = (data) => {
       }
       return acc;
     }, []);
-    console.log(regionCountryPairs);
 
     const countryRegions = regionCountryPairs.map(d => d.region);
     const nCountriesPerRegion = countryRegions.reduce((acc, item) => {
@@ -84,22 +83,21 @@ const drawRadialPlots = (data) => {
       region: region, // format with region and count keys
       count: count
     }));
-    console.log(formattedRegionCounts);
 
     // Get data for pie chart
     const pieGenerator = d3.pie()
       .value(d => d.count)
-      .sort(null);
+      .sort(null); // Don't sort, we want regions in the same order as the original data!
     const pieRegions = pieGenerator(formattedRegionCounts);
+    console.log(pieRegions)
 
     // Get arcs
-    // TODO: store rotation as shared constant
     const rotateTheta = computeRadialRotateTheta(indData);
     const regionArcGenerator = d3.arc()
       .startAngle (d => d.startAngle + rotateTheta) // need to rotate to match countries
       .endAngle(d => d.endAngle + rotateTheta)
-      .innerRadius(innerRadius)
-      .outerRadius(outerRadius)
+      .innerRadius(innerRadius - 1) // buffer so stroke surrounds other elements
+      .outerRadius(outerRadius + 1)
       .cornerRadius(5);
 
     const regionArcs = innerChart
@@ -111,8 +109,9 @@ const drawRadialPlots = (data) => {
         .join("path")
           .attr("class", "region-arc")
           .attr("d", regionArcGenerator)
-          .attr("fill", "white")
-          .attr("stroke", "plum");
+          .attr("fill", d => d.data.region.match(/spacer/) ? "none" : "white") // no fill if spacer region
+          .attr("stroke", d => d.data.region.match(/spacer/) ? "none" : "#B8C4CC") // no stroke if spacer region
+          .attr("stroke-width", 2);
 
       // Add text before bars so below bars for tooltip interactions
       // RADIUS AXIS (YEARS)
@@ -204,8 +203,8 @@ const drawRadialPlots = (data) => {
           .attr("fill", d => addRadialBarFill(d, maxLevel, colorScale))
           .attr("stroke", d => addRadialBarStroke(d, colorScale))
           .attr("stroke-width", d => addRadialBarStrokeWidth(d))
-          .attr("fill-opacity", 0.2)
-          .attr("stroke-opacity", 0.2);
+          .attr("fill-opacity", d => d.value === 0 ? 0 : 1)
+          //.attr("stroke-opacity", 0.2);
 
 
   // Mouse events
@@ -214,5 +213,6 @@ const drawRadialPlots = (data) => {
 
 // TODO
 // region pie chart, with labels
-// hover 
+// more details for tool tip 
 // check bar lengths
+// add dot to outside when hovered

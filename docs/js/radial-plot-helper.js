@@ -62,7 +62,7 @@ function prepIndData(data, filterID) {
     indDataWithSpacers.push(spacerEntryNew);
   }
 
-  console.log("sorted ind data", indDataWithSpacers);
+  //console.log("sorted ind data", indDataWithSpacers);
   return indDataWithSpacers;
 
 
@@ -155,7 +155,7 @@ function addRadialBarFill(d, maxLevel, colorScale) {
   if (d.value === -1) { // spacers
     return "none";
   } else if (d.value === 0) { // background colour if 0
-    return "white";
+    return "white"; // will be made transparent, but needs to be present for tooltip
   } else if (d.value == maxLevel) { // fill if max value
     return colorScale(d.indicator);
   } else { // partial implementation --> hash fill
@@ -164,21 +164,22 @@ function addRadialBarFill(d, maxLevel, colorScale) {
 }
 
 function addRadialBarStroke(d, colorScale) {
-  if (d.value === -1) { // spacers
+  if (d.value <= 0) { // spacers and background
     return "none"; 
-  } else if (d.value === 0) { // background
-    return "white";
+  // } else if (d.value === 0) { // background
+  //   return "white";
   } else {
     return colorScale(d.indicator);
   }
 }
 
 function addRadialBarStrokeWidth(d) {
-  if (d.value === 0) {
-    return 2;
-  } else {
-    return 0.5;
-  }
+  return 1;
+  // if (d.value === 0) {
+  //   return 3;
+  // } else {
+  //   return 0.5;
+  // }
 }
 
 
