@@ -103,6 +103,7 @@ const drawRadialPlots = (data) => {
       .attr("width", margin.right - 50 + textShift)
       .attr("height", innerHeight*0.5)
       .attr("x", innerWidth - textShift)
+      .attr("y", -10)
     .append("xhtml:div");
 
   radialText
@@ -151,6 +152,6 @@ const drawRadialPlots = (data) => {
 }
 
 // TODO
-// space between regions
-// region labels
+// region pie chart, with labels
 // hover 
+// check bar lengths

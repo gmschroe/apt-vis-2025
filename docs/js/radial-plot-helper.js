@@ -10,9 +10,47 @@ function prepIndData(data, filterID) {
     return entry
   })
 
-  // FILTER DATA
+  // Filter data
   const indData = data.filter(d => d.indicator === filterID);
-  return indData;
+
+  // Ensure sorted by region, with countries sorted within each region
+  regionOrder = regionFilters.map(d => d.id); // order for regions, based on other filter
+  indData.sort((a, b) => {
+    const regionComparison = regionOrder.indexOf(a.region) - regionOrder.indexOf(b.region);
+    if (regionComparison !== 0) return regionComparison;
+    // otherwise, if same region, return country comparison (alphabetical)
+    return a.country.localeCompare(b.country);
+  });
+
+
+  // Add sapcer entries at region changes
+  const nSpacer = 3;
+  const spacerEntry = {indicator: filterID, region: "spacer", country: "", country_id: "spacer", value: -1, year: 2024};
+  let previousRegion = indData[0].region; // first region
+  indDataWithSpacers = [];
+  let spacerNum = 0;
+  indData.forEach(entry => {
+    if (entry.region !== previousRegion) {
+      // Add spacers
+      for (i = 0; i < nSpacer; i++) {
+        const spacerEntryNew = structuredClone(spacerEntry)
+        spacerEntryNew.country_id = spacerEntryNew.country_id + spacerNum; // spacers need to have unique country ids for scale
+        spacerNum = spacerNum + 1;
+        indDataWithSpacers.push(spacerEntryNew);
+      }
+      // update region
+      previousRegion = entry.region;
+
+    }
+    indDataWithSpacers.push(entry); // Add original entry
+  })
+
+  console.log("sorted ind data", indDataWithSpacers);
+  return indDataWithSpacers;
+
+
+
+
 
 }
 
@@ -62,7 +100,6 @@ function makeRadialScales(indData) {
   const regions = Array.from(new Set(indData.map(d => d.region)));
   const nRegions = regions.length;
 
-  const regionGap = Math.PI/360 * 10; // Size of gap between different regions
   const yearLabelGap = Math.PI/360 * 20;
 
   // x-axis (theta) scale
@@ -70,7 +107,7 @@ function makeRadialScales(indData) {
     .domain(countries)
     .range([
       Math.PI/2 + yearLabelGap, 
-      2 * Math.PI + Math.PI/2 - (regionGap * nRegions)
+      2 * Math.PI + Math.PI/2
     ]); // + pi/2 to leave space for horizontal year labels
 
   // const yScale = d3.scaleRadial()
@@ -92,7 +129,9 @@ function makeRadialScales(indData) {
 
 // Vis attributes
 function addRadialBarFill(d, maxLevel, colorScale) {
-  if (d.value === 0) { // background colour if 0
+  if (d.value === -1) { // spacers
+    return "none";
+  } else if (d.value === 0) { // background colour if 0
     return "white";
   } else if (d.value == maxLevel) { // fill if max value
     return colorScale(d.indicator);
@@ -102,7 +141,9 @@ function addRadialBarFill(d, maxLevel, colorScale) {
 }
 
 function addRadialBarStroke(d, colorScale) {
-  if (d.value === 0) {
+  if (d.value === -1) { // spacers
+    return "none"; 
+  } else if (d.value === 0) { // background
     return "white";
   } else {
     return colorScale(d.indicator);
