@@ -4,7 +4,7 @@
 d3.csv("data/data_apt_ts_separated.csv", d3.autoType).then(data => {
     console.log("ts data", data.slice(0, 50));
     drawStackedTimeSeries(data);
-    createFilters(data);
+    createRegionFilters(data);
 })
 
 // Levels encoded as different values, for radial plots

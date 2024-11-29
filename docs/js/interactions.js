@@ -63,8 +63,8 @@ const updateStackedTimeSeries = (filterID, data) => {
 }
 
 
-// Create filters and add event listener for updtaing plot
-const createFilters = (data) => {
+// Create region filters and add event listener for updtaing plot
+const createRegionFilters = (data) => {
   d3.select("#filters")
     .selectAll(".filter")
     .data(regionFilters)
