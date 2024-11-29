@@ -28,6 +28,19 @@ body, html {
   background-color: #F3F8FE;
   color: black;
   padding: 20px 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap; 
+}
+
+#footer-text {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  flex-direction: column;
+  /* flex: 1 1 auto; */
 }
 
 .body-text-container {
@@ -179,7 +192,7 @@ h1, h2, text, div, p, button {
   line-height: 1.25em;
 }
 
-h1, #footer p {
+h1 {
   margin-left: 50px;
 }
 h1 {
@@ -187,7 +200,7 @@ h1 {
   padding: 0;
   margin-bottom: 25px;
   bottom: 0;
-  font-size: 36px;
+  font-size: 32px;
   color: white;
 }
 
@@ -213,10 +226,15 @@ p.ind-category {
   font-weight: 600;
 }
 
-#footer p {
+#footer-text p {
+  margin-bottom: 0em;
+  margin-left: 20px;
   font-size: 10pt;
-  margin-bottom: 0;
-  line-height: 1;
+  max-width: 700px;
+}
+
+#h2-end {
+  margin-bottom: 2em;
 }
 
 /* links */
@@ -227,6 +245,7 @@ a {
   text-decoration: none;
   box-shadow: inset 0px -3px 0px 0 #8cb5f0;
   transition: box-shadow 0.2s ease-out;
+  font-weight: 500;
 }
 a:hover, a:focus {
   box-shadow: inset 0 -22px 0 0 #8cb5f0;
@@ -236,11 +255,10 @@ a:hover, a:focus {
 /* footer logo */
 
 #footer img {
-  position: absolute;
-  right: 20px;
-  top: 70%;
-  transform: translateY(-70%);
-  height: 50px;
+  width: 80px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 20px;
 }
 
 /* Visualisation styling */
