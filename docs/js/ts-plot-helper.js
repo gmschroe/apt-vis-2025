@@ -167,7 +167,7 @@ function getNumCountries(data) {
 
 function getRegionSentenceText(filterID) {
   // relies on shared constants
-  regionEntry = filters.find(obj => obj.id == filterID);
+  regionEntry = regionFilters.find(obj => obj.id == filterID);
   return regionEntry.textSentence;
 }
 

@@ -67,7 +67,7 @@ const updateStackedTimeSeries = (filterID, data) => {
 const createFilters = (data) => {
   d3.select("#filters")
     .selectAll(".filter")
-    .data(filters)
+    .data(regionFilters)
     .join("button")
       .attr("class", d => `filter ${d.isActive ?
         "active" : ""}`)
@@ -78,7 +78,7 @@ const createFilters = (data) => {
         // update if not the active button
         if (!d.isActive) {
           // Change active button and store
-          filters.forEach(filter => {
+          regionFilters.forEach(filter => {
             filter.isActive = (d.id === filter.id)
           });
           // Also update which buttons that have active class

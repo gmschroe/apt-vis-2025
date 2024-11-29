@@ -8,7 +8,7 @@ const drawRadialPlots = (data) => {
     const innerHeight = height - margin.top - margin.bottom;
     
     // inner and outer radius of each plot
-    const innerRadius = 100;
+    const innerRadius = 120;
     const outerRadius = height/2 - 50;
 
     // SVG AND CHART SPACE
@@ -21,13 +21,13 @@ const drawRadialPlots = (data) => {
         .attr("id", "radial-innerchart")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-    // ADD COUNTRIES WITHOUT SPACES FOR IDS
+    // ADD COUNTRIES WITHOUT SPACES OR APOSTROPHES FOR IDS
     data = data.map(entry => {
-      entry.country_id = entry.country.replace(/ /g, "_");
+      entry.country_id = entry.country.replace(/[ ']/g, "_");
       return entry
     })
     // FILTER DATA
-    const indData = data.filter(d => d.indicator === "ind6_npm")
+    const indData = data.filter(d => d.indicator === "ind5_law")
     maxLevel = d3.max(indData.map(d => d.n_levels))
 
     // SCALES
@@ -72,7 +72,7 @@ const drawRadialPlots = (data) => {
             hashSpacing = 4,
             hashAngle = 0, // doesn't matter, set by rotation
             hashColor = ind.color,
-            hashBackgroundColor = "white",
+            hashBackgroundColor = calculateTint(ind.color, 0.8),
             hashOpacity = 1,
             hashStroke = 2 
           );

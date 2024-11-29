@@ -25,7 +25,7 @@ const isInteractive = true;
 
 // Region filters
 // Can use id as label since capitalisation/format is correct
-const filters = [
+const regionFilters = [
   {id: "All", label: "All regions", isActive: true, textSentence: "around the world"},
   {id: "Americas", label: "Americas", isActive: false, textSentence: "in the Americas"},
   {id: "Africa", label: "Africa", isActive: false, textSentence: "in Africa"},
