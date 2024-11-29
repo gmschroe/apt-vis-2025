@@ -134,7 +134,9 @@ text.ind {
 
 .dropdown-container {
   position: relative;
-  width: 450px;
+  width: 100%;
+  max-width: 450px;
+  min-width: 300px;
   cursor: pointer;
   user-select: none;
   margin: 0 auto;
@@ -148,6 +150,7 @@ text.ind {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  word-wrap: break-word;
 }
 .dropdown-options {
   position: absolute;
@@ -158,6 +161,7 @@ text.ind {
   z-index: 1000;
   max-height: 300px;
   overflow-y: auto;
+  word-wrap: break-word;
 }
 .dropdown-options div {
   padding: 10px;

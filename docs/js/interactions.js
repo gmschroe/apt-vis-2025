@@ -73,8 +73,6 @@ const createRegionFilters = (data) => {
         "active" : ""}`)
       .text(d => d.label)
       .on("click", (e, d) => {
-        //console.log("DOM event", e);
-        //console.log("Event data", d);
         // update if not the active button
         if (!d.isActive) {
           // Change active button and store
