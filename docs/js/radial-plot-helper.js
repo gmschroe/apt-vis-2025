@@ -151,13 +151,28 @@ function makeRadialScales(indData) {
 }
 
 // Vis attributes
+
+function adjustedColor(d, colorScale) {
+  // dark colors cause perceptual issues - slightly lighten
+  if (d.indicator === "ind1_uncat") { 
+    return calculateTint(colorScale(d.indicator), 0.125);
+  } else if (d.indicator === "ind4_constitution") { 
+    return calculateTint(colorScale(d.indicator), 0.1);
+  } else if (d.indicator === "ind2_opcat"){
+    return calculateTint(colorScale(d.indicator), 0.2);
+  } else if (d.indicator === "ind7_paris") {
+    return calculateTint(colorScale(d.indicator), 0.2);
+  }
+  return colorScale(d.indicator);
+}
+
 function addRadialBarFill(d, maxLevel, colorScale) {
   if (d.value === -1) { // spacers
     return "none";
   } else if (d.value === 0) { // background colour if 0
     return "white"; // will be made transparent, but needs to be present for tooltip
   } else if (d.value == maxLevel) { // fill if max value
-    return colorScale(d.indicator);
+    return adjustedColor(d, colorScale);
   } else { // partial implementation --> hash fill
     return `url(#hash-pattern-${d.indicator}-${d.country_id})`;
   }
@@ -166,20 +181,13 @@ function addRadialBarFill(d, maxLevel, colorScale) {
 function addRadialBarStroke(d, colorScale) {
   if (d.value <= 0) { // spacers and background
     return "none"; 
-  // } else if (d.value === 0) { // background
-  //   return "white";
   } else {
-    return colorScale(d.indicator);
+    return adjustedColor(d, colorScale);
   }
 }
 
 function addRadialBarStrokeWidth(d) {
   return 1;
-  // if (d.value === 0) {
-  //   return 3;
-  // } else {
-  //   return 0.5;
-  // }
 }
 
 

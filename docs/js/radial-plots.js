@@ -112,8 +112,49 @@ const drawRadialPlots = (data) => {
         .attr("fill", d => d.data.region.match(/spacer/) ? "none" : "white") // no fill if spacer region
         .attr("stroke", d => d.data.region.match(/spacer/) ? "none" : "#B8C4CC") // no stroke if spacer region
         .attr("stroke-width", 2);
+  
 
+  // TEXT
   // Add text before bars so below bars for tooltip interactions
+
+  // REGION LABELS
+  // arcs for labels
+  const regionLabelArc = d3.arc()
+    .startAngle (d => d.startAngle + rotateTheta) // need to rotate to match countries
+    .endAngle(d => d.endAngle + rotateTheta)
+    .innerRadius(innerRadius - 1) // buffer so stroke surrounds other elements
+    .outerRadius(outerRadius + 15)
+
+  // Create text paths
+  def.selectAll("path.text-path")
+    .data(pieRegions)
+    .join("path")
+      .attr("class", "text-path")
+      .attr('id', (d, i) => `textPath-${i}`)
+      .attr('d', d => { // Define the curved path
+        // based on https://stackoverflow.com/questions/21700667/d3-curved-labels-in-the-center-of-arc
+        const arc = regionLabelArc(d); // entire arc path
+        const justOutside = /[Mm][\d\.\-e,\s]+[Aa][\d\.\-e,\s]+/;  //regex that matches a move statement followed by an arc statement
+        return justOutside.exec(arc)[0]; 
+      });  
+  
+  // add labels
+  // const regionLabels = innerChart
+  //   .append("g")
+  d3.select("#g-radial-region-paths") 
+    .selectAll(".region-label")
+    .data(pieRegions)
+    .join("text")
+      .attr("class", "region-label")
+      .attr("dy", "0.35em")
+      .append("textPath")
+      .attr('xlink:href', (d, i) => `#textPath-${i}`)  // Link to a path
+      .attr('startOffset', '0%')  // Center the text
+      .text(d => d.data.region.match(/spacer/) ? "" : d.data.region); // no text if spacer region
+
+  
+
+  
   // RADIUS AXIS (YEARS)
   const rAxis = d3.axisBottom(yScale)
     .tickValues(d3.range(1990, d3.max(years), 10))
