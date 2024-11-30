@@ -250,6 +250,6 @@ function radialHandleMouseEvents(indData) {
     .on("mouseleave", (e, d) => {
       d3.select("#radial-tooltip")
         .style("opacity", 0)
-        .attr("transform", `translate(0, 0)`);
+        .attr("transform", `translate(-100, -100)`);
     });                                  
 }
