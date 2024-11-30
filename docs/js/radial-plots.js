@@ -89,7 +89,7 @@ const drawRadialPlots = (data) => {
     .value(d => d.count)
     .sort(null); // Don't sort, we want regions in the same order as the original data!
   const pieRegions = pieGenerator(formattedRegionCounts);
-  console.log(pieRegions)
+  //console.log(pieRegions)
 
   // Get arcs
   const rotateTheta = computeRadialRotateTheta(indData);
@@ -139,22 +139,18 @@ const drawRadialPlots = (data) => {
       });  
   
   // add labels
-  // const regionLabels = innerChart
-  //   .append("g")
-  d3.select("#g-radial-region-paths") 
+  const regionLabels = d3.select("#g-radial-region-paths") 
     .selectAll(".region-label")
     .data(pieRegions)
     .join("text")
       .attr("class", "region-label")
       .attr("dy", "0.35em")
-      .append("textPath")
+    .append("textPath")
       .attr('xlink:href', (d, i) => `#textPath-${i}`)  // Link to a path
-      .attr('startOffset', '0%')  // Center the text
-      .text(d => d.data.region.match(/spacer/) ? "" : d.data.region); // no text if spacer region
+      .attr('startOffset', '0%')  // Text at beginning of each region
+      .text(d => d.data.region.match(/spacer/) ? "" : d.data.region) // no text if spacer region
 
-  
 
-  
   // RADIUS AXIS (YEARS)
   const rAxis = d3.axisBottom(yScale)
     .tickValues(d3.range(1990, d3.max(years), 10))
