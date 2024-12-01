@@ -289,6 +289,15 @@ a:hover, a:focus {
   color: black;
 }
 
+#radial-title, #radial-subtitle {
+  text-align: right;
+  float: right;
+}
+
+#radial-subtitle {
+  width: 80%;
+}
+
 .axis text {
   color: #8495A1;
   fill: #8495A1;

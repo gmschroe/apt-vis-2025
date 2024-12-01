@@ -51,7 +51,7 @@ const dyRefLarge = 18;
 const textRadialTitle = "Preventing torture through international cooperation";
 const textRadialP = "To create a world without torture, every state needs to commit to preventing torture. "
   + "Each bar shows when a state implemented this torture prevention measure, with stripes indicating partial implementations. "
-  + "Our goal is to close this ring by having every state implement the measure."
+  + "<br>Our goal is to close this ring by having<br>every state implement the measure."
 
 const radialTooltipWidth = 65;
 const radialTooltipHeight = 35;

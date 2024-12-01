@@ -240,12 +240,12 @@ const drawStackedTimeSeries = (data) => {
       .attr("height", innerHeight*0.5)
       .attr("y", -10)
     .append("xhtml:div")
-    .style('word-wrap', 'break-word')
-    .style('white-space', 'normal')
-    .html( // use html so easy to add word breaks
-      `<p id="ts-title" class="vis-title" dominant-baseline=hanging>${textTsTitle}</p>
-      <p id="ts-subtitle" class="vis-subtitle" dominant-baseline=hanging>${textTsP}</p>
-      `
+      .style('word-wrap', 'break-word')
+      .style('white-space', 'normal')
+      .html( // use html so easy to add word breaks
+        `<p id="ts-title" class="vis-title" dominant-baseline=hanging>${textTsTitle}</p>
+        <p id="ts-subtitle" class="vis-subtitle" dominant-baseline=hanging>${textTsP}</p>
+        `
     );
 
 }

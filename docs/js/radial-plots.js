@@ -207,25 +207,14 @@ const drawRadialPlots = (data) => {
       .attr("height", innerHeight*0.5)
       .attr("x", innerWidth - textShift)
       .attr("y", -10)
-    .append("xhtml:div");
-
-  radialText
-    .append("p")
-      .text(textRadialTitle) // Title
-      .attr("id", "radial-title")
-      .attr("class", "vis-title")
-      .attr("dominant-baseline", "hanging")
-      .style("text-align", "right");
-
-  radialText
-    .append("p")
-      .text(textRadialP) // Subtitle (paragraph)
-      .attr("id", "radial-subtitle")
-      .attr("class", "vis-subtitle")
-      .attr("dominant-baseline", "hanging")
-      .style("text-align", "right")
-      .style("width", "80%")
-      .style("float", "right");
+    .append("xhtml:div")
+      .style('word-wrap', 'break-word')
+      .style('white-space', 'normal')
+      .html( // use html so easy to add word breaks
+        `<p id="radial-title" class="vis-title" dominant-baseline=hanging>${textRadialTitle}</p>
+        <p id="radial-subtitle" class="vis-subtitle" dominant-baseline=hanging>${textRadialP}</p>
+        `
+    );
 
 
   // INDICATOR LABEL
