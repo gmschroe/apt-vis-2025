@@ -178,6 +178,10 @@ function computeYBarRefEndpoints(data, yScale) {
   return [barShift - yBarLength/2, barShift + yBarLength/2] // endpoints for reference bar
 }
 
+function getYBarRefX() {
+  return -10
+}
+
 function makeTimeSeriesIndLabelData(stackData, indSeparatedInfo, xScaleBand, yScale) {
 
   const dataLastYear = stackData.map(series => ({

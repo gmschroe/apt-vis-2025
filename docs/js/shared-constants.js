@@ -40,10 +40,10 @@ const regionFilters = [
 const textTsTitle = "A growing commitment to preventing torture";
 const textTsP = "The APT has identified seven key legal measures that indicate a commitment to preventing torture. "
   + "Each bar shows the total number of states that have implemented each legal measure, "
-  + "with stripes indicating partial implementations.";
+  + "with<br>stripes indicating partial implementations.<br>These steps add together to provide<br>the legal barriers to torture.";
 
 // Spacing between text for ybar reference
-// need to define here so can update bar location correctly 
+// need to define here so can update bar location correctly
 const dyRef = 12;
 const dyRefLarge = 18;
 
@@ -51,7 +51,7 @@ const dyRefLarge = 18;
 const textRadialTitle = "Preventing torture through international cooperation";
 const textRadialP = "To create a world without torture, every state needs to commit to preventing torture. "
   + "Each bar shows when a state implemented this torture prevention measure, with stripes indicating partial implementations. "
-  //+ "When the outer ring is filled, it will mean that every state has committed to this measure."
+  + "Our goal is to close this ring by having every state implement the measure."
 
 const radialTooltipWidth = 65;
 const radialTooltipHeight = 35;

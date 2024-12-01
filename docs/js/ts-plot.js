@@ -125,7 +125,7 @@ const drawStackedTimeSeries = (data) => {
   const yRefG = innerChart
     .append("g")
       .attr("transform", `translate(
-        ${xScaleBand(dataForStack[0].year) + 10}, ${innerHeight/2 - 40}
+        ${xScaleBand(dataForStack[0].year) + 10}, ${innerHeight/2 - 30}
         )`)
       .attr("id", "g-ts-y-ref");
 
@@ -159,20 +159,51 @@ const drawStackedTimeSeries = (data) => {
       .attr("y", dyRefLarge*2.5 + dyRef*1.5);
 
   // bar
-  // TODO - adjust length for stroke?
-  const yBarX = -10; 
+  const yBarX = getYBarRefX(); 
   // since yscale is in opposite direction, need to take difference between 0 and num countries to get line length
-  const [yBarY1, yBarY2] = computeYBarRefEndpoints(data, yScale);
+  const yBarY = computeYBarRefEndpoints(data, yScale);
+  // parallel reference lines
+  let barNum = 0;
+  yBarY.forEach(y => {
+    yRefG
+      .append("line")
+      .attr("id", `ts-yref-reflines${barNum}`)
+      .attr("x1", yBarX - 5)
+      .attr("x2", yBarX + 5)
+      .attr("y1", y)
+      .attr("y2", y) 
+      .attr("stroke", "#282D30")
+      .attr("stroke-width", 1)
+      .attr("stroke-linecap", "round");
+    barNum = barNum + 1;
+  })
+  
+  // add arrow definition to svg
+  def
+    .append("marker")
+    .attr("id", "arrowhead")
+    .attr("viewBox", "0 0 10 10")
+    .attr("refX", 5) 
+    .attr("refY", 5)
+    .attr("markerWidth", 3)
+    .attr("markerHeight", 3)
+    .attr("orient", "auto-start-reverse") 
+    .append("path")
+    .attr("d", "M 0 0 L 10 5 L 0 10 Z") 
+    .attr("fill", "#282D30");
+  // line between parallel bars with arrow
   yRefG
     .append("line")
     .attr("id", "ts-yref-bar")
     .attr("x1", yBarX)
     .attr("x2", yBarX)
-    .attr("y1", yBarY1)
-    .attr("y2", yBarY2) 
+    .attr("y1", yBarY[0] + 5) // has to be shorter to fit within reference lines
+    .attr("y2", yBarY[1] - 5) 
     .attr("stroke", "#282D30")
-    .attr("stroke-width", 5)
-    .attr("stroke-linecap", "round");
+    .attr("stroke-width", 2)
+    .attr("marker-start", "url(#arrowhead)")
+    .attr("marker-end", "url(#arrowhead)");
+    //.attr("stroke-linecap", "round");
 
 
   // SERIES LABELS
@@ -208,22 +239,14 @@ const drawStackedTimeSeries = (data) => {
       .attr("width", innerWidth*0.6)
       .attr("height", innerHeight*0.5)
       .attr("y", -10)
-    .append("xhtml:div");
-
-  tsText
-    .append("p")
-      .text(textTsTitle) // Title
-      .attr("id", "ts-title")
-      .attr("class", "vis-title")
-      .attr("dominant-baseline", "hanging");
-
-  tsText
-    .append("p")
-      .text(textTsP) // Subtitle (paragraph)
-      .attr("id", "ts-subtitle")
-      .attr("class", "vis-subtitle")
-      .style("width", innerWidth*0.5 + "px")
-      .attr("dominant-baseline", "hanging");
+    .append("xhtml:div")
+    .style('word-wrap', 'break-word')
+    .style('white-space', 'normal')
+    .html( // use html so easy to add word breaks
+      `<p id="ts-title" class="vis-title" dominant-baseline=hanging>${textTsTitle}</p>
+      <p id="ts-subtitle" class="vis-subtitle" dominant-baseline=hanging>${textTsP}</p>
+      `
+    );
 
 }
 

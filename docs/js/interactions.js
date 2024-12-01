@@ -54,10 +54,18 @@ const updateStackedTimeSeries = (filterID, data) => {
       .attr("y", d => d.yCountry);
 
   // Update y-ref bar and text
-  const [yBarY1, yBarY2] = computeYBarRefEndpoints(updatedData, yScale);
+  const yBarY = computeYBarRefEndpoints(updatedData, yScale);
+  let barNum = 0; 
+  yBarY.forEach(y => {
+    d3.select(`#ts-yref-reflines${barNum}`)
+      .attr("y1", y)
+      .attr("y2", y);
+
+    barNum = barNum + 1;
+  })
   d3.select("#ts-yref-bar")
-    .attr("y1", yBarY1)
-    .attr("y2", yBarY2);
+    .attr("y1", yBarY[0] + 5)
+    .attr("y2", yBarY[1] - 5);
   d3.select("#ts-yref-number")
     .text(`${getNumCountries(updatedData)} states`);
   d3.select("#ts-yref-region")
