@@ -208,7 +208,7 @@ const drawStackedTimeSeries = (data) => {
 
   // SERIES LABELS
   const indLabelData = makeTimeSeriesIndLabelData(
-    stackData, indSeparatedInfo, xScaleBand, yScale)
+    data, stackData, indSeparatedInfo, xScaleBand, yScale)
 
   indLabels = innerChart
     .selectAll(".g-ts-label")

@@ -39,7 +39,7 @@ const updateStackedTimeSeries = (filterID, data) => {
 
   // Update series labels (indicator and number of countries)
   const indLabelData = makeTimeSeriesIndLabelData(
-    stackData, indSeparatedInfo, xScaleBand, yScale)
+    updatedData, stackData, indSeparatedInfo, xScaleBand, yScale)
   d3.selectAll(".ts-ind-label")
     .data(indLabelData)
       .attr("class", d => `ts-ind-label ts-ind-label-${d.indicator}`)

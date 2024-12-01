@@ -182,7 +182,7 @@ function getYBarRefX() {
   return -10
 }
 
-function makeTimeSeriesIndLabelData(stackData, indSeparatedInfo, xScaleBand, yScale) {
+function makeTimeSeriesIndLabelData(data, stackData, indSeparatedInfo, xScaleBand, yScale) {
 
   const dataLastYear = stackData.map(series => ({
     key: series.key,
@@ -206,6 +206,9 @@ function makeTimeSeriesIndLabelData(stackData, indSeparatedInfo, xScaleBand, ySc
     ind.y = yScale(ind.finalBarValue);
   })
 
+  // total number of countries
+  const nCountries = getNumCountries(data);
+
   // y for number of countries text
   indLabelData.forEach ((ind, index, arr) => {
     const yAddBase = 15;
@@ -217,7 +220,10 @@ function makeTimeSeriesIndLabelData(stackData, indSeparatedInfo, xScaleBand, ySc
     } else {
       yAdd = ind.partial ? yAddBase*1.9 : yAddBase; // // also need to add more space if partial measure (because it's the second label)
       ind.yCountry = yInd + yAdd;
-      ind.countryLabel = ind.finalCount + ind.country_text;
+      const finalPercent = Math.round(ind.finalCount/nCountries * 100); // not using, but leaving so can re-implement if requested
+      //ind.countryLabel = `${ind.finalCount} states (${finalPercent}%)${ind.country_text}`;
+      ind.countryLabel = `${ind.finalCount} states${ind.country_text}`;
+
     }
 
     // replace "States" with "State" if only one state
