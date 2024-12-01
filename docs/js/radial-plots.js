@@ -125,8 +125,7 @@ const drawRadialPlots = (data) => {
       clipPath
         .append("path")
         .attr("d", regionArcGenerator(d))
-        .attr("fill", "white")
-        .attr("transform", `translate(${margin.left + innerWidth/2}, ${margin.top + innerHeight/2})`);
+        .attr("fill", "white");
     }
   });
 
@@ -135,13 +134,14 @@ const drawRadialPlots = (data) => {
   const gridlines = innerChart
     .append("g")
       .attr("id", "radial-year-gridlines")
+      .attr("transform", `translate(${innerWidth/2}, ${innerHeight/2})`)
       .attr("clip-path", "url(#radial-region-clip)");
 
   tickYears.forEach( yr => {
     gridlines
       .append("circle")
-      .attr("cx", innerHeight/2)
-      .attr("cy", innerWidth/2)
+      .attr("cx", 0)// already shifted by group transform - center at 0
+      .attr("cy", 0)
       .attr("r", yScale(yr))
       .attr("fill", "none")
       .attr("stroke", "#B8C4CC")
@@ -267,6 +267,7 @@ const drawRadialPlots = (data) => {
     .append("g")
       .attr("id", "g-radial-paths")
       .attr("transform", `translate(${innerWidth/2}, ${innerHeight/2})`)
+      .attr("clip-path", "url(#radial-region-clip)") // also add clippath here for tidier corners
       .selectAll("path")
       .data(firstYears)
       .join("path")
