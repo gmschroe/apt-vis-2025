@@ -116,9 +116,9 @@ const updateRadialPlots = (filterID, data) => {
   const arcGenerator = makeArcGenerator(indData, xScale, yScale);
 
   // Update bars
-  // TODO - would be better if can organise data so each 
+  // TODO - would be better if organise data so each 
   // country has entries for all levels so can update bars instead
-  // of deleting  them
+  // of deleting them
   innerChart = d3.select("#g-radial-paths")
 
   // remove existings bars since different indicators have a different number of bars
@@ -134,7 +134,8 @@ const updateRadialPlots = (filterID, data) => {
       .attr("d", arcGenerator)
       .attr("fill", d => addRadialBarFill(d, maxLevel, colorScale))
       .attr("stroke", d => addRadialBarStroke(d, colorScale))
-      .attr("stroke-width", d => addRadialBarStrokeWidth(d));
+      .attr("stroke-width", d => addRadialBarStrokeWidth(d))
+      .attr("pointer-events", d => addRadialPointerEvents(d));
   
   // Update indicator text
   d3.select("#radial-ind-label")

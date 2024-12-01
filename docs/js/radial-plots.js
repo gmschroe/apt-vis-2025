@@ -89,7 +89,7 @@ const drawRadialPlots = (data) => {
     .value(d => d.count)
     .sort(null); // Don't sort, we want regions in the same order as the original data!
   const pieRegions = pieGenerator(formattedRegionCounts);
-  //console.log(pieRegions)
+  console.log(pieRegions)
 
   // Get arcs
   const rotateTheta = computeRadialRotateTheta(indData);
@@ -113,6 +113,41 @@ const drawRadialPlots = (data) => {
         .attr("stroke", d => d.data.region.match(/spacer/) ? "none" : "#B8C4CC") // no stroke if spacer region
         .attr("stroke-width", 2);
   
+  // Grid lines
+
+  // first add region arcs as clip path
+  const clipPath = innerChart
+    .append("clipPath")
+    .attr("id", "radial-region-clip");
+
+  pieRegions.forEach(d => {
+    if (!d.data.region.match(/spacer/)) { // only add if not spacer region
+      clipPath
+        .append("path")
+        .attr("d", regionArcGenerator(d))
+        .attr("fill", "white")
+        .attr("transform", `translate(${margin.left + innerWidth/2}, ${margin.top + innerHeight/2})`);
+    }
+  });
+
+  // Put gridlines in group so can apply same clip to all lines
+  const tickYears = d3.range(1990, d3.max(years), 10);
+  const gridlines = innerChart
+    .append("g")
+      .attr("id", "radial-year-gridlines")
+      .attr("clip-path", "url(#radial-region-clip)");
+
+  tickYears.forEach( yr => {
+    gridlines
+      .append("circle")
+      .attr("cx", innerHeight/2)
+      .attr("cy", innerWidth/2)
+      .attr("r", yScale(yr))
+      .attr("fill", "none")
+      .attr("stroke", "#B8C4CC")
+      .attr("opacity", 0.4)
+      .attr("stroke-dasharray", "3 2");
+  })
 
   // TEXT
   // Add text before bars so below bars for tooltip interactions
@@ -153,7 +188,7 @@ const drawRadialPlots = (data) => {
 
   // RADIUS AXIS (YEARS)
   const rAxis = d3.axisBottom(yScale)
-    .tickValues(d3.range(1990, d3.max(years), 10))
+    .tickValues(tickYears)
     .tickSize(5)
     .tickPadding(5)
     .tickSizeOuter(0);
@@ -161,7 +196,7 @@ const drawRadialPlots = (data) => {
     .append("g")
       .attr("class", "axis")
       .attr("id", "radial-raxis")
-      .attr("transform", `translate(${innerWidth/2}, ${innerHeight/2 + 5})`)
+      .attr("transform", `translate(${innerWidth/2 - 1}, ${innerHeight/2 + 5})`) // needs small manual shift
       .call(rAxis);
     
   // TITLE AND SUBTITLE
@@ -241,15 +276,13 @@ const drawRadialPlots = (data) => {
         .attr("stroke", d => addRadialBarStroke(d, colorScale))
         .attr("stroke-width", d => addRadialBarStrokeWidth(d))
         .attr("fill-opacity", d => d.value === 0 ? 0 : 1)
-        //.attr("stroke-opacity", 0.2);
-
+        .attr("pointer-events", d => addRadialPointerEvents(d)); // allows pointer events even if fill is none
 
   // Mouse events for tooltip
   radialHandleMouseEvents(indData);
 }
 
 // TODO
-// region pie chart, with labels
 // more details for tool tip 
 // check bar lengths
 // add dot to outside when hovered

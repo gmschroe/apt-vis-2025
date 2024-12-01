@@ -170,7 +170,7 @@ function addRadialBarFill(d, maxLevel, colorScale) {
   if (d.value === -1) { // spacers
     return "none";
   } else if (d.value === 0) { // background colour if 0
-    return "white"; // will be made transparent, but needs to be present for tooltip
+    return "none"; // will be made transparent, but needs to be present for tooltip
   } else if (d.value == maxLevel) { // fill if max value
     return adjustedColor(d, colorScale);
   } else { // partial implementation --> hash fill
@@ -188,6 +188,13 @@ function addRadialBarStroke(d, colorScale) {
 
 function addRadialBarStrokeWidth(d) {
   return 1;
+}
+
+function addRadialPointerEvents(d) {
+  if (d.value >= 0) { // ignore spacer
+    return "all";
+  }
+  return "none"; // otherwise, none
 }
 
 
