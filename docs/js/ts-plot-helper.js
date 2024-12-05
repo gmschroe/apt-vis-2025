@@ -80,7 +80,7 @@ function makeTimeSeriesScales(
   if (fixedScale) {
     maxY = getNumCountries(data) * 5.8; // the ratio is hard-coded - may need to be adjusted for future plots
   } else {
-    maxY = d3.max(stackData[0], d => d[1]);
+    maxY = d3.max(stackData[0], d => d[1]) * 1.05;
   }
   const yScale = d3.scaleLinear()
     .domain([0, maxY]) 
