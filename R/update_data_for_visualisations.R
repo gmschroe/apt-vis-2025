@@ -45,7 +45,6 @@ output_dir <- "original_data"
 # Update data and save in vfsg-apt/R/data_exports and vfsg-apt/docs/data -------
 
 # Full path to file
-apt_data_path <- file.path('data', apt_data_file_name)
 
 # Create data frames with reformatted data
 # start_year = the lower limit for the year axis on the charts
@@ -53,7 +52,7 @@ apt_data_path <- file.path('data', apt_data_file_name)
 # save_to_vis_dir to FALSE (but must be TRUE to apply the new data to the 
 # visualisation)
 apt_dataframes <- format_and_save_apt_data(
-  apt_data_path, 
+  apt_data_file_name, 
   output_dir, 
   start_year = 1984,
   save_to_vis_dir = TRUE
