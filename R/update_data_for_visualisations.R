@@ -12,9 +12,9 @@
 #     with the same folder name on the same day, the files in the output folder
 #     will be overwritten.
 # 4) Run this script. It will create two CSV files, "data_apt_radial.csv" and 
-#     "data_apt_bar.csv", in the specified folder and also copy them to the
-#     Javascript visualisation folders. The visualisation code will now use the 
-#     new data
+#     "data_apt_bar.csv", in the specified folder and, by default, also copy 
+#     them to the Javascript visualisation folders. The visualisation code will 
+#     now use the new data.
 
 # Prep -------------------------------------------------------------------------
 
@@ -24,9 +24,6 @@ rm(list = ls())
 # Load functions for data formatting and calculations
 # (This file also loads necessary libraries)
 source(file.path("lib", "data_formatting.R"))
-
-# Additional packages
-library("fs")
 
 # Update this section for new data ---------------------------------------------
 
@@ -45,34 +42,27 @@ apt_data_file_name <- "APT_data-info-dictionary_final.xlsx"
 # Today's date will also be added as a prefix to the folder's name
 output_dir <- "original_data"
 
-# Update data ------------------------------------------------------------------
+# Update data and save in vfsg-apt/R/data_exports and vfsg-apt/docs/data -------
 
 # Full path to file
 apt_data_path <- file.path('data', apt_data_file_name)
 
 # Create data frames with reformatted data
-apt_dataframes <- format_apt_data(apt_data_path, start_year = 1984)
+# start_year = the lower limit for the year axis on the charts
+# If you do NOT want to update the visualisation data yet, you can set 
+# save_to_vis_dir to FALSE (but must be TRUE to apply the new data to the 
+# visualisation)
+apt_dataframes <- format_and_save_apt_data(
+  apt_data_path, 
+  output_dir, 
+  start_year = 1984,
+  save_to_vis_dir = TRUE
+)
 
 # Optional: view the reformatted data
 View(apt_dataframes$data_apt_bar)
 View(apt_dataframes$data_apt_radial)
 
-# Save data --------------------------------------------------------------------
-
-# Add today's date and the parent directory to output directory
-output_dir_with_date <- file.path(
-  "data_exports", paste(Sys.Date(), output_dir, sep="_")
-)
-
-# Save as CSV files in output directory
-apt_csv_files <- save_apt_data(apt_dataframes, output_dir_with_date)
-
-# Copy to Javascript visualisation folder
-js_dir <- file.path("..", "docs", "data") # Data folder for visualisation code
-fs::dir_copy(
-  output_dir_with_date,
-  js_dir,
-  overwrite = TRUE
-)
-
-
+# View the visualisation with the update data ----------------------------------
+# This code uses the data in vfsg-apt/docs/data - save_to_vis_dir must be set to
+# TRUE for these data files to be updated.

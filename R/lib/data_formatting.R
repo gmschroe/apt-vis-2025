@@ -5,8 +5,73 @@ library('stringr')
 library('ggplot2')
 library('tidyr')
 library('rlang')
+library("fs")
 
 source(file.path("lib", "data_helper.R"))
+
+
+#' Wrapper function for formatting and saving the updated APT data on indicators
+#' for torture prevention.
+#'
+#' @param file_apt Name of the .xlsx file (not the full path - file must be in 
+#' the 'vfsg-apt/R/data' folder)
+#' @param output_dir Name of the folder in which to save the formatted data - 
+#' will be created inside the 'vfsg-apt/R/data-exports' folder and also 
+#' prepended with today's data.
+#' @param start_year Year that visualisations should start (int, default = 1984)
+#' @param save_to_vis_dir Whether to also copy the new formatted data files to 
+#' 'vfsg-apt/docs/data' to use for the Javascript visualisation (bool, default =
+#' TRUE). The existing files in this folder will be overwritten by the new files. 
+#' 
+#' @return Named list with three entries contained the APT data:
+#'   "data_apt": Data frame of the original APT data, cleaned.
+#'   "data_apt_radial": Data frame for te radial chart, with the level of each 
+#'     indicator in each country for every year from start_year.
+#'   "data_apt_bar": Data for bar chart - similar to data_apt_radial, but for
+#'     indicators with multiple levels, there is a separate row for each level 
+#'     indicating (true or false) if the indicator is at that level for that
+#'     country in each year.
+#' @export
+format_and_save_apt_data <- function(
+    file_apt, 
+    output_dir, 
+    start_year = 1984,
+    save_to_vis_dir = TRUE
+  ) {
+  
+  # UPDATE DATA 
+  
+  # Full path to file
+  apt_data_path <- file.path('data', apt_data_file_name)
+  
+  # Create data frames with reformatted data
+  apt_dataframes <- format_apt_data(apt_data_path, start_year = 1984)
+  
+  # SAVE DATA
+  
+  # Add today's date and the parent directory to output directory
+  output_dir_with_date <- file.path(
+    "data_exports", paste(Sys.Date(), output_dir, sep="_")
+  )
+  
+  # Save as CSV files in output directory
+  apt_csv_files <- save_apt_data(apt_dataframes, output_dir_with_date)
+  
+  # Copy to Javascript visualisation folder if save_to_vis_dir is TRUE
+  if (save_to_vis_dir) {
+    js_dir <- file.path("..", "docs", "data") # Data folder for visualisation code
+    fs::dir_copy(
+      output_dir_with_date,
+      js_dir,
+      overwrite = TRUE
+    )
+  }
+  # OUTPUT 
+  
+  # Return data frames (for optional inspection in RStudio)
+  return(apt_dataframes)
+  
+}
 
 #' Function for calculations and formatting of APT data for visualisations
 #' 
