@@ -75,7 +75,7 @@ View(
     filter(indicator == indicators[1] & date < 1984)
 )
 
-# UN Optional Protocol adopted in 1984
+# UN Optional Protocol adopted in 2002
 View(
   data_apt |>
     filter(indicator == indicators[2] & date < 2002)
