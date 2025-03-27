@@ -15,6 +15,9 @@
 #     "data_apt_bar.csv", in the specified folder and, by default, also copy 
 #     them to the Javascript visualisation folders. The visualisation code will 
 #     now use the new data.
+#
+# This script will also launch the updated Javascript visualisation locally 
+# using a web browser so you can view the changes.
 
 # Prep -------------------------------------------------------------------------
 
@@ -64,4 +67,18 @@ View(apt_dataframes$data_apt_radial)
 
 # View the visualisation with the update data ----------------------------------
 # This code uses the data in vfsg-apt/docs/data - save_to_vis_dir must be set to
-# TRUE for these data files to be updated.
+# TRUE for the visualisation to reflect the updated data data files.
+# The visualisation will be launched in your browser.
+# Because we're using the httw (w for "watch") function, this launched page 
+# should also update if any changes are made inside the docs folder, even if the
+# page is not re-launched.
+
+# You can also run the below code without updating the data - it will use the
+# data last saved to the vfsg-apt/docs/data folder.
+
+# Library for viewing visualisation locally in web browser 
+library(servr)
+
+# Launch vis
+vis_path <- file.path("..", "docs")
+servr::httw(dir = vis_path)
