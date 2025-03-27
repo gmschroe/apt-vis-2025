@@ -8,6 +8,7 @@ library('rlang')
 library("fs")
 
 source(file.path("lib", "data_helper.R"))
+source(file.path("lib", "data_checks.R"))
 
 
 #' Wrapper function for formatting and saving the updated APT data on indicators
@@ -65,6 +66,7 @@ format_and_save_apt_data <- function(
       js_dir,
       overwrite = TRUE
     )
+    cat("\nSAVED DATA COPIED TO VISUALISATION FOLDER\n")
   }
   # OUTPUT 
   
@@ -98,10 +100,14 @@ format_apt_data <- function(
   # Load data ----
   data_apt <- load_apt_data(file_apt)
   
+  # Run data checks ----
+  check_apt_data(data_apt)
+  
+  # Format data
+  cat("\nFORMATTING DATA FOR VISUALISATIONS\n")
+  
   # Old and new indicators ----
   ind <- unique(data_apt$indicator) # original indicators
-  
-  # TODO: check indicators have not changed from previous versions
   
   ind_new <- c(
     "ind1_uncat",
@@ -201,20 +207,10 @@ format_apt_data <- function(
   # Add NPM indicator with two levels for "Designated only" and "Designated AND Operational" ----
   # For this indicator, we DO need to take into account that countries can switch
   # from level one (designated) to level 2 (designated and operational)
-  
-  # TODO: move to checks
-  # Check countries have same order in both old indicators
   ind_new_npm <- "ind6_npm"
   ind_old_npm1 <- ind[6] # Level 1 for NPM (partial implementation)
   ind_old_npm2 <- ind[7] # Level 2 for NPM (full implementation)
-  data_apt_ind1 <- data_apt |>
-    filter(indicator == ind_old_npm1)
-  data_apt_ind2 <- data_apt |>
-    filter(indicator == ind_old_npm2)
-  if (!identical(data_apt_ind1$country, data_apt_ind2$country)){
-    stop("Country order must be the same for the NPM indicators")
-  }
-  
+
   # Initialise array using first NPM indicator
   ind_ts_data <- initialise_ind_ts_data(
     data_apt,
@@ -283,6 +279,8 @@ format_apt_data <- function(
     }
   }
 
+  cat("\nFINISHED FORMATTING DATA\n")
+  
   # Return data frames ----
   return(
     list(
@@ -304,6 +302,8 @@ format_apt_data <- function(
 #' @export
 save_apt_data <- function(apt_dataframes, output_dir) {
   
+  cat("\nSAVING DATA\n")
+  
   # Create output directory if it doesn't exist
   dir.create(output_dir, showWarnings = FALSE)
   
@@ -312,6 +312,8 @@ save_apt_data <- function(apt_dataframes, output_dir) {
   write.csv(apt_dataframes$data_apt_radial, radial_file)
   bar_file <- file.path(output_dir, "data_apt_bar.csv")
   write.csv(apt_dataframes$data_apt_bar, bar_file)
+  
+  cat("\nFINISHED SAVING DATA\n")
   
   return(list.files(output_dir, full.names = TRUE))
 }
