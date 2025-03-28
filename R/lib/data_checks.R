@@ -22,13 +22,15 @@ check_apt_data <- function(data_apt) {
   
   # Dates specified for yes/partial entries
   dates_specified <- check_no_missing_dates(data_apt)
-  
-  # Input value specified for entries with dates
+
+    # Input value specified for entries with dates
   input_specified <- check_no_missing_input_values(data_apt)
   
   # Total number of failures for initial checks
-  n_fail <- !ind_correct + !dates_specified + !input_specified
-  
+  n_fail <- as.numeric(!ind_correct) + 
+    as.numeric(!dates_specified) + 
+    as.numeric(!input_specified)
+
   # Only perform indicator-specific checks if indicator names are correct
   if (ind_correct) {
     
@@ -39,10 +41,12 @@ check_apt_data <- function(data_apt) {
     npm_states_match <- check_states_match_in_npm_indicators(data_apt)
     
     # Add these checks to number of failures
-    n_fail <- n_fail + !no_dates_before_indicator_implemented + !npm_states_match
+    n_fail <- n_fail + 
+      as.numeric(!no_dates_before_indicator_implemented) + 
+      as.numeric(!npm_states_match)
     
   } else {
-    cat("Cannot perform indicator-specific checks because indicators are incorrect - skipping these checks.\n")
+    cat("\nCannot perform indicator-specific checks because indicators are incorrect - skipping these checks.\n")
   }
   
   # Raise error if any failures
@@ -169,7 +173,7 @@ check_no_dates_before_indicator_implemented <- function(data_apt) {
       # Change check to FALSE (doesn't pass) if any entries that are too early
       no_dates_before_indicator_implemented <- FALSE
 
-      cat(n_too_early, "entries for", ind_i, "are before", ind_years[i], "\n")
+      cat(n_too_early, "dates for", ind_i, "are before", ind_years[i], "\n")
 
       # Append to data_date_too_early
       data_date_too_early <- rbind(data_date_too_early, ind_data)
