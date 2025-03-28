@@ -34,14 +34,8 @@ source(file.path("lib", "data_formatting.R"))
 # Must be a file in the "data" folder
 apt_data_file_name <- "APT_data-info-dictionary_final.xlsx"
 
-# Fake update!
-# Barbados 1 - 2026
-# Cambodia NMP full - 2027
-#apt_data_file_name <- "apt_data_fake_update.xlsx"
-
-
-# Desired name of output folder 
-# will be created inside the existing "data_exports" folder)
+# Desired name of output folder - will be created inside the existing 
+# "data_exports" folder.
 # Today's date will also be added as a prefix to the folder's name
 output_dir <- "original_data"
 
