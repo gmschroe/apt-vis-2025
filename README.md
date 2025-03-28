@@ -24,19 +24,19 @@ Your working directory should be `[your local path]/vfsg-apt/R`. You can check y
 
 2) I use `renv` to manage the package versions used in the project. Restore the project's `renv` environment using `renv::restore()` in the R console. If any packages in the lockfile are not installed, follow the outputted `renv` instructions to install them.
 
-3) Open [`vfsg-apt/R/update_data_for_visualisation.R`](R/update_data_for_visualisation.R) and follow the instructions in the script ("Steps to update") for providing a new data file, formatting that data, and saving the new data in the required format. This script will also update the data used by the visualisation and open the new version of the visualisation in a web browser. 
+3) Open [`vfsg-apt/R/update_data_for_visualisations.R`](R/update_data_for_visualisations.R) and follow the instructions in the script ("Steps to update") for providing a new data file, formatting that data, and saving the new data in the required format. This script will also update the data used by the visualisation and open the new version of the visualisation in a web browser. 
 
 The update script runs checks on the new data to help ensure that certain assumptions about the data are satisfied. The results of these checks will be outputted to the R console. 
 
 Example of successful checks:
 
-<img src = "readme_images/example_checks_pass" width="900">
+<img src = "readme_images/example_checks_pass.png" width="900">
 
 For each failed check, the output messages will note the failure and also open a dataframe in RStudio containing the entries that caused the check to fail. **If a check fails, the script will stop and the data will not be updated**.
 
 Example of a failed check: 
 
-<img src = "readme_images/example_checks_fail" width="900">
+<img src = "readme_images/example_checks_fail.png" width="900">
 
 
 ### Visualising the data
@@ -47,7 +47,7 @@ To run the visualisation website locally in a web browser, you can
 
 1) Use R: first follow steps 1-2 above for opening the R project, and then run the last section of
 
-[`vfsg-apt/R/update_data_for_visualisation.R`](R/update_data_for_visualisation.R):
+[`vfsg-apt/R/update_data_for_visualisations.R`](R/update_data_for_visualisations.R):
 
 ```
 # Library for viewing visualisation locally in web browser 
