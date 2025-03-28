@@ -1,1 +1,3 @@
 *.DS_Store
+.Rproj.user
+R/data_exports/*

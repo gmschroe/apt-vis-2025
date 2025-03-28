@@ -130,7 +130,9 @@ const drawRadialPlots = (data) => {
   });
 
   // Put gridlines in group so can apply same clip to all lines
-  const tickYears = d3.range(1990, d3.max(years), 10);
+  const minYear = d3.min(years);
+  const minTickYear = minYear % 10 === 0 ? minYear : minYear + (10 - (minYear % 10));
+  const tickYears = d3.range(minTickYear, d3.max(years), 10);
   const gridlines = innerChart
     .append("g")
       .attr("id", "radial-year-gridlines")
