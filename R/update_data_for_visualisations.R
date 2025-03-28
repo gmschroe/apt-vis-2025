@@ -16,9 +16,11 @@
 #     with the same folder name on the same day, the files in the output folder
 #     will be overwritten.
 # 4) Run this script. It will create two CSV files, "data_apt_radial.csv" and 
-#     "data_apt_bar.csv", in the specified folder and, by default, also copy 
-#     them to the Javascript visualisation folders. The visualisation code will 
-#     now use the new data.
+#     "data_apt_bar.csv", in the specified folder, as well as a text file
+#     "data_source.txt" with the name of the original data file and output 
+#     directory. By default, this script also copies these files to the 
+#     Javascript visualisation folders. The visualisation code will now use the
+#     new data.
 #
 # This script will also launch the updated Javascript visualisation locally 
 # using a web browser so you can view the changes.
@@ -36,6 +38,8 @@ rm(list = ls())
 source(file.path("lib", "data_formatting.R"))
 
 # Update this section for new data ---------------------------------------------
+# IMPORTANT: these names should NOT contain sensitive information, as they will
+# be logged in the data_source.txt file.
 
 # Name of your Excel file. Must be a file in the "data" folder.
 apt_data_file_name <- "APT_data-info-dictionary_final.xlsx"

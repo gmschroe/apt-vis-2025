@@ -38,6 +38,8 @@ Example of a failed check:
 
 <img src = "readme_images/example_checks_fail.png" width="900">
 
+> [!CAUTION]
+> The formatted data, name of the original data file, and name of the data export folder may be accessible via the webpage - do not include sensitive information in this data! 
 
 ### Visualising the data
 

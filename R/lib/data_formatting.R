@@ -58,6 +58,18 @@ format_and_save_apt_data <- function(
   # Save as CSV files in output directory
   apt_csv_files <- save_apt_data(apt_dataframes, output_dir_with_date)
   
+  # Also save name of original file and export folder to text file 
+  # (so can keep track of origin of the data in the visualisation folder)
+  txt_file <- file.path(output_dir_with_date, "data_source.txt")
+  cat(
+    paste("Data file:", apt_data_file_name),
+    file=txt_file, sep="\n"
+  )
+  cat(
+    paste("Formatted data directory:", output_dir_with_date),
+    file=txt_file, append=TRUE
+  )
+  
   # Copy to Javascript visualisation folder if save_to_vis_dir is TRUE
   if (save_to_vis_dir) {
     js_dir <- file.path("..", "docs", "data") # Data folder for visualisation code
