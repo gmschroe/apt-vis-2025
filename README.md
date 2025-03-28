@@ -26,6 +26,9 @@ Your working directory should be `[your local path]/vfsg-apt/R`. You can check y
 
 3) Open [`vfsg-apt/R/update_data_for_visualisations.R`](R/update_data_for_visualisations.R) and follow the instructions in the script ("Steps to update") for providing a new data file, formatting that data, and saving the new data in the required format. This script will also update the data used by the visualisation and open the new version of the visualisation in a web browser. 
 
+> [!CAUTION]
+> The formatted data, name of the original data file, and name of the data export folder may be accessible via the webpage - do not include sensitive information in this data! 
+
 The update script runs checks on the new data to help ensure that certain assumptions about the data are satisfied. The results of these checks will be outputted to the R console. 
 
 Example of successful checks:
@@ -37,9 +40,6 @@ For each failed check, the output messages will note the failure and also open a
 Example of a failed check: 
 
 <img src = "readme_images/example_checks_fail.png" width="900">
-
-> [!CAUTION]
-> The formatted data, name of the original data file, and name of the data export folder may be accessible via the webpage - do not include sensitive information in this data! 
 
 ### Visualising the data
 
