@@ -45,7 +45,7 @@ The visualisation code does not require a package manager such as NPM - it uses 
 
 To run the visualisation website locally in a web browser, you can 
 
-1) Use R: first follow steps 1-2 above for opening the R project, and then run the last section of
+1) Use R: first follow steps 1-2 in "Updating APT data on torture prevention indicators" to open the R project and install the dependencies, and then run the last section of
 
 [`vfsg-apt/R/update_data_for_visualisations.R`](R/update_data_for_visualisations.R):
 
@@ -67,12 +67,12 @@ which will open the visualisation using the last version of the data that was sa
 
 ## Deploying
 
-The website is deployed using [GitHub Pages](https://docs.github.com/en/pages), with the `docs` folder (which contains the visualisation code) configured as the [publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site). Any updates to the [`vfsg-apt/docs`](docs/) folder in the main branch of the repo will update this website.
+The website is deployed using [GitHub Pages](https://docs.github.com/en/pages), with the [`vfsg-apt/docs`](docs/) folder (which contains the visualisation code) configured as the [publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site). Any updates to this folder in the main branch of the repo will update this website.
 
 
 ## Running tests
 
-There are limited unit tests for the data validity checks in [`R/lib/tests`](R/lib/tests). These tests can be run by following the above instructions (steps 1-2 in "Updating APT data on torture prevention indicators") to open the project in R, then running 
+There are unit tests for the data validity checks in [`R/lib/tests`](R/lib/tests). These tests can be run by following the above instructions (steps 1-2 in "Updating APT data on torture prevention indicators") to open the project in R, then running 
 
 ```
 testthat::test_dir(file.path("lib", "tests"))
