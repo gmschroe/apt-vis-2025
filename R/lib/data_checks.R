@@ -153,27 +153,26 @@ check_no_dates_before_indicator_implemented <- function(data_apt) {
   # number of indices to check
   n_ind <- length(ind_indices)
   
-  # initialise indicator data
-  ind_data <- list()
+  # initialise array for storing any dates that are too early
+  data_date_too_early <- data.frame()
   
   # Check each indicator
   for (i in 1:n_ind) {
     
     # Find any dates that are too early for the indicator
     ind_i <- ind[ind_indices[i]]
-    ind_data[[ind_i]] <- data_apt |>
+    ind_data <- data_apt |>
       filter(indicator == ind_i & date < ind_years[i])
     
-    n_too_early <- nrow(ind_data[[ind_i]])
+    n_too_early <- nrow(ind_data)
     if (n_too_early > 0) {
       # Change check to FALSE (doesn't pass) if any entries that are too early
       no_dates_before_indicator_implemented <- FALSE
-      
-      cat("FAIL:", n_too_early, "entries with for", ind_i, "are before", ind_years[i], "\n")
-      cat("See ind_data$", ind_i, "dataframe in RStudio viewer to see these entries.\n")
-      
-      # View 
-      View(ind_data[[ind_i]])
+
+      cat(n_too_early, "entries for", ind_i, "are before", ind_years[i], "\n")
+
+      # Append to data_date_too_early
+      data_date_too_early <- rbind(data_date_too_early, ind_data)
     } else {
       cat("All dates for", ind_i, "are no earlier than", ind_years[i], "\n")
     }
@@ -182,6 +181,10 @@ check_no_dates_before_indicator_implemented <- function(data_apt) {
   # Pass if all indicators pass check
   if (no_dates_before_indicator_implemented) {
     cat("PASS: No indicator dates are before the indicator was implemented.\n")
+  # Otherwise, show failed entries
+  } else {
+    cat("FAIL: See data_date_too_early dataframe in RStudio viewer to see entries with dates before indicator was implemented.\n")
+    View(data_date_too_early)
   }
   
   return(no_dates_before_indicator_implemented)
