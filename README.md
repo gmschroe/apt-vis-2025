@@ -16,7 +16,7 @@ I used R for data exploration and cleaning/transformations, then Javascript/HTML
 
 After downloading or cloning this repository onto your computer:
 
-1) Open RStudio with R version 4.2.2 (I recommend using [`rig`](https://github.com/r-lib/rig) if you need to manage multiple R versions on your computer) and then open the project (File > Open Project..., then navigate to [`vfsg-apt/R/R.Rproj`](R/R.proj) and open it).
+1) Open RStudio with R version 4.2.2 (I recommend using [`rig`](https://github.com/r-lib/rig) if you need to manage multiple R versions on your computer) and then open the project (File > Open Project..., then navigate to [`vfsg-apt/R/R.Rproj`](R/R.Rproj) and open it).
 
 Alternatively, you can use `rig` to launch RStudio using the correct R version by first installing R version 4.2.2 using `rig` (if you have not already done so) by running `rig install 4.2.2` in a terminal, navigating to the `vfsg-apt` directory (using the `cd` command), and then running `rig rstudio R/renv.lock` to open the project.
 
