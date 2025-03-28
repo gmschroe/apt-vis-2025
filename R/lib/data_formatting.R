@@ -46,7 +46,7 @@ format_and_save_apt_data <- function(
   apt_data_path <- file.path('data', apt_data_file_name)
   
   # Create data frames with reformatted data
-  apt_dataframes <- format_apt_data(apt_data_path, start_year = 1984)
+  apt_dataframes <- format_apt_data(apt_data_path, start_year = start_year)
   
   # SAVE DATA
   
