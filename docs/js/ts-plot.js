@@ -106,7 +106,6 @@ const drawStackedTimeSeries = (data) => {
   })
 
   // X-AXIS
-  // TODO: function to round to nearest 5 years from min
   const minYear = d3.min(dataForStack.map(d => d.year));
   const minTickYear = minYear % 5 === 0 ? minYear : minYear + (5 - (minYear % 5));
   const xAxis = d3.axisBottom(xScaleBand)
@@ -123,7 +122,6 @@ const drawStackedTimeSeries = (data) => {
       .call(xAxis);
 
   // REFERENCE BAR FOR Y-AXIS
-  // TODO: refactor using array to store text and attributes
   const yRefG = innerChart
     .append("g")
       .attr("transform", `translate(
@@ -135,11 +133,11 @@ const drawStackedTimeSeries = (data) => {
   // dyRef and dyRefLarge defined in shared-constants.js
   yRefG
     .append("text")
-      .text("Our goal is for all")
+      .text(`${barLegendGoal}`)
       .attr("class", "ts-yref-small");
   yRefG
     .append("text")
-      .text(`${getNumCountries(data)} states`)
+      .text(`${getNumCountries(data)} ${statesText}`)
       .attr("class", "ts-yref-large")
       .attr("id", "ts-yref-number")
       .attr("y", dyRefLarge);
@@ -151,12 +149,12 @@ const drawStackedTimeSeries = (data) => {
       .attr("y", dyRefLarge*2);  
   yRefG
     .append("text")
-      .text("to implement each")
+      .text(`${barLegendImplementation1}`)
       .attr("class", "ts-yref-small")
       .attr("y", dyRefLarge*2.5 + dyRef*0.5);
   yRefG
     .append("text")
-      .text("measure")
+      .text(`${barLegendImplementation2}`)
       .attr("class", "ts-yref-small")
       .attr("y", dyRefLarge*2.5 + dyRef*1.5);
 

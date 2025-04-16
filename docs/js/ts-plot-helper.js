@@ -221,15 +221,13 @@ function makeTimeSeriesIndLabelData(data, stackData, indSeparatedInfo, xScaleBan
       yAdd = ind.partial ? yAddBase*1.9 : yAddBase; // // also need to add more space if partial measure (because it's the second label)
       ind.yCountry = yInd + yAdd;
       const finalPercent = Math.round(ind.finalCount/nCountries * 100); // not using, but leaving so can re-implement if requested
-      //ind.countryLabel = `${ind.finalCount} states (${finalPercent}%)${ind.country_text}`;
-      ind.countryLabel = `${ind.finalCount} states${ind.country_text}`;
-
+      if (ind.finalCount == 1) {
+        ind.countryLabel = `${ind.finalCount} ${statesTextSingular}${ind.country_text}`; // singular ("state")
+      } else {
+      ind.countryLabel = `${ind.finalCount} ${statesText}${ind.country_text}`; // plural ("states")
+      }
     }
 
-    // replace "States" with "State" if only one state
-    if (ind.finalCount == 1) {
-      ind.countryLabel = ind.countryLabel.replace("States", "State");
-    }
   })
 
   return indLabelData;
