@@ -4,13 +4,16 @@
 # However, some checks only run if previous checks have passed (e.g., we need
 # to ensure the indicators are correct before we try to access specific indicators)
 
+# Packages
+library("cli")
+
 # Helper functions
 source(file.path("lib", "data_helper.R"))
 
 # Run all checks on the APT data frame and throw error if incorrect
 check_apt_data <- function(data_apt) {
   
-  cat("\nCHECKING DATA\n")
+  cli::cli_h1("CHECKING DATA\n")
   
   # Check if indicators are correct
   ind <- unique(data_apt$indicator)
@@ -46,15 +49,17 @@ check_apt_data <- function(data_apt) {
       as.numeric(!operational_npm_also_designated)
     
   } else {
-    cat("\nCannot perform indicator-specific checks because indicators are incorrect - skipping these checks.\n")
+    cli::cli_alert_danger("\nCannot perform indicator-specific checks because indicators are incorrect - skipping these checks.\n")
   }
   
   # Raise error if any failures
+  cli::cli_h2("FINISHED DATA CHECKS\n")
+  
   if (n_fail > 0) {
-    cat("\n", n_fail, " CHECKS FAILED - SEE ABOVE MESSAGES FOR DETAILS\n")
+    cli::cli_alert_danger(paste(n_fail, "CHECKS FAILED - SEE ABOVE MESSAGES FOR DETAILS\n"))
     stop(paste("Cannot format and visualise this data due to", n_fail, "failed checks.\n"))
   } else {
-    cat("\nALL CHECKS PASSED!\n")
+    cli::cli_alert_success("\nALL CHECKS PASSED!\n")
     cat("Will proceed to data formatting steps.\n")
   }
 }
@@ -65,7 +70,7 @@ check_indicators_are_correct <- function(
     ind # list of indicators - can create using unique(data_apt$indicator)
   ) {
   
-  cat("\nCHECKING INDICATORS...\n")
+  cli::cli_h2("CHECKING INDICATORS\n")
   
   # vector of correct indicators 
   ind_correct <- c(
@@ -82,9 +87,9 @@ check_indicators_are_correct <- function(
   ind_are_correct <- identical(ind, ind_correct)
   
   if (ind_are_correct){
-    cat("PASS: Indicators have the correct names and are in the correct order.\n")
+    cli::cli_alert_success("PASS: Indicators have the correct names and are in the correct order.\n")
   } else {
-    cat("FAIL: Indicators are not correct (due to incorrect names and/or order).\n")
+    cli::cli_alert_danger("FAIL: Indicators are not correct (due to incorrect names and/or order).\n")
     cat("New indicators:\n")
     print(ind)
     cat("Required indicators:\n")
@@ -98,7 +103,7 @@ check_indicators_are_correct <- function(
 # Check if any entries are yes or partial, but missing date (i.e., year)
 check_no_missing_dates <- function(data_apt) {
   
-  cat("\nCHECKING THAT YES/PARTIAL ENTRIES ALL HAVE VALUE FOR DATE...\n")
+  cli::cli_h2("CHECKING THAT YES/PARTIAL ENTRIES ALL HAVE VALUE FOR DATE\n")
   
   data_missing_year <- data_apt |>
     filter(
@@ -106,11 +111,11 @@ check_no_missing_dates <- function(data_apt) {
     )
   n_missing_year <- nrow(data_missing_year)
   if (n_missing_year > 0) {
-    cat("FAIL:", n_missing_year, "entries with Yes or Partial values do not have a year specified.\n")
+    cli::cli_alert_danger(paste("FAIL:", n_missing_year, "entries with Yes or Partial values do not have a year specified.\n"))
     cat("See data_missing_year dataframe in RStudio viewer to see these entries.\n")
     View(data_missing_year)
   } else {
-    cat("PASS: All entries with Yes/Partial values have an implementation date specified.\n")
+    cli::cli_alert_success("PASS: All entries with Yes/Partial values have an implementation date specified.\n")
   }
   
   return(n_missing_year == 0) # TRUE = passed check
@@ -119,7 +124,7 @@ check_no_missing_dates <- function(data_apt) {
 
 # Check if any data is missing an input value, even though there is a date
 check_no_missing_input_values <- function(data_apt) {
-  cat("\nCHECKING THAT ENTRIES WITH DATES ALL HAVE INPUT VALUES...\n")
+  cli::cli_h2("CHECKING THAT ENTRIES WITH DATES ALL HAVE INPUT VALUES\n")
   
   data_missing_input <- data_apt |>
     filter(is.na(input) & !is.na(date)) |>
@@ -127,11 +132,11 @@ check_no_missing_input_values <- function(data_apt) {
   
   n_missing_input <- nrow(data_missing_input)
   if (n_missing_input > 0) {
-    cat("FAIL:", n_missing_input, "entries with dates do not have an input value specified.\n")
+    cli::cli_alert_danger(paste("FAIL:", n_missing_input, "entries with dates do not have an input value specified.\n"))
     cat("See data_missing_input dataframe in RStudio viewer to see these entries.\n")
     View(data_missing_input)
   } else {
-    cat("PASS: All entries with dates have an input value specified.\n")
+    cli::cli_alert_success("PASS: All entries with dates have an input value specified.\n")
   }
   
   return(n_missing_input == 0) # TRUE = passed check
@@ -140,7 +145,7 @@ check_no_missing_input_values <- function(data_apt) {
 # Check if any dates preceeding year indicator was implemented
 check_no_dates_before_indicator_implemented <- function(data_apt) {
   
-  cat("\nCHECKING THAT NO DATES ARE TOO EARLY (I.E., BEFORE INDICATOR WAS CREATED)...\n")
+  cli::cli_h2("CHECKING THAT NO DATES ARE TOO EARLY (I.E., BEFORE INDICATOR WAS CREATED)\n")
   
   # Check starts off TRUE - will change to FALSE if any indicators fail
   no_dates_before_indicator_implemented <- TRUE
@@ -173,21 +178,21 @@ check_no_dates_before_indicator_implemented <- function(data_apt) {
       # Change check to FALSE (doesn't pass) if any entries that are too early
       no_dates_before_indicator_implemented <- FALSE
 
-      cat(n_too_early, "dates for", ind_i, "are before", ind_years[i], "\n")
+      cli::cli_alert_danger(paste(n_too_early, "dates for", ind_i, "are before", ind_years[i], "\n"))
 
       # Append to data_date_too_early
       data_date_too_early <- rbind(data_date_too_early, ind_data)
     } else {
-      cat("All dates for", ind_i, "are no earlier than", ind_years[i], "\n")
+      cli::cli_alert_success(paste("All dates for", ind_i, "are no earlier than", ind_years[i], "\n"))
     }
   }
   
   # Pass if all indicators pass check
   if (no_dates_before_indicator_implemented) {
-    cat("PASS: No indicator dates are before the indicator was implemented.\n")
+    cli::cli_alert_success("PASS: No indicator dates are before the indicator was implemented.\n")
   # Otherwise, show failed entries
   } else {
-    cat("FAIL: See data_date_too_early dataframe in RStudio viewer to see entries with dates before indicator was implemented.\n")
+    cli::cli_alert_danger("FAIL: See data_date_too_early dataframe in RStudio viewer to see entries with dates before indicator was implemented.\n")
     View(data_date_too_early)
   }
   
@@ -197,7 +202,7 @@ check_no_dates_before_indicator_implemented <- function(data_apt) {
 # Check that states are in the same order in the NPM indicators
 check_states_match_in_npm_indicators <- function(data_apt) {
   
-  cat("\nCHECKING THAT STATES ARE THE SAME AND HAVE THE SAME ORDER FOR THE NPM INDICATORS...\n")
+  cli::cli_h2("CHECKING THAT STATES ARE THE SAME AND HAVE THE SAME ORDER FOR THE NPM INDICATORS\n")
   
   # all indicators
   ind <- unique(data_apt$indicator)
@@ -214,12 +219,13 @@ check_states_match_in_npm_indicators <- function(data_apt) {
   npm_states_match <- identical(data_apt_ind1$country, data_apt_ind2$country)
   
   if (npm_states_match) {
-    cat("PASS: States match for the NPM indicators.\n")
+    cli::cli_alert_success("PASS: States match for the NPM indicators.\n")
   } else {
-    cat(
+    cli::cli_alert_danger(paste(
       "FAIL: States do not match for the NPM indicators",
       "(may be because rows are in a different order, names are different,",
-      "or states are missing in one indicator).\n")
+      "or states are missing in one indicator).\n"
+    ))
   }
   return(npm_states_match)
 }
@@ -227,7 +233,7 @@ check_states_match_in_npm_indicators <- function(data_apt) {
 # Check that any operational NPMs are also designated
 check_no_operational_npms_without_designatation <- function(data_apt) {
   
-  cat("\nCHECKING THAT NO OPERATIONAL NPM ARE MISSING FIRST STEP OF NPM IMPLEMENTATION (DESIGNATATION)...\n")
+  cli::cli_h2("CHECKING THAT NO OPERATIONAL NPM ARE MISSING FIRST STEP OF NPM IMPLEMENTATION (DESIGNATATION)\n")
   
   # Column for each indicator
   data_apt_wide = data_apt |> 
@@ -245,11 +251,11 @@ check_no_operational_npms_without_designatation <- function(data_apt) {
   
   n_operational_npm_missing_designation <- nrow(data_npm_operational_but_missing_designation)
   if (n_operational_npm_missing_designation > 0) {
-    cat("FAIL:", n_operational_npm_missing_designation, "states have NPMs marked as operational, but not designated.\n")
+    cli::cli_alert_danger(paste("FAIL:", n_operational_npm_missing_designation, "states have NPMs marked as operational, but not designated.\n"))
     cat("See n_operational_npm_missing_designation dataframe in RStudio viewer to see these entries.\n")
     View(data_npm_operational_but_missing_designation)
-    } else {
-    cat("PASS: All operational NPMs are also designated.\n")
+  } else {
+    cli::cli_alert_success("PASS: All operational NPMs are also designated.\n")
   }
   
   return(n_operational_npm_missing_designation == 0) # TRUE = passed check
