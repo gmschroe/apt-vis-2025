@@ -52,3 +52,15 @@ test_that("checks fail if states do not match for NPM indicators", {
   data_apt_modified <- data_apt[-c(ind_rows[1]),]
   expect_error(check_apt_data(data_apt_modified))
 })
+
+test_that("checks fail if operational NPM are not designated", {
+  # get rows for indicator 6 that are yes
+  ind <- unique(data_apt$indicator)
+  ind_rows <- which((data_apt$indicator == ind[6]) & (data_apt$input == "Yes"))
+  
+  # make first five entries not designated
+  data_apt_modified <- data_apt
+  data_apt_modified$input[ind_rows[1:5]] <- "No"
+  expect_error(check_apt_data(data_apt_modified))
+  
+})

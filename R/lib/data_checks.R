@@ -7,10 +7,6 @@
 # Helper functions
 source(file.path("lib", "data_helper.R"))
 
-# TODO:
-# Consider adding check that any operational NPMs are also designated 
-# (would currently fail due to "No" designation for Guyana)
-
 # Run all checks on the APT data frame and throw error if incorrect
 check_apt_data <- function(data_apt) {
   
@@ -40,10 +36,14 @@ check_apt_data <- function(data_apt) {
     # Check that states match in NPM indicators
     npm_states_match <- check_states_match_in_npm_indicators(data_apt)
     
+    # Check that operational NPMs are also designated
+    operational_npm_also_designated <- check_no_operational_npms_without_designatation(data_apt)
+    
     # Add these checks to number of failures
     n_fail <- n_fail + 
       as.numeric(!no_dates_before_indicator_implemented) + 
-      as.numeric(!npm_states_match)
+      as.numeric(!npm_states_match) + 
+      as.numeric(!operational_npm_also_designated)
     
   } else {
     cat("\nCannot perform indicator-specific checks because indicators are incorrect - skipping these checks.\n")
@@ -222,4 +222,37 @@ check_states_match_in_npm_indicators <- function(data_apt) {
       "or states are missing in one indicator).\n")
   }
   return(npm_states_match)
+}
+
+# Check that any operational NPMs are also designated
+check_no_operational_npms_without_designatation <- function(data_apt) {
+  
+  cat("\nCHECKING THAT NO OPERATIONAL NPM ARE MISSING FIRST STEP OF NPM IMPLEMENTATION (DESIGNATATION)...\n")
+  
+  # Column for each indicator
+  data_apt_wide = data_apt |> 
+    tidyr::pivot_wider(id_cols = country, names_from = indicator, values_from = input)
+  
+  # Indicators (with clean names)
+  data_apt_wide <- janitor::clean_names(data_apt_wide)
+  ind_operational = "operationality_of_the_national_preventive_mechanism"
+  ind_designation = "designation_of_the_national_preventive_mechanism_in_law"
+  
+  # Check for operationality is Yes, but no designation
+  data_npm_operational_but_missing_designation <- data_apt_wide |>
+    filter((!!rlang::sym(ind_designation) != "Yes") & (!!rlang::sym(ind_operational) == "Yes")) |> 
+    select("country", ind_designation, ind_operational) # only keep relevent columns
+  
+  n_operational_npm_missing_designation <- nrow(data_npm_operational_but_missing_designation)
+  if (n_operational_npm_missing_designation > 0) {
+    cat("FAIL:", n_operational_npm_missing_designation, "states have NPMs marked as operational, but not designated.\n")
+    cat("See n_operational_npm_missing_designation dataframe in RStudio viewer to see these entries.\n")
+    View(data_npm_operational_but_missing_designation)
+    } else {
+    cat("PASS: All operational NPMs are also designated.\n")
+  }
+  
+  return(n_operational_npm_missing_designation == 0) # TRUE = passed check
+
+  
 }
