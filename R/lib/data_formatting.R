@@ -6,6 +6,7 @@ library('ggplot2')
 library('tidyr')
 library('rlang')
 library("fs")
+library("cli")
 
 source(file.path("lib", "data_helper.R"))
 source(file.path("lib", "data_checks.R"))
@@ -78,7 +79,7 @@ format_and_save_apt_data <- function(
       js_dir,
       overwrite = TRUE
     )
-    cat("\nSAVED DATA COPIED TO VISUALISATION FOLDER\n")
+    cli::cli_h1("SAVED DATA COPIED TO VISUALISATION FOLDER\n")
   }
   # OUTPUT 
   
@@ -116,7 +117,7 @@ format_apt_data <- function(
   check_apt_data(data_apt)
   
   # Format data
-  cat("\nFORMATTING DATA FOR VISUALISATIONS\n")
+  cli::cli_h1("FORMATTING DATA FOR VISUALISATIONS\n")
   
   # Old and new indicators ----
   ind <- unique(data_apt$indicator) # original indicators
@@ -291,7 +292,7 @@ format_apt_data <- function(
     }
   }
 
-  cat("\nFINISHED FORMATTING DATA\n")
+  cat("Finished formatting data\n")
   
   # Return data frames ----
   return(
@@ -314,7 +315,7 @@ format_apt_data <- function(
 #' @export
 save_apt_data <- function(apt_dataframes, output_dir) {
   
-  cat("\nSAVING DATA\n")
+  cli::cli_h1("SAVING DATA\n")
   
   # Create output directory if it doesn't exist
   dir.create(output_dir, showWarnings = FALSE)
@@ -325,7 +326,7 @@ save_apt_data <- function(apt_dataframes, output_dir) {
   bar_file <- file.path(output_dir, "data_apt_bar.csv")
   write.csv(apt_dataframes$data_apt_bar, bar_file)
   
-  cat("\nFINISHED SAVING DATA\n")
+  cat("Finished saving data\n")
   
   return(list.files(output_dir, full.names = TRUE))
 }

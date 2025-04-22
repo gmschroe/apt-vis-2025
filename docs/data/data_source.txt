@@ -1,2 +1,2 @@
-Data file: APT_data-info-dictionary_final.xlsx
-Formatted data directory: data_exports/2025-03-28_original_data
+Data file: APT_data_corrected_April2025.xlsx
+Formatted data directory: data_exports/2025-04-22_corrected_data
