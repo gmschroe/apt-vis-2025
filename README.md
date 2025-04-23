@@ -1,4 +1,4 @@
-# Viz For Social Good: Association for the Prevention of Torture
+# Visualisations for the Association for the Prevention of Torture
 
 ## About 
 
