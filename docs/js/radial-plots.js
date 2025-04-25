@@ -10,8 +10,6 @@ const drawRadialPlots = (data) => {
   const innerRadius = 140;
   const outerRadius = height/2 - 50;
 
-
-
   // SVG AND CHART SPACE
   const svg = d3.select("#radial")
     .append("svg")
@@ -52,8 +50,6 @@ const drawRadialPlots = (data) => {
           hashStroke = 2 
         );
         pattern
-          //TODO: also account for region in rotation since will be some space between regions
-          //(or add filler country in data??)
           .attr("patternTransform", `rotate(${xScale(country) * 180/Math.PI + 45})`); //rotate to match country rotation
         }) 
 
@@ -89,7 +85,6 @@ const drawRadialPlots = (data) => {
     .value(d => d.count)
     .sort(null); // Don't sort, we want regions in the same order as the original data!
   const pieRegions = pieGenerator(formattedRegionCounts);
-  console.log(pieRegions)
 
   // Get arcs
   const rotateTheta = computeRadialRotateTheta(indData);
@@ -220,7 +215,6 @@ const drawRadialPlots = (data) => {
 
 
   // INDICATOR LABEL
-  // TODO: move styling to CSS
   indicatorText = innerChart
     .append("foreignObject")
       .attr("width", innerRadius*2)
@@ -273,8 +267,3 @@ const drawRadialPlots = (data) => {
   // Mouse events for tooltip
   radialHandleMouseEvents(indData);
 }
-
-// TODO
-// more details for tool tip 
-// check bar lengths
-// add dot to outside when hovered

@@ -203,8 +203,6 @@ const drawStackedTimeSeries = (data) => {
     .attr("stroke-width", 2)
     .attr("marker-start", "url(#arrowhead)")
     .attr("marker-end", "url(#arrowhead)");
-    //.attr("stroke-linecap", "round");
-
 
   // SERIES LABELS
   const indLabelData = makeTimeSeriesIndLabelData(
@@ -249,8 +247,3 @@ const drawStackedTimeSeries = (data) => {
     );
 
 }
-
-  // TODO: 
-  // mark years certain measures were created
-  // hover for each bar
-  // filter transitions
