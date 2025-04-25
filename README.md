@@ -5,8 +5,8 @@
 Updated visualisations for the [Association for the Prevention of Torture (APT)](https://www.apt.ch/), based on my submission for [Viz For Social Good's collaboration with APT](https://www.vizforsocialgood.com/join-a-project/2024/7/26/apt) (see original repo [here](https://github.com/gmschroe/vfsg-apt/)).
 
 See the visualisations at
-- [Webpage](https://www.gmschroeder.com/vfsg-apt/)
-- [Blog post](https://www.gmschroeder.com/data_vis/vfsg-apt-blog/)
+- [Webpage](https://www.gmschroeder.com/apt-vis-2025/)
+- [Blog post](https://www.gmschroeder.com/data_vis/vfsg-apt-blog/) (VFSG submission - older version)
 
 I used R for data exploration and cleaning/transformations, then Javascript/HTML/CSS (including D3.js) for the visualisation. The R code is contained in the [`R`](R/) subfolder, while the visualisation code is in the [`docs`](docs/) subfolder.
 
