@@ -62,13 +62,7 @@ function prepIndData(data, filterID) {
     indDataWithSpacers.push(spacerEntryNew);
   }
 
-  //console.log("sorted ind data", indDataWithSpacers);
   return indDataWithSpacers;
-
-
-
-
-
 }
 
 function getMaxLevel(indData) {
@@ -96,9 +90,6 @@ function makeArcGenerator(indData, xScale, yScale) {
   const years = Array.from(new Set(indData.map(d => d.year)));
   const arcGenerator = d3.arc()
     .innerRadius(d => yScale(d.year))
-    // TODO: check width of last entry is appropriate
-    // may be better to add bandwidth to individual bars 
-    // check once have axis labels
     .outerRadius(yScale(d3.max(years)) + yScale.bandwidth())
     .startAngle(d => xScale(d.country_id))
     .endAngle(d => xScale(d.country_id) + xScale.bandwidth())
@@ -109,9 +100,6 @@ function makeArcGenerator(indData, xScale, yScale) {
 
 // Scales
 function makeRadialScales(indData) {
-  // TODO: rename variables to theta/r axes 
-
-  // TODO: make these shared constants
   const height = 700;
   const innerRadius = 140;
   const outerRadius = height/2 - 50;
@@ -122,8 +110,6 @@ function makeRadialScales(indData) {
   const regions = Array.from(new Set(indData.map(d => d.region)));
   const nRegions = regions.length;
 
-  //const yearLabelGap = Math.PI/360 * 20;
-
   // x-axis (theta) scale
   const rotateTheta = computeRadialRotateTheta(indData);
   const xScale = d3.scaleBand()
@@ -132,10 +118,6 @@ function makeRadialScales(indData) {
       rotateTheta, 
       2 * Math.PI + rotateTheta
     ]); // + pi/2 to leave space for horizontal year labels
-
-  // const yScale = d3.scaleRadial()
-  //   .domain([d3.min(years), d3.max(years)])
-  //   .range([innerRadius, outerRadius]);
 
   // y-axis (radius) scale
   const yScale = d3.scaleBand() 
@@ -196,7 +178,6 @@ function addRadialPointerEvents(d) {
   }
   return "none"; // otherwise, none
 }
-
 
 // Text
 function getIndLabel(ind) {

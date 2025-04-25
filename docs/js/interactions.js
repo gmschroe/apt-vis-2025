@@ -7,7 +7,6 @@
 const updateStackedTimeSeries = (filterID, data) => {
 
   // Dimensions
-  // TODO: make these shared constants
   const width = 1000;
   const height = 650;
   const margin = {top: 0, right: 320, bottom: 50, left: 50};
@@ -102,7 +101,6 @@ const createRegionFilters = (data) => {
 
 // RADIAL
 const updateRadialPlots = (filterID, data) => {
-  console.log("indicator", filterID)
 
   // Data
   const indData = prepIndData(data, filterID); // start with first indicator
@@ -210,14 +208,6 @@ const createRadialTooltip = () => {
       .style("opacity", 0);
 
   // tooltip
-  //   .append("rect")
-  //     .attr("width", radialTooltipWidth)
-  //     .attr("height", radialTooltipHeight)
-  //     .attr("rx", 3)
-  //     .attr("ry", 3)
-  //     .attr("fill", "#D9E6FA")
-  //     .attr("fill-opacity", 0.75);
-
   tooltip
     .append("text")
       .text("")
@@ -238,12 +228,10 @@ function radialHandleMouseEvents(indData) {
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
-  // const [xScale, yScale, colorScale] = makeRadialScales(indData);
 
   d3.select("#radial-innerchart")
     .selectAll(".radial-path")
     .on("mouseenter", (e, d) => {
-      //console.log(e)
       d3.select("#radial-tooltip")
         .select("text")
           .text(d.country);
