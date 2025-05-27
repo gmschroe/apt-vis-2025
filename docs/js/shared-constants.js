@@ -131,5 +131,6 @@ const dyRef = 12;
 const dyRefLarge = 18;
 
 // Radial plot constants
+const radialDim = {width: 1000, height: 700, margins: {top: 0, right: 300, bottom: 0, left: 0}}
 const radialTooltipWidth = 65;
 const radialTooltipHeight = 35;
