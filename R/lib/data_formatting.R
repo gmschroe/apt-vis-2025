@@ -321,6 +321,8 @@ save_apt_data <- function(apt_dataframes, output_dir) {
   dir.create(output_dir, showWarnings = FALSE)
   
   # Save CSV files in directory
+  data_file <- file.path(output_dir, "data_apt.csv")
+  write.csv(apt_dataframes$data_apt, data_file)
   radial_file <- file.path(output_dir, "data_apt_radial.csv")
   write.csv(apt_dataframes$data_apt_radial, radial_file)
   bar_file <- file.path(output_dir, "data_apt_bar.csv")
