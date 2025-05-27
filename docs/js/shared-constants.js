@@ -126,6 +126,7 @@ const regionFilters = [
 // Bar plot constants
 // Spacing between text for ybar reference
 // need to define here so can update bar location correctly
+const barDim = {width: 1000, height: 650, margins: {top: 0, right: 320, bottom: 50, left: 50}}
 const dyRef = 12;
 const dyRefLarge = 18;
 

@@ -1,9 +1,9 @@
 const drawStackedTimeSeries = (data) => {
 
   // DIMENSIONS
-  const width = 1000;
-  const height = 650;
-  const margin = {top: 0, right: 320, bottom: 50, left: 50};
+  const width = barDim.width;
+  const height = barDim.height;
+  const margin = barDim.margins;
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
