@@ -29,9 +29,9 @@ body, html {
   justify-content: center; 
 }
 
-#ts, #radial { /* time series plot div */
+#ts, #radial { /* time series and radial plot divs */
   background-color: #F3F8FE;
-  max-width: 1000px; 
+  max-width: 1350px; 
   width: 100%;
   justify-content: center; 
   padding-top: 20px;
@@ -45,7 +45,7 @@ body, html {
   height: auto; 
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1350px) {
   #ts, #radial {
     border-radius: 10px; 
   }
