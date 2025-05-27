@@ -140,7 +140,7 @@ const drawStackedTimeSeries = (data) => {
       .text(`${getNumCountries(data)} ${statesText}`)
       .attr("class", "ts-yref-large")
       .attr("id", "ts-yref-number")
-      .attr("y", dyRefLarge);
+      .attr("y", dyRefLarge + 1);
   yRefG
     .append("text")
       .text(`${getRegionSentenceText("All")}`)

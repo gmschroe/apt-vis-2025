@@ -82,7 +82,7 @@ const textRadialTitle = "Preventing torture through international cooperation";
 const textRadialP = "To create a world without torture, every state needs to commit to preventing torture. "
   + "Each bar shows when a state implemented this torture prevention measure, with stripes indicating partial implementations. "
   + "<br>Our goal is to close this ring by having<br>every state implement the measure."
-
+const textRadialPHover = "Hover over the bars to see the details for each state."
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------
@@ -127,7 +127,7 @@ const regionFilters = [
 // Spacing between text for ybar reference
 // need to define here so can update bar location correctly
 const barDim = {width: 1000, height: 650, margins: {top: 0, right: 320, bottom: 50, left: 50}}
-const dyRef = 12;
+const dyRef = 14;
 const dyRefLarge = 18;
 
 // Radial plot constants

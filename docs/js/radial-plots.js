@@ -210,6 +210,7 @@ const drawRadialPlots = (data) => {
       .html( // use html so easy to add word breaks
         `<p id="radial-title" class="vis-title" dominant-baseline=hanging>${textRadialTitle}</p>
         <p id="radial-subtitle" class="vis-subtitle" dominant-baseline=hanging>${textRadialP}</p>
+        <p id="radial-subtitle-hover" class="vis-subtitle" dominant-baseline=hanging>${textRadialPHover}</p>
         `
     );
 

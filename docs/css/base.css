@@ -75,7 +75,7 @@ text.ind {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 10pt;
+  font-size: 12pt;
   font-weight: 500;
   border-radius: 4px;
   white-space: nowrap;
@@ -174,7 +174,7 @@ p.ind-category {
   color: black;
 }
 
-#radial-title, #radial-subtitle {
+#radial-title, #radial-subtitle, #radial-subtitle-hover {
   text-align: right;
   float: right;
 }
@@ -183,9 +183,14 @@ p.ind-category {
   width: 80%;
 }
 
+#radial-subtitle-hover {
+  width: 65%;
+  font-style: italic;
+}
+
 .axis text {
-  color: #8495A1;
-  fill: #8495A1;
+  color: #647482;
+  fill: #647482;
 }
 
 .axis line, .axis path {
@@ -208,7 +213,7 @@ p.ind-category {
 }
 
 .ts-yref-small {
-  font-size: 7pt;
+  font-size: 8pt;
   line-height: 0em;
   fill: #282D30;
 }
