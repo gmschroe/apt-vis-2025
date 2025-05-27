@@ -2,9 +2,9 @@
 const drawRadialPlots = (data) => {
 
   // DIMENSIONS
-  const width = 1000;
-  const height = 700;
-  const margin = {top: 0, right: 300, bottom: 0, left: 0};
+  const width = radialDim.width;
+  const height = radialDim.height;
+  const margin = radialDim.margins;
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
   const innerRadius = 140;
@@ -210,6 +210,7 @@ const drawRadialPlots = (data) => {
       .html( // use html so easy to add word breaks
         `<p id="radial-title" class="vis-title" dominant-baseline=hanging>${textRadialTitle}</p>
         <p id="radial-subtitle" class="vis-subtitle" dominant-baseline=hanging>${textRadialP}</p>
+        <p id="radial-subtitle-hover" class="vis-subtitle" dominant-baseline=hanging>${textRadialPHover}</p>
         `
     );
 

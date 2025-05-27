@@ -29,9 +29,9 @@ body, html {
   justify-content: center; 
 }
 
-#ts, #radial { /* time series plot div */
+#ts, #radial { /* time series and radial plot divs */
   background-color: #F3F8FE;
-  max-width: 1000px; 
+  max-width: 1350px; 
   width: 100%;
   justify-content: center; 
   padding-top: 20px;
@@ -45,7 +45,7 @@ body, html {
   height: auto; 
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1350px) {
   #ts, #radial {
     border-radius: 10px; 
   }
@@ -75,7 +75,7 @@ text.ind {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 10pt;
+  font-size: 12pt;
   font-weight: 500;
   border-radius: 4px;
   white-space: nowrap;
@@ -134,7 +134,7 @@ h2, text, div, p, button {
 }
 
 h2 {
-  font-size: 14pt;
+  font-size: 18pt;
   color: black;
   font-weight: 700;
   margin-top: 40px;
@@ -174,7 +174,7 @@ p.ind-category {
   color: black;
 }
 
-#radial-title, #radial-subtitle {
+#radial-title, #radial-subtitle, #radial-subtitle-hover {
   text-align: right;
   float: right;
 }
@@ -183,9 +183,14 @@ p.ind-category {
   width: 80%;
 }
 
+#radial-subtitle-hover {
+  width: 65%;
+  font-style: italic;
+}
+
 .axis text {
-  color: #8495A1;
-  fill: #8495A1;
+  color: #647482;
+  fill: #647482;
 }
 
 .axis line, .axis path {
@@ -208,7 +213,7 @@ p.ind-category {
 }
 
 .ts-yref-small {
-  font-size: 7pt;
+  font-size: 8pt;
   line-height: 0em;
   fill: #282D30;
 }

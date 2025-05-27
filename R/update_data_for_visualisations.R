@@ -66,6 +66,7 @@ apt_dataframes <- format_and_save_apt_data(
 )
 
 # Optional: view the reformatted data in RStudio
+View(apt_dataframes$data_apt)
 View(apt_dataframes$data_apt_bar)
 View(apt_dataframes$data_apt_radial)
 
