@@ -69,7 +69,7 @@ const regionFiltersTextSentence = [
 const textRadialTitle = "Action continue en faveur de la prévention de la torture";
 const textRadialP = "Pour créer un monde sans torture, "
     + "chaque État doit s'engager à prévenir la torture. "
-    + "Chaque barre indique la date à laquelle un État a mis en œuvre cette mesure de prévention "
-    + "de la torture, les rayures indiquant les mises en œuvre partielles."
+    + "Chaque barre indique la date à laquelle un État a<br>mis en œuvre cette mesure de prévention "
+    + "<br>de la torture, les rayures indiquant<br>les mises en œuvre partielles."
 
 const textRadialPHover = "Passez la souris sur les barres pour voir les détails de chaque état."
