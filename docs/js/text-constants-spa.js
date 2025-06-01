@@ -1,7 +1,7 @@
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------
-// VARIABLES FOR TEXT DEPENDENT ON LANGUAGE - ENGLISH VERSION
+// VARIABLES FOR TEXT DEPENDENT ON LANGUAGE - SPANISH VERSION
 //
 // TRANSLATION NOTES:
 //
@@ -9,63 +9,65 @@
 // added at any point (do not try to maintain exact placements in translations)
 
 // How to refer to countries/states
-const statesText = "states"
-const statesTextSingular = "state" // singular version
+const statesText = "Estados"
+const statesTextSingular = "Estados" // singular version
 
 // Indicator labels
 // Keep this order!
 const indInfoLabels = [
-  "Ratified UN Convention against Torture", 
-  "Ratified UN Optional Protocol",
-  "Submitted report to Committee against Torture",
-  "Prohibit torture in the constitution",
-  "Criminalise torture in domestic law",
-  "Have an NHRI that meets the Paris Principles",
-  "Have a National Preventive Mechanism"
+    "Ratificación de la Convención de las Naciones Unidas contra la Tortura",
+    "Ratificación el Protocolo Facultativo de la Convención contra la Tortura de las Naciones Unidas",
+    "Presentación de informe nacional al Comité contra la Tortura",
+    "Prohibición de la tortura en la Constitución",
+    "Tipificación del delito de tortura en la legislación nacional",
+    "Existencia de una institución nacional de derechos humanos conforme a los Principios de París",
+    "Existencia de un mecanismo nacional de prevención"
 ]
 
 // Text for different levels for criminalisation in domestic law and NPM
 // First is for full, second is for partial
 // Keep extra space before text
 const lawLevelsText = [
-  " (fully criminalised)",
-  " (partially criminalised)"
+    " (totalmente tipificado como delito)",
+    " (tipificado como delito parcialmente)"
 ]
 const npmLevelsText = [
-  " (designated and operational)",
-  " (designated only)"
+    " (designado y operativo)",
+    " (solo designado)"
 ]
 
 // Time series plot --------------------------------------------------------------------
 // Visualisation text
-const textTsTitle = "A progress dashboard of a global commitment to torture prevention";
-const textTsP = "The APT has identified eight key legal measures that indicate a commitment to preventing torture. "
-  + "Each <br> bar shows the total number of states that have implemented each legal measure, "
-  + "with<br>stripes indicating partial implementations.";
+const textTsTitle = "Mapa de progreso del compromiso con la prevención de la tortura";
+const textTsP = "La APT identificó ocho medidas legales clave que indican un compromiso "
+    + "con la prevención de la tortura. "
+    + "Cada barra muestra el número total de Estados que implementaron cada medida legal, "
+    + "con rayas se<br>indican las implementaciones parciales."
 
 // Labels for regions for buttons used to filter the bar chart
 const regionFiltersLabels = [
-  "All regions",
-  "Americas",
-  "Africa",
-  "Europe",
-  "Middle East",
-  "Asia-Pacific"
+    "Todas las regiones",
+    "América",
+    "África",
+    "Europa",
+    "Medio Oriente",
+    "Asia-Pacífico"
 ]
 
 // How regions are referred to in the bar chart legend
 const regionFiltersTextSentence = [
-  "around the world",
-  "in the Americas",
-  "in Africa",
-  "in Europe",
-  "in the Middle East",
-  "in the Asia-Pacific"
+    "en todo el mundo",
+    "en América",
+    "en África",
+    "en Europa",
+    "en Oriente Medio",
+    "en Asia-Pacífico"
 ]
 
 // Radial plot -------------------------------------------------------------------------
 // Visualisation text
-const textRadialTitle = "Continuous action towards torture prevention";
-const textRadialP = "To create a world without torture, every state needs to commit to preventing torture. "
-  + "Each bar shows when a state implemented this torture prevention measure, with stripes indicating partial implementations."
-const textRadialPHover = "Hover over the bars to see the details for each state."
+const textRadialTitle = "Acción continua hacia la prevención de la tortura";
+const textRadialP = "Para crear un mundo sin tortura, todos los Estados deben comprometerse a prevenirla. "
+    + "Cada barra muestra cuándo un Estado implementó esta medida de prevención<br>de la tortura, "
+    + "con rayas que indican implementaciones parciales."
+const textRadialPHover = "Pasa el cursor por encima de las barras para ver los detalles<br>de cada estado."
