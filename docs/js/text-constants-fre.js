@@ -9,63 +9,67 @@
 // added at any point (do not try to maintain exact placements in translations)
 
 // How to refer to countries/states
-const statesText = "states"
-const statesTextSingular = "state" // singular version
+const statesText = "États"
+const statesTextSingular = "État" // singular version
 
 // Indicator labels
 // Keep this order!
 const indInfoLabels = [
-  "Ratified UN Convention against Torture", 
-  "Ratified UN Optional Protocol",
-  "Submitted report to Committee against Torture",
-  "Prohibit torture in the constitution",
-  "Criminalise torture in domestic law",
-  "Have an NHRI that meets the Paris Principles",
-  "Have a National Preventive Mechanism"
+    "A ratifié la Convention des Nations Unies contre la torture",
+    "A ratifié le Protocole facultatif des Nations Unies",
+    "A soumis un rapport au Comité contre la torture",
+    "Interdit la torture dans la Constitution",
+    "A criminalisé la torture dans le droit national",
+    "Dispose d'une institution nationale des droits de l'homme conforme aux Principes de Paris",
+    "Dispose d'un mécanisme national de prévention"
 ]
 
 // Text for different levels for criminalisation in domestic law and NPM
 // First is for full, second is for partial
 // Keep extra space before text
 const lawLevelsText = [
-  " (fully criminalised)",
-  " (partially criminalised)"
+    " (entièrement criminalisé)",
+    " (partiellement criminalisé)"
 ]
 const npmLevelsText = [
-  " (designated and operational)",
-  " (designated only)"
+    " (désigné et opérationnel)",
+    " (désigné uniquement)"
 ]
 
 // Time series plot --------------------------------------------------------------------
 // Visualisation text
-const textTsTitle = "A progress dashboard of a global commitment to torture prevention";
-const textTsP = "The APT has identified eight key legal measures that indicate a commitment to preventing torture. "
-  + "Each <br> bar shows the total number of states that have implemented each legal measure, "
-  + "with<br>stripes indicating partial implementations.";
+const textTsTitle = "Cartographie des progrès réalisés dans la lutte contre la torture";
+const textTsP = "L'APT a identifié huit mesures juridiques clés qui témoignent d'un "
+    + "engagement en faveur de la prévention de la torture. "
+    + "Chaque barre indique<br>le nombre total d'États qui ont mis en œuvre<br>chaque mesure juridique, "
+    + "les rayures<br>indiquant les mises en œuvre partielles."
 
 // Labels for regions for buttons used to filter the bar chart
 const regionFiltersLabels = [
-  "All regions",
-  "Americas",
-  "Africa",
-  "Europe",
-  "Middle East",
-  "Asia-Pacific"
+    "Toutes les régions",
+    "Amériques",
+    "Afrique",
+    "Europe",
+    "Moyen-Orient",
+    "Asie-Pacifique"
 ]
 
 // How regions are referred to in the bar chart legend
 const regionFiltersTextSentence = [
-  "around the world",
-  "in the Americas",
-  "in Africa",
-  "in Europe",
-  "in the Middle East",
-  "in the Asia-Pacific"
+    "dans le monde entier",
+    "dans les Amériques",
+    "en Afrique",
+    "en Europe",
+    "au Moyen-Orient",
+    "en Asie-Pacifique"
 ]
 
 // Radial plot -------------------------------------------------------------------------
 // Visualisation text
-const textRadialTitle = "Continuous action towards torture prevention";
-const textRadialP = "To create a world without torture, every state needs to commit to preventing torture. "
-  + "Each bar shows when a state implemented this torture prevention measure, with stripes indicating partial implementations."
-const textRadialPHover = "Hover over the bars to see the details for each state."
+const textRadialTitle = "Action continue en faveur de la prévention de la torture";
+const textRadialP = "Pour créer un monde sans torture, "
+    + "chaque État doit s'engager à prévenir la torture. "
+    + "Chaque barre indique la date à laquelle un État a mis en œuvre cette mesure de prévention "
+    + "de la torture, les rayures indiquant les mises en œuvre partielles."
+
+const textRadialPHover = "Passez la souris sur les barres pour voir les détails de chaque état."
