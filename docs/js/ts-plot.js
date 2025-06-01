@@ -133,30 +133,16 @@ const drawStackedTimeSeries = (data) => {
   // dyRef and dyRefLarge defined in shared-constants.js
   yRefG
     .append("text")
-      .text(`${barLegendGoal}`)
-      .attr("class", "ts-yref-small");
-  yRefG
-    .append("text")
       .text(`${getNumCountries(data)} ${statesText}`)
       .attr("class", "ts-yref-large")
       .attr("id", "ts-yref-number")
-      .attr("y", dyRefLarge + 1);
+      .attr("y", dyRefLarge + 8);
   yRefG
     .append("text")
       .text(`${getRegionSentenceText("All")}`)
       .attr("class", "ts-yref-large")
       .attr("id", "ts-yref-region")
-      .attr("y", dyRefLarge*2);  
-  yRefG
-    .append("text")
-      .text(`${barLegendImplementation1}`)
-      .attr("class", "ts-yref-small")
-      .attr("y", dyRefLarge*2.5 + dyRef*0.5);
-  yRefG
-    .append("text")
-      .text(`${barLegendImplementation2}`)
-      .attr("class", "ts-yref-small")
-      .attr("y", dyRefLarge*2.5 + dyRef*1.5);
+      .attr("y", dyRefLarge*2 + 8);
 
   // bar
   const yBarX = getYBarRefX(); 
