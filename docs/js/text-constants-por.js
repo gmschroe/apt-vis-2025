@@ -15,8 +15,8 @@ const statesTextSingular = "Estados" // singular version
 // Indicator labels
 // Keep this order!
 const indInfoLabels = [
-    "Ratificou a Convenção das Nações Unidas contra a Tortura",
-    "Ratificou o Protocolo Facultativo das Nações Unidas",
+    "Ratificou a Convenção das NU contra a Tortura",
+    "Ratificou o Protocolo Facultativo das NU",
     "Apresentou relatório ao Comitê contra a Tortura",
     "Proibiu a tortura na Constituição",
     "Criminalizou a tortura na legislação nacional",

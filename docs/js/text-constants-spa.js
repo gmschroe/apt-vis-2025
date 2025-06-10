@@ -15,8 +15,8 @@ const statesTextSingular = "Estados" // singular version
 // Indicator labels
 // Keep this order!
 const indInfoLabels = [
-    "Ratificación de la Convención de las Naciones Unidas contra la Tortura",
-    "Ratificación el Protocolo Facultativo de la Convención contra la Tortura de las Naciones Unidas",
+    "Ratificación de la Convención de las NU contra la Tortura",
+    "Ratificación el Protocolo Facultativo de las NU",
     "Presentación de informe nacional al Comité contra la Tortura",
     "Prohibición de la tortura en la Constitución",
     "Tipificación del delito de tortura en la legislación nacional",
