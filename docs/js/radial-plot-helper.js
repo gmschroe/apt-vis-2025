@@ -5,13 +5,7 @@
 const nSpacer = 7;
 
 // Data transformations/calculations
-function prepIndData(data, filterID) {
-
-  // Add country id without spaces or apostrophes for css ids
-  data = data.map(entry => {
-    entry.country_id = entry.country.replace(/[ ']/g, "_");
-    return entry
-  })
+function prepIndData(data, filterID, translationsRegions, translationsCountries) {
 
   // Filter data
   const indData = data.filter(d => d.indicator === filterID);
@@ -19,10 +13,10 @@ function prepIndData(data, filterID) {
   // Ensure sorted by region, with countries sorted within each region
   regionOrder = regionFilters.map(d => d.id); // order for regions, based on other filter
   indData.sort((a, b) => {
-    const regionComparison = regionOrder.indexOf(a.region) - regionOrder.indexOf(b.region);
+    const regionComparison = regionOrder.indexOf(a.region_id) - regionOrder.indexOf(b.region_id);
     if (regionComparison !== 0) return regionComparison;
-    // otherwise, if same region, return country comparison (alphabetical)
-    return a.country.localeCompare(b.country);
+    // otherwise, if same region, return country comparison (alphabetical in English)
+    return a.country_id.localeCompare(b.country_id);
   });
 
 
@@ -62,6 +56,40 @@ function prepIndData(data, filterID) {
     indDataWithSpacers.push(spacerEntryNew);
   }
 
+  // if language is not english, update countries and regions in data table
+  // we do the translations here to avoid altering the original data structure
+  // (translations were added later, and region/country fields are used for more than labels,
+  // so changing them can cause errors)
+
+  if (lang != "eng"){ // check language - global variable
+
+    // update regions
+    const regionLookup = {};
+    translationsRegions.forEach(entry => {
+      regionLookup[entry.region] = entry[lang];
+    });
+    indDataWithSpacers.forEach(row => {
+      if (regionLookup[row.region]) {
+        row.region = regionLookup[row.region];
+      } else {
+        //console.log(`Missing translation for region ${row.region}`);
+      }
+    });
+
+    // update countries
+    const countryLookup = {};
+    translationsCountries.forEach(entry => {
+      countryLookup[entry.country] = entry[lang];
+    });
+    indDataWithSpacers.forEach(row => {
+      if (countryLookup[row.country]) {
+        row.country = countryLookup[row.country];
+      } else {
+        //console.log(`Missing translation for country ${row.country}`);
+      }
+    });
+  }
+  
   return indDataWithSpacers;
 }
 

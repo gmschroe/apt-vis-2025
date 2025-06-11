@@ -100,10 +100,10 @@ const createRegionFilters = (data) => {
 }
 
 // RADIAL
-const updateRadialPlots = (filterID, data) => {
+const updateRadialPlots = (filterID, data, translationsRegions, translationsCountries) => {
 
   // Data
-  const indData = prepIndData(data, filterID); // start with first indicator
+  const indData = prepIndData(data, filterID, translationsRegions, translationsCountries);
   const maxLevel = getMaxLevel(indData);
 
   // Scales
@@ -146,7 +146,12 @@ const updateRadialPlots = (filterID, data) => {
 // How to update radial plot
 
 // Create indicator filters (using dropdown)
-const createIndicatorFilters = (data) => {
+const createIndicatorFilters = (dataAll) => {
+
+  // DATA
+  let data = dataAll[0] // indicator data
+  const translationsRegions = dataAll[1] // translations for regions
+  const translationsCountries = dataAll[2] //translations for countries
 
   const dropdownContainer = d3.select("#indicator-filters");
   const selectedDiv = dropdownContainer.select(".dropdown-selected");
@@ -183,7 +188,7 @@ const createIndicatorFilters = (data) => {
         optionsDiv.classed("hidden", true); // closes dropdown
 
         // Visualisation updates
-        updateRadialPlots(d.indicator, data);
+        updateRadialPlots(d.indicator, data, translationsRegions, translationsCountries);
       });
     
     // Toggle visibility of options
