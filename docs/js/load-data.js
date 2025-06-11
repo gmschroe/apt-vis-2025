@@ -13,7 +13,11 @@ d3.csv(`${dataRoot}data/data_apt_bar.csv`, d3.autoType).then(data => {
 })
 
 // Levels encoded as different values, for radial plots
-d3.csv(`${dataRoot}data/data_apt_radial.csv`, d3.autoType).then(data => {
+Promise.all([
+    d3.csv(`${dataRoot}data/data_apt_radial.csv`, d3.autoType), // indicator data
+    d3.csv(`${dataRoot}data/translations_regions.csv`, d3.autoType), // translations for region labels
+    d3.csv(`${dataRoot}data/translations_countries.csv`, d3.autoType) // translations for country labels
+]).then(data => {
     drawRadialPlots(data);
     createIndicatorFilters(data);
     createRadialTooltip();

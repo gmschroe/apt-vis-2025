@@ -1,5 +1,10 @@
 // NOTE: this code assumes that list of countries is the same for every indicator
-const drawRadialPlots = (data) => {
+const drawRadialPlots = (dataAll) => {
+
+  // DATA
+  let data = dataAll[0] // indicator data
+  const translationsRegions = dataAll[1] // translations for regions
+  const translationsCountries = dataAll[2] //translations for countries
 
   // DIMENSIONS
   const width = radialDim.width;
@@ -20,9 +25,18 @@ const drawRadialPlots = (data) => {
       .attr("id", "radial-innerchart")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  // DATA FILTERING AND TRANSFORMATIONS
+  // DATA FILTERING, TRANSFORMATIONS, AND TRANSLATIONS
+  // first save English translation as ID for comparison with regionFilters
+  data.forEach(row => {
+    row.region_id = row.region 
+  });
+  // Add country id without spaces or apostrophes for css ids
+  data = data.map(entry => {
+    entry.country_id = entry.country.replace(/[ ']/g, "_");
+    return entry
+  })
   const filterID = "ind1_uncat"; // start with first indicator
-  const indData = prepIndData(data, filterID); 
+  const indData = prepIndData(data, filterID, translationsRegions, translationsCountries); 
   const maxLevel = getMaxLevel(indData);
 
   const years = Array.from(new Set(indData.map(d => d.year)));
