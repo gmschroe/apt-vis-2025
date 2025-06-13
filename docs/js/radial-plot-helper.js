@@ -71,7 +71,7 @@ function prepIndData(data, filterID, translationsRegions, translationsCountries)
     indDataWithSpacers.forEach(row => {
       if (regionLookup[row.region]) {
         row.region = regionLookup[row.region];
-      } else {
+      } else if (!row.region.includes("spacer")) { // ignore spacer regions
         //console.log(`Missing translation for region ${row.region}`);
       }
     });
@@ -84,7 +84,7 @@ function prepIndData(data, filterID, translationsRegions, translationsCountries)
     indDataWithSpacers.forEach(row => {
       if (countryLookup[row.country]) {
         row.country = countryLookup[row.country];
-      } else {
+      } else if (row.country) { // ignore blank entries
         //console.log(`Missing translation for country ${row.country}`);
       }
     });
