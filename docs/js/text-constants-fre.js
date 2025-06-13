@@ -15,13 +15,13 @@ const statesTextSingular = "État" // singular version
 // Indicator labels
 // Keep this order!
 const indInfoLabels = [
-    "A ratifié la Convention des NU contre la torture",
-    "A ratifié le Protocole facultatif des NU",
-    "A soumis un rapport au Comité contre la torture",
+    "A ratifié la CAT(ONU)",
+    "A ratifié le OPCAT(ONU)",
+    "A soumis un rapport au CAT",
     "Interdit la torture dans la Constitution",
     "A criminalisé la torture dans le droit national",
-    "Dispose d'une institution nationale des droits de l'homme conforme aux Principes de Paris",
-    "Dispose d'un mécanisme national de prévention"
+    "L'INDH conforme aux Principes de Paris",
+    "Dispose d'un MNP"
 ]
 
 // Text for different levels for criminalisation in domestic law and NPM
