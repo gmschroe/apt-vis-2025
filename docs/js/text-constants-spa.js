@@ -17,7 +17,7 @@ const statesTextSingular = "Estados" // singular version
 const indInfoLabels = [
     "Ratificación de la CAT(ONU)",
     "Ratificación del OPCAT(ONU)",
-    "Presentación de informe nacional al CAT",
+    "Presentación del informe nacional al Comité ONU",
     "Prohibición de la tortura en la Constitución",
     "Tipificación en la legislación nacional",
     "La INDH conforme a los Principios de París",
