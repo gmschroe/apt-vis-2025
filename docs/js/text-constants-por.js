@@ -15,12 +15,12 @@ const statesTextSingular = "Estados" // singular version
 // Indicator labels
 // Keep this order!
 const indInfoLabels = [
-    "Ratificou a CAT(ONU)",
-    "Ratificou o OPCAT(ONU)",
-    "Apresentou relatório ao CAT",
-    "Proibiu a tortura na Constituição",
-    "Criminalizou a tortura na legislação nacional",
-    "A INDH que cumpre os Princípios de Paris",
+    "Ratificação da CAT(ONU)", 
+    "Ratificação do OPCAT(ONU)",
+    "Apresentou relatório ao UNCAT",
+    "Proibição da tortura na Constituição",
+    "Tipificação do crime de tortura",
+    "A INDH cumpre os Princípios de Paris",
     "Possui um MNP"
 ]
 
