@@ -280,5 +280,5 @@ const drawRadialPlots = (dataAll) => {
         .attr("pointer-events", d => addRadialPointerEvents(d)); // allows pointer events even if fill is none
 
   // Mouse events for tooltip
-  radialHandleMouseEvents(indData);
+  radialHandleMouseEvents(firstYears);
 }
