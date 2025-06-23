@@ -14,7 +14,8 @@ load_apt_data <- function(file_apt) {
     file_apt, 
     sheet = 1, 
     # load date column as numeric since mix of numeric and date formats
-    col_types = c("text", "text", "text", "text", "numeric")
+    col_types = c("text", "text", "text", "text", "numeric"),
+    range = cell_cols("A:E")
   ) 
   data_apt <- janitor::clean_names(data_apt)
   
