@@ -259,7 +259,6 @@ function radialHandleMouseEvents(firstYears) {
   d3.select("#radial-innerchart")
     .selectAll(".radial-path")
     .on("mouseenter", (e, d) => {
-      //console.log(d)
 
       // get text to add for implementation year(s) for country and indicator
       let yearText = "";
@@ -298,7 +297,6 @@ function radialHandleMouseEvents(firstYears) {
           yearText = yearText + lawLevelsText.at(-match.value)
         }
       }
-      //console.log(yearText)
 
       // update country text
       d3.select("#radial-tooltip-country")
@@ -306,14 +304,14 @@ function radialHandleMouseEvents(firstYears) {
 
       // update first year
       d3.select("#radial-tooltip-year")
-        .text(yearText ? yearText : "Not implemented");
+        .text(yearText ? yearText : textNotImplemented);
 
       // update second year (will be "" except for NPM indicator)
       d3.select("#radial-tooltip-year2")
         .text(yearText2);
 
       d3.select("#radial-tooltip")    
-        .attr("transform", `translate(${innerWidth + margin.right*0.35}, ${innerHeight * 0.85})`)                              
+        .attr("transform", `translate(${innerWidth + margin.right*0.3}, ${innerHeight * 0.85})`)                              
         .transition()
           .duration(200)                                          
           .style("opacity", 1);                                  

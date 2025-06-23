@@ -69,3 +69,4 @@ const textRadialTitle = "Continuous action towards torture prevention";
 const textRadialP = "To create a world without torture, every state needs to commit to preventing torture. "
   + "Each bar shows when a state implemented this torture prevention measure, with stripes indicating partial implementations."
 const textRadialPHover = "Hover over the bars to see the details for each state."
+const textNotImplemented = "Not implemented";
