@@ -73,3 +73,4 @@ const textRadialP = "Pour créer un monde sans torture, "
     + "<br>de la torture, les rayures indiquant<br>les mises en œuvre partielles."
 
 const textRadialPHover = "Passez la souris sur les barres pour voir les détails de chaque état."
+const textNotImplemented = "Non mis en œuvre";

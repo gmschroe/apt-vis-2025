@@ -72,3 +72,4 @@ const textRadialP = "Para criar um mundo sem tortura, todos os Estado precisam s
     + "Cada barra mostra quando um Estado implementou integralmente tal medida de prevenção<br>da tortura, "
     + "com listras indicando as implementações parciais."
 const textRadialPHover = "Passe o cursor sobre as barras para ver os detalhes de cada estado."
+const textNotImplemented = "Não implementado";

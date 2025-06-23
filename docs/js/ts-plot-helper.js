@@ -73,7 +73,10 @@ function makeTimeSeriesScales(
   // y-axis
   let maxY;
   if (fixedScale) {
-    maxY = getNumCountries(data) * 5.8; // the ratio is hard-coded - may need to be adjusted for future plots
+    // Hard-coded multiplier of number of countries to set upper limit of y-axis
+    // May need to increase for future plots if more countries have implemented the
+    // indicators!
+    maxY = getNumCountries(data) * 6; 
   } else {
     maxY = d3.max(stackData[0], d => d[1]) * 1.05;
   }

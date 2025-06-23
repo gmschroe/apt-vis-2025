@@ -42,12 +42,12 @@ source(file.path("lib", "data_formatting.R"))
 # be logged in the data_source.txt file.
 
 # Name of your Excel file. Must be a file in the "data" folder.
-apt_data_file_name <- "APT_data_corrected_April2025.xlsx"
+apt_data_file_name <- "APT_data-info-dictionary_final-7.5.25.xlsx"
 
 # Desired name of output folder - will be created inside the existing 
 # "data_exports" folder.
 # Today's date will also be added as a prefix to the folder's name.
-output_dir <- "corrected_data"
+output_dir <- "release"
 
 # Update data and save in vfsg-apt/R/data_exports and vfsg-apt/docs/data -------
 
