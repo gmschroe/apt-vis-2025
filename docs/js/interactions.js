@@ -311,7 +311,7 @@ function radialHandleMouseEvents(firstYears) {
         .text(yearText2);
 
       d3.select("#radial-tooltip")    
-        .attr("transform", `translate(${innerWidth + margin.right*0.3}, ${innerHeight * 0.85})`)                              
+        .attr("transform", `translate(${innerWidth + margin.right*0.25}, ${innerHeight * 0.875})`)                              
         .transition()
           .duration(200)                                          
           .style("opacity", 1);                                  
