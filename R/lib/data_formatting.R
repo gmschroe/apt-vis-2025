@@ -121,24 +121,28 @@ format_apt_data <- function(
   
   # Old and new indicators ----
   ind <- unique(data_apt$indicator) # original indicators
-  
+
+  # Note - these indicators have a 1:2:1 matching of the original indicators
+  # This step is a carry-over from when some of the original indicators were
+  # combined. Will keep this format so that the indicators can be changed in
+  # the future if desired
   ind_new <- c(
     "ind1_uncat",
     "ind2_opcat",
     "ind3_report",
     "ind4_constitution",
     "ind5_law", # two levels: yes and partial
-    "ind6_npm", # two levels, combines original indicators 6 and 7
-    "ind7_paris"
+    "ind6_npm_designated",
+    "ind7_npm_operational",
+    "ind8_paris"
   )
   
   # Does each indicator have a direct mapping to an original indicator, with one level?
   ind_has_direct_mapping <- rep(1, length(ind_new))
   ind_has_direct_mapping[ind_new == "ind5_law"] <- 0 # no - law indicator has two levels
-  ind_has_direct_mapping[ind_new == "ind6_npm"] <- 0 # no - NPM indicator has two levels, which combine to original indicators
-  
+
   # Equivalent old indicator (only for indicators with direct mapping)
-  ind_old_equiv <- ind[c(1, 2, 3, 4, 5, 6, 8)]
+  ind_old_equiv <- ind
   ind_old_equiv[ind_has_direct_mapping == 0] = NA 
 
   # Create table indicating if each indicator was present in each year that will ----
@@ -216,46 +220,6 @@ format_apt_data <- function(
   data_apt_ts <- pivot_and_bind_ts_data(data_apt_ts, ind_ts_data)
   
   rm(list = c("data_apt_ind", "ind_new_laws", "ind_old_laws", "ind_ts_data"))
-  
-  # Add NPM indicator with two levels for "Designated only" and "Designated AND Operational" ----
-  # For this indicator, we DO need to take into account that countries can switch
-  # from level one (designated) to level 2 (designated and operational)
-  ind_new_npm <- "ind6_npm"
-  ind_old_npm1 <- ind[6] # Level 1 for NPM (partial implementation)
-  ind_old_npm2 <- ind[7] # Level 2 for NPM (full implementation)
-
-  # Initialise array using first NPM indicator
-  ind_ts_data <- initialise_ind_ts_data(
-    data_apt,
-    ind_years = ind_years,
-    ind_old = ind_old_npm1,
-    ind_new = ind_new_npm,
-    n_levels = 2
-  )
-  
-  # Start by adding 1's for years when designated 
-  ind_ts_data <- add_if_indicator_present_to_ind_ts_data(
-    data_apt,
-    ind_years = ind_years,
-    ind_old = ind_old_npm1, # Indicator for designated
-    ind_ts_data = ind_ts_data,
-    ind_val = 1
-  )
-  
-  # Replace with 2's when operational
-  # 1 is now designated only
-  ind_ts_data <- add_if_indicator_present_to_ind_ts_data(
-    data_apt,
-    ind_years = ind_years,
-    ind_old = ind_old_npm2, # Indicator for operational
-    ind_ts_data = ind_ts_data,
-    ind_val = 2
-  )
-  
-  # Pivot and bind
-  data_apt_ts <- pivot_and_bind_ts_data(data_apt_ts, ind_ts_data)
-  
-  rm(list = c("ind_new_npm", "ind_old_npm1", "ind_old_npm2", "ind_ts_data"))
   
   # data_apt_ts can be used for the radial plots ----
   # Create data_apt_ts_separated with separate rows for each level of the multi-level indicators -
