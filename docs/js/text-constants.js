@@ -21,19 +21,16 @@ const indInfoLabels = [
   "Prohibit torture in the constitution",
   "Criminalise torture in domestic law",
   "Have an NHRI that meets the Paris Principles",
-  "Have a National Preventive Mechanism"
+  "Have a designated NPM",
+  "Have an operational NPM"
 ]
 
-// Text for different levels for criminalisation in domestic law and NPM
+// Text for different levels for criminalisation in domestic law
 // First is for full, second is for partial
 // Keep extra space before text
 const lawLevelsText = [
   " (fully criminalised)",
   " (partially criminalised)"
-]
-const npmLevelsText = [
-  " (designated and operational)",
-  " (designated only)"
 ]
 
 // Time series plot --------------------------------------------------------------------

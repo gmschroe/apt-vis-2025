@@ -235,15 +235,6 @@ const createRadialTooltip = () => {
       .attr("fill", "black")                    
       .style("font-weight", 400)
       .style("font-size", "12pt"); 
-  tooltipYears
-    .append("text") // second year, needed for NPM indicator for some states
-      .text("year2")
-      .attr("y", 24 * 2 - 2) // lower vertically
-      .attr("id", "radial-tooltip-year2")
-      .attr("text-anchor", "middle")
-      .attr("fill", "black")                    
-      .style("font-weight", 400)
-      .style("font-size", "12pt"); 
 
 }
 
@@ -263,39 +254,18 @@ function radialHandleMouseEvents(firstYears) {
       // get text to add for implementation year(s) for country and indicator
       let yearText = "";
       let yearText2 = ""; // second implementation year, used for NPM indicator
-      if (d.indicator === "ind6_npm") { // need to possibly handle multiple values for npm
-        let matches = [];
-        for (let i = 1; i <= 2; i++) {
-          const match = firstYears.find(dRef => // find implementation years (first years with value = 1 or 2)
-            dRef.country_id === d.country_id &&
-            dRef.value === i &&
-            dRef.indicator === d.indicator
-          );
-          if (match) matches.push(match);
-        }
+      // Get year
+      const match = firstYears.find(
+        dRef => 
+          dRef.country_id === d.country_id && 
+          dRef.value > 0 && 
+          dRef.indicator === d.indicator
+      );
+      yearText = match ? match.year : "";
 
-        if (matches.length > 0) { // first implementation year to report
-          yearText = matches[0].year;
-          yearText = yearText + npmLevelsText.at(-matches[0].value) // also label with implementation level
-        }
-        if (matches.length == 2) { // second implementation year to report
-          yearText2 = matches[1].year;
-          yearText2 = yearText2 + npmLevelsText.at(-matches[1].value) // also label with level
-        } 
-        
-      } else { // only one year returned for other indicators
-        const match = firstYears.find(
-          dRef => 
-            dRef.country_id === d.country_id && 
-            dRef.value > 0 && 
-            dRef.indicator === d.indicator
-        );
-        yearText = match ? match.year : "";
-
-        // for criminalisation in law year, also label with level of implementation
-        if (d.indicator === "ind5_law" && match) {
-          yearText = yearText + lawLevelsText.at(-match.value)
-        }
+      // for criminalisation in law year, also label with level of implementation
+      if (d.indicator === "ind5_law" && match) {
+        yearText = yearText + lawLevelsText.at(-match.value)
       }
 
       // update country text
@@ -305,10 +275,6 @@ function radialHandleMouseEvents(firstYears) {
       // update first year
       d3.select("#radial-tooltip-year")
         .text(yearText ? yearText : textNotImplemented);
-
-      // update second year (will be "" except for NPM indicator)
-      d3.select("#radial-tooltip-year2")
-        .text(yearText2);
 
       d3.select("#radial-tooltip")    
         .attr("transform", `translate(${innerWidth + margin.right*0.25}, ${innerHeight * 0.875})`)                              

@@ -10,20 +10,21 @@ const indSeparatedInfo = [
   {indicator: "ind4_constitution", label: indInfoLabels[3], country_text: "", color: "#B38E09", text_color: "black", partial: false, n_levels: 1},
   {indicator: "ind5_law_level_2", label: indInfoLabels[4], country_text: lawLevelsText[0], color: "#D9B841", text_color: "black", partial: false, n_levels: 2},
   {indicator: "ind5_law_level_1", label: "", country_text: lawLevelsText[1], color: "#D9B841", text_color: "white", partial: true, n_levels: 2},
-  {indicator: "ind7_paris", label: indInfoLabels[5], country_text: "", color: "#e36360", text_color: "black", partial: false, n_levels: 1},
-  {indicator: "ind6_npm_level_2", label: indInfoLabels[6], country_text: npmLevelsText[0], color: "#f1b5b5", text_color: "black", partial: false, n_levels: 2},
-  {indicator: "ind6_npm_level_1", label: "", country_text: npmLevelsText[1], color: "#f1b5b5", text_color: "black", partial: true, n_levels: 2}
+  {indicator: "ind8_paris", label: indInfoLabels[5], country_text: "", color: "#cb5956", text_color: "black", partial: false, n_levels: 1},
+  {indicator: "ind7_npm_operational", label: indInfoLabels[7], country_text: "", color: "#e48a88", text_color: "black", partial: false, n_levels: 1},
+  {indicator: "ind6_npm_designated", label: indInfoLabels[6], country_text: "", color: "#f9bbbb", text_color: "black", partial: false, n_levels: 1}
 ];
+console.log("indSeparatedInfo", indSeparatedInfo)
 
 // Indicators, no duplicates for partial completion
 const indInfo = structuredClone(indSeparatedInfo.filter(entry => entry.partial === false));
 indInfo.forEach(entry => {
   if (entry.indicator.includes("ind5_law")) {
     entry.indicator = "ind5_law";
-  } else if (entry.indicator.includes("ind6_npm")) {
-    entry.indicator = "ind6_npm";
   }
 });
+console.log("indInfo", indInfo)
+
 // Whether visualisation should be interactive
 // TODO: check if used; if not, remove
 const isInteractive = true;
