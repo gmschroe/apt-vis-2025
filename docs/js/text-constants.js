@@ -35,7 +35,7 @@ const lawLevelsText = [
 
 // Time series plot --------------------------------------------------------------------
 // Visualisation text
-const textTsTitle = "A progress dashboard of a global commitment to torture prevention";
+const textTsTitle = "Progressing towards global commitment to torture prevention";
 const textTsP = "The APT has identified eight key legal measures that indicate a commitment to preventing torture. "
   + "Each <br> bar shows the total number of states that have implemented each legal measure, "
   + "with<br>stripes indicating partial implementations.";
