@@ -39,9 +39,9 @@ const lawLevelsText = [
 // Time series plot --------------------------------------------------------------------
 // Visualisation text
 const textTsTitle = "Progressing towards global commitment to torture prevention";
-const textTsP = "The APT has identified eight key legal measures that indicate a commitment to preventing torture. "
-  + "Each <br> bar shows the total number of states that have implemented each legal measure, "
-  + "with<br>stripes indicating partial implementations.";
+const textTsP = "The APT has identified eight positive actions that indicate a commitment to preventing torture. "
+  + "Each bar shows<br>the total number of states that have<br>taken each action, "
+  + "with stripes<br>indicating partial progress.";
 
 // Labels for regions for buttons used to filter the bar chart
 const regionFiltersLabels = [
@@ -65,8 +65,8 @@ const regionFiltersTextSentence = [
 
 // Radial plot -------------------------------------------------------------------------
 // Visualisation text
-const textRadialTitle = "Continuous action towards torture prevention";
+const textRadialTitle = "Continuous positive action towards torture prevention";
 const textRadialP = "To create a world without torture, every state needs to commit to preventing torture. "
-  + "Each bar shows when a state implemented this torture prevention measure, with stripes indicating partial implementations."
+  + "Each bar shows when a state implemented this torture prevention measure, with stripes indicating<br>partial progress."
 const textRadialPHover = "Hover over the bars to see the details for each state."
 const textNotImplemented = "Not implemented";

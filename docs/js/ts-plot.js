@@ -126,7 +126,7 @@ const drawStackedTimeSeries = (data) => {
   const yRefG = innerChart
     .append("g")
       .attr("transform", `translate(
-        ${xScaleBand(dataForStack[0].year) + 10}, ${innerHeight/2 - 30}
+        ${xScaleBand(dataForStack[0].year) + 10}, ${innerHeight/2 + 20}
         )`)
       .attr("id", "g-ts-y-ref");
 
