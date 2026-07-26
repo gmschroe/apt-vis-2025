@@ -9,12 +9,11 @@ const indSeparatedInfo = [
   {indicator: "ind3_report", label: indInfoLabels[2], country_text: "", color: "#8cb5f0", text_color: "black", partial: false, n_levels: 1},
   {indicator: "ind4_constitution", label: indInfoLabels[3], country_text: "", color: "#B38E09", text_color: "black", partial: false, n_levels: 1},
   {indicator: "ind5_law_level_2", label: indInfoLabels[4], country_text: lawLevelsText[0], color: "#D9B841", text_color: "black", partial: false, n_levels: 2},
-  {indicator: "ind5_law_level_1", label: "", country_text: lawLevelsText[1], color: "#D9B841", text_color: "white", partial: true, n_levels: 2},
+  {indicator: "ind5_law_level_1", label: indInfoLabelsPartialCriminialisation, country_text: lawLevelsText[1], color: "#D9B841", text_color: "white", partial: true, n_levels: 2},
   {indicator: "ind8_paris", label: indInfoLabels[5], country_text: "", color: "#cb5956", text_color: "black", partial: false, n_levels: 1},
   {indicator: "ind7_npm_operational", label: indInfoLabels[7], country_text: "", color: "#e48a88", text_color: "black", partial: false, n_levels: 1},
   {indicator: "ind6_npm_designated", label: indInfoLabels[6], country_text: "", color: "#f9bbbb", text_color: "black", partial: false, n_levels: 1}
 ];
-console.log("indSeparatedInfo", indSeparatedInfo)
 
 // Indicators, no duplicates for partial completion
 const indInfo = structuredClone(indSeparatedInfo.filter(entry => entry.partial === false));
@@ -23,11 +22,6 @@ indInfo.forEach(entry => {
     entry.indicator = "ind5_law";
   }
 });
-console.log("indInfo", indInfo)
-
-// Whether visualisation should be interactive
-// TODO: check if used; if not, remove
-const isInteractive = true;
 
 // Region filters
 const regionFilters = [
@@ -42,7 +36,7 @@ const regionFilters = [
 // Bar plot constants
 // Spacing between text for ybar reference
 // need to define here so can update bar location correctly
-const barDim = {width: 1000, height: 650, margins: {top: 0, right: 320, bottom: 50, left: 50}}
+const barDim = {width: 1000, height: 650, margins: {top: 0, right: 375, bottom: 50, left: 50}}
 const dyRef = 14;
 const dyRefLarge = 18;
 

@@ -76,3 +76,9 @@ function addHashPatternDef(
 
     return pattern
 }
+
+// Make first letter of string lowercase
+function lowercaseFirstLetter(str) {
+  if (!str) return str; // Handle empty string
+  return str.charAt(0).toLowerCase() + str.slice(1);
+}

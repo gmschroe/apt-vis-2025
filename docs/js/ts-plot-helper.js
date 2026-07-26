@@ -209,21 +209,14 @@ function makeTimeSeriesIndLabelData(data, stackData, indSeparatedInfo, xScaleBan
 
   // y for number of countries text
   indLabelData.forEach ((ind, index, arr) => {
-    const yAddBase = 15;
-    const yInd = ind.partial ? arr[index-1].y : ind.y; // if partial measure, use y of previous series (= full implementation) as baseline
-    let yAdd = 0;
-    if (ind.partial & ind.finalCount == 0) { // some partial measures have zero implementation - hide those labels and don't designate extra space for them
-      yAdd = yAddBase;
+    if (ind.finalCount == 0) { // if no implementation, hide those labels
       ind.countryLabel = "";
+      ind.indLabel = ""
     } else {
-      yAdd = ind.partial ? yAddBase*1.9 : yAddBase; // // also need to add more space if partial measure (because it's the second label)
-      ind.yCountry = yInd + yAdd;
       const finalPercent = Math.round(ind.finalCount/nCountries * 100); // not using, but leaving so can re-implement if requested
-      if (ind.finalCount == 1) {
-        ind.countryLabel = `${ind.finalCount} ${statesTextSingular}${ind.country_text}`; // singular ("state")
-      } else {
-      ind.countryLabel = `${ind.finalCount} ${statesText}${ind.country_text}`; // plural ("states")
-      }
+      let s = (ind.finalcount == 1)? statesTextSingular : statesText; // if only one state, use singular ("state") instead of "states"
+      ind.countryLabel = `${ind.finalCount} ${s}: `
+      ind.indLabel = `${ind.label}`
     }
 
   })

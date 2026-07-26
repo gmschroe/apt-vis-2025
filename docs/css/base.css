@@ -201,14 +201,19 @@ p.ind-category {
 .axis .domain {
   stroke-width: 2;
 }
-.ts-ind-label {
+
+.ts-country-label, .ts-ind-label {
   font-size: 9pt;
-  font-weight: 600;
   fill: #282D30;
 }
 
 .ts-country-label {
-  font-size: 7pt;
+  font-weight: 600;
+}
+
+.ts-labels-header {
+  font-style: italic;
+  font-size: 9pt;
   fill: #282D30;
 }
 

@@ -39,19 +39,25 @@ const updateStackedTimeSeries = (filterID, data) => {
   // Update series labels (indicator and number of countries)
   const indLabelData = makeTimeSeriesIndLabelData(
     updatedData, stackData, indSeparatedInfo, xScaleBand, yScale)
-  d3.selectAll(".ts-ind-label")
-    .data(indLabelData)
-      .attr("class", d => `ts-ind-label ts-ind-label-${d.indicator}`)
-      .text(d => d.label) // indicator label
-      .attr("x", d => d.x) 
-      .attr("y", d => d.y);
-  d3.selectAll(".ts-country-label")
-    .data(indLabelData)
-      .attr("class", d => `ts-country-label ts-country-label-${d.indicator}`)
-      .text(d => d.countryLabel) // number of countries
-      .attr("x", d => d.x)
-      .attr("y", d => d.yCountry);
 
+  const labels = d3.selectAll(".ts-label")
+    .data(indLabelData);
+
+  labels
+    .attr("class", d => `ts-label ts-label-${d.indicator}`)
+    .attr("x", d => d.x)
+    .attr("y", d => d.y);
+
+  labels.select(".ts-country-label")
+    .text(d => d.countryLabel);
+
+  labels.select(".ts-ind-label")
+    .text(d => ` ${d.indLabel}`);
+
+  d3.select(".ts-labels-header")
+    .attr("x", indLabelData[0].x)
+    .attr("y", indLabelData[0].y - 10)
+  
   // Update y-ref bar and text
   const yBarY = computeYBarRefEndpoints(updatedData, yScale);
   let barNum = 0; 

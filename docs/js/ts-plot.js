@@ -107,6 +107,7 @@ const drawStackedTimeSeries = (data) => {
 
   // X-AXIS
   const minYear = d3.min(dataForStack.map(d => d.year));
+  const maxYear = d3.max(dataForStack.map(d => d.year));
   const minTickYear = minYear % 5 === 0 ? minYear : minYear + (5 - (minYear % 5));
   const xAxis = d3.axisBottom(xScaleBand)
     .tickValues(d3.range(minTickYear, d3.max(dataForStack.map(d => d.year)), 5))
@@ -199,24 +200,29 @@ const drawStackedTimeSeries = (data) => {
     .data(indLabelData)
     .join("g")
       .attr("class", d => `g-ts-label g-ts-label-${d.indicator}`);
-  
-  indLabels
-      .append("text")
-        .attr("class", d => `ts-ind-label ts-ind-label-${d.indicator}`)
-        .text(d => d.label) // indicator label
-        .attr("x", d => d.x) 
-        .attr("y", d => d.y) 
-        .attr("dominant-baseline", "hanging");
 
-  indLabels
+  const indText = indLabels
       .append("text")
-        .attr("class", d => `ts-country-label ts-country-label-${d.indicator}`)
-        .text(d => d.countryLabel) // number of countries
+        .attr("class", d => `ts-label ts-label-${d.indicator}`)
         .attr("x", d => d.x)
-        .attr("y", d => d.yCountry)
+        .attr("y", d => d.y)
         .attr("dominant-baseline", "hanging")
+  indText.append("tspan")
+      .attr("class", d => `ts-country-label ts-country-label-${d.indicator}`)
+      .text(d => d.countryLabel);
 
+  indText.append("tspan")
+      .attr("class", d => `ts-ind-label ts-ind-label-${d.indicator}`)
+      .text(d => ` ${d.indLabel}`);
   
+  // Label above series labels with year
+  innerChart
+    .append("text")
+    .attr("class", "ts-labels-header")
+    .attr("x", indLabelData[0].x)
+    .attr("y", indLabelData[0].y - 10)
+    .text(`As of ${maxYear}...`);
+
   // TITLE AND SUBTITLE
   tsText = innerChart
     .append("foreignObject")

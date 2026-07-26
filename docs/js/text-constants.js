@@ -25,6 +25,9 @@ const indInfoLabels = [
   "Have an operational NPM"
 ]
 
+// Partial criminialisation 
+const indInfoLabelsPartialCriminialisation = `Partially ${lowercaseFirstLetter(indInfoLabels[4])}`;
+
 // Text for different levels for criminalisation in domestic law
 // First is for full, second is for partial
 // Keep extra space before text
